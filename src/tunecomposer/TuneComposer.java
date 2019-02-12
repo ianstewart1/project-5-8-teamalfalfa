@@ -11,6 +11,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -92,7 +97,16 @@ public class TuneComposer extends Application {
     protected void handleExitMenuItemAction(ActionEvent event) {
         System.exit(0);
     }
-    
+     @FXML
+    private VBox container;
+     
+    public void drawLines(){
+        for(int i = 0; i < 128; i++){
+            Line row = new Line(10*i, 0, 10*i, 2000);
+            row.setStroke(Color.LIGHTGREY);
+            container.getChildren().add(row);
+        }
+    }
     /**
      * Construct the scene and start the application.
      * @param primaryStage the stage for the main window
@@ -110,6 +124,9 @@ public class TuneComposer extends Application {
         });        
         primaryStage.show();
     }
+    
+   
+    
 
     /**
      * Launch the application.
