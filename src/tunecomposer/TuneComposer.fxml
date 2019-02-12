@@ -3,39 +3,35 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.layout.VBox?>
 
-
-<ScrollPane prefHeight="918.0" prefWidth="1721.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tunecomposer.TuneComposer">
-   <content>
-      <BorderPane id="root-pane" prefHeight="1369.0" prefWidth="2022.0" stylesheets="@tunecomposer.css">
-         <top>
-            <MenuBar>
-              <menus>
-                  <Menu mnemonicParsing="false" text="Action">
-                    <items>
-                      <MenuItem mnemonicParsing="false" onAction="#handlePlayScaleButtonAction" text="Play" />
-                        <MenuItem mnemonicParsing="false" onAction="#handleStopPlayingButtonAction" text="Stop" />
-                    </items>
-                  </Menu>
-                <Menu text="File">
-                  <items>
-                    <MenuItem onAction="#handleExitMenuItemAction" text="Exit" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-         </top>
-         <right>
-            <HBox id="button-box" BorderPane.alignment="CENTER">
-               <children>
-                  <Line endX="100.0" startX="-100.0" stroke="#00000059" />
-               </children>
-            </HBox>
-         </right>
-      </BorderPane>
-   </content>
-</ScrollPane>
+<BorderPane id="root-pane" prefHeight="1369.0" prefWidth="2022.0" stylesheets="@tunecomposer.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tunecomposer.TuneComposer">
+   <top>
+      <MenuBar>
+        <menus>
+          <Menu text="File">
+            <items>
+              <MenuItem onAction="#handleExitMenuItemAction" text="Exit" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Action">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#handlePlayScaleButtonAction" text="Play" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleStopPlayingButtonAction" text="Stop" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <bottom>
+      <ScrollBar BorderPane.alignment="CENTER" />
+   </bottom>
+   <right>
+      <ScrollBar orientation="VERTICAL" BorderPane.alignment="CENTER" />
+   </right>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" fx:id="container"/>
+   </center>
+</BorderPane>
