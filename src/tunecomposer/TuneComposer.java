@@ -22,6 +22,8 @@ import javafx.stage.WindowEvent;
  */
 public class TuneComposer extends Application {
     
+    private Set<Note> allNotes = new Set<Note>();
+    
     /**
      * Represents the number of pitch steps for 
      * do, re, mi, fa, so, la, ti, do.
@@ -59,6 +61,38 @@ public class TuneComposer extends Application {
             player.addNote(startingPitch+SCALE[i], VOLUME, 16-i, 1, 0, 0);
         }
         player.play();
+    }
+    
+    /**
+     * Plays notes that have been added.
+     * Called when the Play button is clicked.
+     */
+    
+    public void startPlaying() {
+        
+    }
+    
+    /**
+     * Stops playing.
+     * Called when the Stop button is clicked.
+     */
+    public void stopPlaying() {
+        
+    }
+    
+    /**
+     * Adds note to set of notes.
+     * @param pitch 
+     */
+    public void addNote() {
+    //TODO: get click coordinates
+    int y = 300;
+    
+    int pitch = y/10;
+    
+    // TODO Note isn't written yet
+    Note note = new Note(pitch, startTime);
+    note.draw();
     }
     
     /**
