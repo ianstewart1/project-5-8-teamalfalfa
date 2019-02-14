@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import java.util.*;
 
 /**
  * This JavaFX app lets the user play scales.
@@ -22,45 +23,18 @@ import javafx.stage.WindowEvent;
  */
 public class TuneComposer extends Application {
     
-    private Set<Note> allNotes = new Set<Note>();
-    
-    /**
-     * Represents the number of pitch steps for 
-     * do, re, mi, fa, so, la, ti, do.
-     * Source: https://en.wikipedia.org/wiki/Solfège
+     /**
+     * A MidiPlayer for all notes to use.
      */
-    private static final int[] SCALE = {0, 2, 4, 5, 7, 9, 11, 12};
+    public static final MidiPlayer PLAYER = new MidiPlayer(1,60);
     
-    /**
-     * Play notes at maximum volume.
-     */
-    private static final int VOLUME = 127;
+    private Set<Note> allNotes = new HashSet<Note>();
     
-    /**
-     * One midi player is used throughout, so we can stop a scale that is
-     * currently playing.
-     */
-    private final MidiPlayer player;
-
     /**
      * Constructs a new ScalePlayer application.
      */
     public TuneComposer() {
-        this.player = new MidiPlayer(1,60);
-    }
-    
-    /**
-     * Play a new scale, after stopping and clearing any previous scale.
-     * @param startingPitch an integer between 0 and 115
-     */
-    protected void playScale(int startingPitch) {
-        player.stop();
-        player.clear();
-        for (int i=0; i < 8; i++) {
-            player.addNote(startingPitch+SCALE[i], VOLUME, i,    1, 0, 0);
-            player.addNote(startingPitch+SCALE[i], VOLUME, 16-i, 1, 0, 0);
-        }
-        player.play();
+        //PLAYER = new MidiPlayer(1,60);
     }
     
     /**
@@ -69,7 +43,13 @@ public class TuneComposer extends Application {
      */
     
     public void startPlaying() {
-        
+        //TODO Start red line movement
+        PLAYER.stop();
+        PLAYER.clear();
+        for (Note note : allNotes) {
+            note.schedule();
+        }
+        PLAYER.play();      
     }
     
     /**
@@ -77,22 +57,8 @@ public class TuneComposer extends Application {
      * Called when the Stop button is clicked.
      */
     public void stopPlaying() {
-        
-    }
-    
-    /**
-     * Adds note to set of notes.
-     * @param pitch 
-     */
-    public void addNote() {
-    //TODO: get click coordinates
-    int y = 300;
-    
-    int pitch = y/10;
-    
-    // TODO Note isn't written yet
-    Note note = new Note(pitch, startTime);
-    note.draw();
+        //TODO Stop line movement
+        PLAYER.stop();
     }
     
     /**
@@ -105,7 +71,7 @@ public class TuneComposer extends Application {
         TextInputDialog pitchDialog = new TextInputDialog("60");
         pitchDialog.setHeaderText("Give me a starting note (0-115):");
             pitchDialog.showAndWait().ifPresent(response -> {
-                playScale(Integer.parseInt(response));
+                //playScale(Integer.parseInt(response));
             });
     }    
     
@@ -115,7 +81,7 @@ public class TuneComposer extends Application {
      */
     @FXML 
     protected void handleStopPlayingButtonAction(ActionEvent event) {
-        player.stop();
+        //player.stop();
     }    
     
     /**
@@ -141,7 +107,15 @@ public class TuneComposer extends Application {
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest((WindowEvent we) -> {
             System.exit(0);
-        });        
+        });   
+        root.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Note note = new Note(event.getSceneX(), event.getSceneY());
+                allNotes.add(note);
+                note.draw();
+            }
+        });
         primaryStage.show();
     }
 
