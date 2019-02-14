@@ -4,6 +4,8 @@
 package tunecomposer;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,8 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -99,13 +99,19 @@ public class TuneComposer extends Application {
     }
      @FXML
     private VBox container;
+     @FXML
+     private Line row;
      
-    public void drawLines(){
-        for(int i = 0; i < 128; i++){
-            Line row = new Line(10*i, 0, 10*i, 2000);
-            row.setStroke(Color.LIGHTGREY);
-            container.getChildren().add(row);
+     private List<Line> lines;
+     
+    public void initialize(){
+        lines = new ArrayList<>();
+        for(int i = 0; i < 128; i+=10){
+            row = new Line(i, 0, i, 2000);
+            row.setStroke(Color.BLACK);
+            lines.add(row);
         }
+        container.getChildren().addAll(lines);
     }
     /**
      * Construct the scene and start the application.

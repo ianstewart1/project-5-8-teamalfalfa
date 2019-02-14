@@ -3,35 +3,166 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 
-<BorderPane id="root-pane" prefHeight="1369.0" prefWidth="2022.0" stylesheets="@tunecomposer.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tunecomposer.TuneComposer">
-   <top>
-      <MenuBar>
-        <menus>
-          <Menu text="File">
-            <items>
-              <MenuItem onAction="#handleExitMenuItemAction" text="Exit" />
-            </items>
-          </Menu>
-            <Menu mnemonicParsing="false" text="Action">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#handlePlayScaleButtonAction" text="Play" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleStopPlayingButtonAction" text="Stop" />
-              </items>
-            </Menu>
-        </menus>
-      </MenuBar>
-   </top>
-   <bottom>
-      <ScrollBar BorderPane.alignment="CENTER" />
-   </bottom>
-   <right>
-      <ScrollBar orientation="VERTICAL" BorderPane.alignment="CENTER" />
-   </right>
-   <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" fx:id="container"/>
-   </center>
-</BorderPane>
+
+<ScrollPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tunecomposer.TuneComposer">
+   <content>
+      <BorderPane id="root-pane" prefHeight="1369.0" prefWidth="2022.0" stylesheets="@tunecomposer.css">
+         <top>
+            <MenuBar>
+              <menus>
+                <Menu text="File">
+                  <items>
+                    <MenuItem onAction="#handleExitMenuItemAction" text="Exit" />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Action">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#handlePlayScaleButtonAction" text="Play" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleStopPlayingButtonAction" text="Stop" />
+                    </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <VBox fx:id="container" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Line endX="2000.0" startX="-100.0" translateY="0.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="10.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="20.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="30.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="40.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="50.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="60.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="70.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="80.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="90.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="100.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="110.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="120.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="130.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="140.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="150.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="160.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="170.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="180.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="190.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="200.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="210.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="220.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="230.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="240.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="250.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="260.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="270.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="280.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="290.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="300.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="310.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="320.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="330.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="340.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="350.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="360.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="370.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="380.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="390.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="400.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="410.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="420.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="430.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="440.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="450.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="460.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="470.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="480.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="490.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="500.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="510.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="520.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="530.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="540.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="550.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="560.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="570.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="580.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="590.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="600.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="610.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="620.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="630.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="640.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="650.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="660.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="670.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="680.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="690.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="700.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="710.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="720.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="730.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="740.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="750.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="760.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="770.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="780.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="790.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="800.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="810.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="820.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="830.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="840.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="850.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="860.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="870.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="880.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="890.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="900.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="910.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="920.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="930.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="940.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="950.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="960.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="970.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="980.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="990.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1000.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1010.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1020.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1030.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1040.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1050.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1060.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1070.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1080.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1090.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1100.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1110.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1120.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1130.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1140.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1150.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1160.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1170.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1180.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1190.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1200.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1210.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1220.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1230.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1240.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1250.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1260.0" />
+                  <Line endX="2000.0" startX="-100.0" translateY="1270.0" />
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
+   </content>
+</ScrollPane>
