@@ -14,13 +14,13 @@
         <menus>
           <Menu text="File">
             <items>
-              <MenuItem onAction="#handleExitMenuItemAction" text="Exit" />
+              <MenuItem mnemonicParsing="true" accelerator="Ctrl+Q" onAction="#handleExitMenuItemAction" text="Exit" />
             </items>
           </Menu>
             <Menu mnemonicParsing="false" text="Action">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#handlePlayScaleButtonAction" text="Play" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleStopPlayingButtonAction" text="Stop" />
+                <MenuItem mnemonicParsing="true" accelerator="Ctrl+P"  onAction="#startPlaying" text="Play" fx:id="PlayShort" />
+                  <MenuItem mnemonicParsing="true" accelerator="Ctrl+S" onAction="#stopPlaying" text="Stop" />
               </items>
             </Menu>
         </menus>
