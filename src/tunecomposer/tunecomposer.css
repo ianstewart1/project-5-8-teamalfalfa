@@ -7,8 +7,8 @@
     -fx-pref-height: 1280;
 }
 
-#rowConstraints{
-    -fx-pref-height: 10;
+.Line{
+    -fx-stroke: #00000077;
 }
 
 #button-box {
@@ -20,10 +20,3 @@
     -fx-padding: 10;
 }
 
-#start-button {
-    -fx-background-color: lightgreen;
-}
-
-#stop-button {
-    -fx-background-color: pink;
-}
