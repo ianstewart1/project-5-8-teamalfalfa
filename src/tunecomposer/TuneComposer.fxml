@@ -19,8 +19,8 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Action">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#handlePlayScaleButtonAction" text="Play" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleStopPlayingButtonAction" text="Stop" />
+                <MenuItem mnemonicParsing="false" onAction="#startPlaying" text="Play" />
+                  <MenuItem mnemonicParsing="false" onAction="#stopPlaying" text="Stop" />
               </items>
             </Menu>
         </menus>

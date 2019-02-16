@@ -60,6 +60,10 @@ public class TuneComposer extends Application {
         PLAYER.play();      
     }
     
+    public void startPlaying(ActionEvent ignored) {
+        startPlaying();
+    }
+
     /**
      * Stops playing.
      * Called when the Stop button is clicked.
@@ -69,28 +73,9 @@ public class TuneComposer extends Application {
         PLAYER.stop();
     }
     
-    /**
-     * When the user clicks the "Play scale" button, show a dialog to get the 
-     * starting note and then play the scale.
-     * @param event the button click event
-     */
-    @FXML 
-    protected void handlePlayScaleButtonAction(ActionEvent event) {
-        TextInputDialog pitchDialog = new TextInputDialog("60");
-        pitchDialog.setHeaderText("Give me a starting note (0-115):");
-            pitchDialog.showAndWait().ifPresent(response -> {
-                //playScale(Integer.parseInt(response));
-            });
-    }    
-    
-    /**
-     * When the user clicks the "Stop playing" button, stop playing the scale.
-     * @param event the button click event
-     */
-    @FXML 
-    protected void handleStopPlayingButtonAction(ActionEvent event) {
-        //player.stop();
-    }    
+    public void stopPlaying(ActionEvent ignored) {
+        stopPlaying();
+    }
     
     /**
      * When the user clicks the "Exit" menu item, exit the program.
