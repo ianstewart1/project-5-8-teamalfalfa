@@ -14,6 +14,8 @@ import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import java.util.*;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 
 /**
  * This JavaFX app lets the user play scales.

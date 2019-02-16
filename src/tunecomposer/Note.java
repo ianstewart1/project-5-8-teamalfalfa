@@ -18,12 +18,12 @@ public class Note {
     private static final int DURATION = 1;
     
     
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private int startTime;
     private int pitch;
     
-    public Note(int x, int y) {
+    public Note(double x, double y) {
         this.x = x;
         this.y = y;
     }
