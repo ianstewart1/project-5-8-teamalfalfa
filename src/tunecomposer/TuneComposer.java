@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
@@ -97,22 +98,25 @@ public class TuneComposer extends Application {
     protected void handleExitMenuItemAction(ActionEvent event) {
         System.exit(0);
     }
-     @FXML
-    private VBox container;
-     @FXML
-     private Line row;
-     
-     private List<Line> lines;
+    
+    @FXML
+    private Group background;
      
     public void initialize(){
-        lines = new ArrayList<>();
-        for(int i = 0; i < 128; i+=10){
-            row = new Line(i, 0, i, 2000);
-            row.setStroke(Color.BLACK);
-            lines.add(row);
+        for(int i = 0; i < 128; i++){
+            Line row = new Line(0,10*i, 2000, 10*i);
+            row.setStroke(Color.LIGHTGREY);
+            background.getChildren().add(row);
         }
-        container.getChildren().addAll(lines);
     }
+    
+    @FXML
+    private Group notePane;
+    
+    @FXML
+    private Group playLinePane; //I think that we can now refer to these in other functions.
+    
+    
     /**
      * Construct the scene and start the application.
      * @param primaryStage the stage for the main window
