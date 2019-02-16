@@ -100,15 +100,21 @@ public class TuneComposer extends Application {
     }
     
     @FXML
-    private Group container;
+    private Group background;
      
     public void initialize(){
         for(int i = 0; i < 128; i++){
             Line row = new Line(0,10*i, 2000, 10*i);
             row.setStroke(Color.LIGHTGREY);
-            container.getChildren().add(row);
+            background.getChildren().add(row);
         }
     }
+    
+    @FXML
+    private Group notePane;
+    
+    @FXML
+    private Group playLinePane; //I think that we can now refer to these in other functions.
     
     
     /**

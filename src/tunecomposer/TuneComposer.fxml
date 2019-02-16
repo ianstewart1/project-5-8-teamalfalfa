@@ -31,9 +31,9 @@
          <content>
             <StackPane prefHeight="1280.0" prefWidth="2000.0">
                <children>
-                  <Group fx:id= "container"/>
-                  <Group />
-                  <Group />
+                  <Group fx:id= "background"/>
+                  <Group fx:id= "notePane"/>
+                  <Group fx:id= "playLinePane"/>
                </children>
             </StackPane>
          </content>
