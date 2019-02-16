@@ -105,7 +105,7 @@ public class TuneComposer extends Application {
     private Group background;
      
     public void initialize(){
-        for(int i = 0; i < 128; i++){
+        for(int i = 0; i < 127; i++){
             Line row = new Line(0,10*i, 2000, 10*i);
             row.setStroke(Color.LIGHTGREY);
             background.getChildren().add(row);
