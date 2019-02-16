@@ -8,9 +8,15 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import java.util.*;
@@ -95,6 +101,24 @@ public class TuneComposer extends Application {
         System.exit(0);
     }
     
+    @FXML
+    private Group background;
+     
+    public void initialize(){
+        for(int i = 0; i < 128; i++){
+            Line row = new Line(0,10*i, 2000, 10*i);
+            row.setStroke(Color.LIGHTGREY);
+            background.getChildren().add(row);
+        }
+    }
+    
+    @FXML
+    private Group notePane;
+    
+    @FXML
+    private Group playLinePane; //I think that we can now refer to these in other functions.
+    
+    
     /**
      * Construct the scene and start the application.
      * @param primaryStage the stage for the main window
@@ -120,6 +144,9 @@ public class TuneComposer extends Application {
         });
         primaryStage.show();
     }
+    
+   
+    
 
     /**
      * Launch the application.
