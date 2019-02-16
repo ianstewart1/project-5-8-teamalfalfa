@@ -36,7 +36,7 @@ public class TuneComposer extends Application {
      */
     public static final MidiPlayer PLAYER = new MidiPlayer(1,60);
     
-    private Set<Note> allNotes = new HashSet<Note>();
+    private static Set<Note> allNotes = new HashSet<Note>();
     
     /**
      * Constructs a new ScalePlayer application.
@@ -45,19 +45,22 @@ public class TuneComposer extends Application {
         //PLAYER = new MidiPlayer(1,60);
     }
     
+    public static void addNote(Note note) {
+        allNotes.add(note);
+    }
+    
     /**
      * Plays notes that have been added.
      * Called when the Play button is clicked.
      */
-    
     public void startPlaying() {
         //TODO Start red line movement
         PLAYER.stop();
         PLAYER.clear();
-        for (Note note : allNotes) {
+        allNotes.forEach((note) -> {
             note.schedule();
-        }
-        PLAYER.play();      
+        });
+        PLAYER.play();
     }
     
     public void startPlaying(ActionEvent ignored) {
@@ -122,8 +125,10 @@ public class TuneComposer extends Application {
         root.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                System.out.println("CLICK!");
                 Note note = new Note(event.getSceneX(), event.getSceneY());
                 allNotes.add(note);
+                System.out.println(note);
                 note.draw();
             }
         });
