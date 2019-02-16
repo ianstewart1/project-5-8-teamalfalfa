@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
@@ -97,16 +98,19 @@ public class TuneComposer extends Application {
     protected void handleExitMenuItemAction(ActionEvent event) {
         System.exit(0);
     }
-     @FXML
-    private VBox container;
+    
+    @FXML
+    private Group container;
      
-    public void drawLines(){
+    public void initialize(){
         for(int i = 0; i < 128; i++){
-            Line row = new Line(10*i, 0, 10*i, 2000);
+            Line row = new Line(0,10*i, 2000, 10*i);
             row.setStroke(Color.LIGHTGREY);
             container.getChildren().add(row);
         }
     }
+    
+    
     /**
      * Construct the scene and start the application.
      * @param primaryStage the stage for the main window
