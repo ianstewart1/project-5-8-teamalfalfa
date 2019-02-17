@@ -4,8 +4,6 @@
 package tunecomposer;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,8 +12,6 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -28,9 +24,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import javafx.animation.TranslateTransition;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 
 /**
  * This JavaFX app lets the user play scales.
@@ -84,7 +78,6 @@ public class TuneComposer extends Application {
         PLAYER.stop();
         timeline.stop();
         playLine.setVisible(false);
-        playLinePane.getChildren().removeAll();
         
     }
     
@@ -135,7 +128,7 @@ public class TuneComposer extends Application {
     private Group notePane;
     
     /**
-     * The pane in which the play line is constructed and moves
+     * The pane in which the play line is constructed and plays
      */
     @FXML
     private BorderPane playLinePane; //I think that we can now refer to these in other functions.

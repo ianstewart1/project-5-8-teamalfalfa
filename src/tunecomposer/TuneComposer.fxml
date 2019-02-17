@@ -29,11 +29,11 @@
    <center>
       <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <content>
-            <StackPane prefHeight="1280.0" prefWidth="2000.0">
+            <StackPane alignment="CENTER_LEFT" prefHeight="1280.0" prefWidth="2000.0">
                <children>
-                  <Group fx:id= "background"/>
-                  <Group fx:id= "notePane"/>
-                  <Group fx:id= "playLinePane"/>
+                  <Group fx:id="background" />
+                  <Group fx:id="notePane" />
+                  <BorderPane fx:id="playLinePane" focusTraversable="true" minWidth="2000" />
                </children>
             </StackPane>
          </content>
