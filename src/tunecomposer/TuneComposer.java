@@ -49,7 +49,7 @@ public class TuneComposer extends Application {
 //    private Timeline timeline;
     private Set<Note> allNotes = new HashSet<Note>();
     private Timeline timeline;
-    final private Rectangle playLine = new Rectangle(0, 0,1,1280);
+    private Rectangle playLine = new Rectangle(0, 0,1,1280);
     
     /**
      * Constructs a new ScalePlayer application.
@@ -57,6 +57,7 @@ public class TuneComposer extends Application {
     public TuneComposer() {
         //PLAYER = new MidiPlayer(1,60);
         playLine.setFill(Color.RED);
+        playLine.setVisible(false);
     }
     
     /**
@@ -72,6 +73,7 @@ public class TuneComposer extends Application {
             note.schedule();
         }
         PLAYER.play();      
+        playLineMove(2000); //TODO, pass correct x coordinate
     }
     
     /**
@@ -82,6 +84,7 @@ public class TuneComposer extends Application {
         PLAYER.stop();
         timeline.stop();
         playLine.setVisible(false);
+        playLinePane.getChildren().removeAll();
         
     }
     
@@ -92,6 +95,7 @@ public class TuneComposer extends Application {
      */
     @FXML 
     protected void handlePlayScaleButtonAction(ActionEvent event) {
+        startPlaying();
         TextInputDialog pitchDialog = new TextInputDialog("60");
         pitchDialog.setHeaderText("Give me a starting note (0-115):");
             pitchDialog.showAndWait().ifPresent(response -> {
@@ -106,7 +110,6 @@ public class TuneComposer extends Application {
     @FXML 
     protected void handleStopPlayingButtonAction(ActionEvent event) {
         //player.stop();
-        System.out.println(playLinePane.getChildren());
         stopPlaying();
     }    
     
@@ -119,54 +122,64 @@ public class TuneComposer extends Application {
         System.exit(0);
     }
     
-    @FXML
-    protected void handlePlayLine(ActionEvent event) {
-        playLineMove(2000); //TODO, pass correct x coordinate
-    }
-    
-    
+    /**
+     * The background of the application
+     */
     @FXML
     private Group background;
-     
+    
+    /**
+     * The pane in which notes are constructed
+     */
+    @FXML
+    private Group notePane;
+    
+    /**
+     * The pane in which the play line is constructed and moves
+     */
+    @FXML
+    private BorderPane playLinePane; //I think that we can now refer to these in other functions.
+    
+    /**
+     * Initializes FXML: 
+     * (1) adds 127 gray lines to background
+     * (2) adds the playLine (set to invisible) 
+     */
     public void initialize(){
         for(int i = 1; i < 128; i++){
             Line row = new Line(0,10*i, 2000, 10*i);
             row.setStroke(Color.LIGHTGREY);
             background.getChildren().add(row);
         }
+        playLinePane.getChildren().add(playLine);
     }
     
-    @FXML
-    private Group notePane;
-    
-    @FXML
-    private BorderPane playLinePane; //I think that we can now refer to these in other functions.
-    
-    public void playLineMove(int endXCoordinate){
-        playLinePane.getChildren().add(playLine);
+    /**
+     * Make a red line track across the composition at constant speed
+     * @param endXCoordinate the x coordinate of the final note of the composition
+     */
+    public void playLineMove(double endXCoordinate){
+        playLine.setX(0); //place playLine back at the beginning 
+        playLine.setVisible(true);
         
         timeline = new Timeline();
         timeline.setCycleCount(1);
         timeline.setAutoReverse(false);
-        
         KeyValue keyValueX = new KeyValue(playLine.xProperty(), endXCoordinate);
- 
-        //constant speed of 100 pixels per second
+        
+        //duration calculated for constant speed of 100 pixels per second
         Duration duration = Duration.millis(endXCoordinate*10); 
+        
+        //when finsihed, playLine will disappear
         EventHandler onFinished = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
                 playLine.setVisible(false);
             }
-       
         };
  
         KeyFrame keyFrame = new KeyFrame(duration, onFinished, keyValueX);
- 
-        //add the keyframe to the timeline
         timeline.getKeyFrames().add(keyFrame);
-
         timeline.play();
-       
     }
     
     
