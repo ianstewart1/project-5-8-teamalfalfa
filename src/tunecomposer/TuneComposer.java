@@ -56,6 +56,7 @@ public class TuneComposer extends Application {
      */
     public TuneComposer() {
         //PLAYER = new MidiPlayer(1,60);
+        playLine.setFill(Color.RED);
     }
     
     /**
@@ -78,7 +79,6 @@ public class TuneComposer extends Application {
      * Called when the Stop button is clicked.
      */
     public void stopPlaying() {
-        //TODO Stop line movement
         PLAYER.stop();
         timeline.stop();
         playLine.setVisible(false);
@@ -121,7 +121,7 @@ public class TuneComposer extends Application {
     
     @FXML
     protected void handlePlayLine(ActionEvent event) {
-        playLineMove(2000);
+        playLineMove(2000); //TODO, pass correct x coordinate
     }
     
     
@@ -143,7 +143,6 @@ public class TuneComposer extends Application {
     private BorderPane playLinePane; //I think that we can now refer to these in other functions.
     
     public void playLineMove(int endXCoordinate){
-        playLine.setFill(Color.RED);
         playLinePane.getChildren().add(playLine);
         
         timeline = new Timeline();
@@ -151,47 +150,23 @@ public class TuneComposer extends Application {
         timeline.setAutoReverse(false);
         
         KeyValue keyValueX = new KeyValue(playLine.xProperty(), endXCoordinate);
-        KeyValue keyScale = new KeyValue(playLine.scaleXProperty(), 2000);
  
-        
         //constant speed of 100 pixels per second
-        Duration duration = Duration.millis(endXCoordinate*10); //directly proportional to length of time
+        Duration duration = Duration.millis(endXCoordinate*10); 
         EventHandler onFinished = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
-                timeline.stop();
-                playLinePane.getChildren();
+                playLine.setVisible(false);
             }
        
         };
  
-//        KeyFrame keyFrame = new KeyFrame(duration, onFinished , keyValueX);
-        KeyFrame keyFrame = new KeyFrame(duration , keyValueX);
-//        KeyFrame keyFrameScale = new KeyFrame(duration, keyScale);
+        KeyFrame keyFrame = new KeyFrame(duration, onFinished, keyValueX);
  
         //add the keyframe to the timeline
         timeline.getKeyFrames().add(keyFrame);
-//        timeline.getKeyFrames().add(keyFrameScale);
- 
+
         timeline.play();
-        
-//        int duration = endXCoordinate*10;
-//        TranslateTransition tt = new TranslateTransition(Duration.millis(duration), rect);
-//        tt.setFromX(0);
-//        tt.setToX(200);
-//        tt.setAutoReverse(false);
-//
-//        tt.play();
-//        final Rectangle rectBasicTimeline = new Rectangle(100, 50, 100, 50);
-//        playLinePane.getChildren().add(rectBasicTimeline);
-//        rectBasicTimeline.setFill(Color.RED);
-//
-//        final Timeline timeline2 = new Timeline();
-//        timeline2.setCycleCount(Timeline.INDEFINITE);
-//        timeline2.setAutoReverse(true);
-//        final KeyValue kv = new KeyValue(rectBasicTimeline.xProperty(), 300);
-//        final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
-//        timeline2.getKeyFrames().add(kf);
-//        timeline2.play();
+       
     }
     
     
