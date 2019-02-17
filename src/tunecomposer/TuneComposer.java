@@ -29,6 +29,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import javafx.animation.TranslateTransition;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 
 /**
  * This JavaFX app lets the user play scales.
@@ -46,6 +48,8 @@ public class TuneComposer extends Application {
 //    private Stage primaryStage;
 //    private Timeline timeline;
     private Set<Note> allNotes = new HashSet<Note>();
+    private Timeline timeline;
+    final private Rectangle playLine = new Rectangle(0, 0,1,1280);
     
     /**
      * Constructs a new ScalePlayer application.
@@ -76,6 +80,9 @@ public class TuneComposer extends Application {
     public void stopPlaying() {
         //TODO Stop line movement
         PLAYER.stop();
+        timeline.stop();
+        playLine.setVisible(false);
+        
     }
     
     /**
@@ -99,6 +106,8 @@ public class TuneComposer extends Application {
     @FXML 
     protected void handleStopPlayingButtonAction(ActionEvent event) {
         //player.stop();
+        System.out.println(playLinePane.getChildren());
+        stopPlaying();
     }    
     
     /**
@@ -112,7 +121,7 @@ public class TuneComposer extends Application {
     
     @FXML
     protected void handlePlayLine(ActionEvent event) {
-        playLine(200);
+        playLineMove(2000);
     }
     
     
@@ -131,49 +140,58 @@ public class TuneComposer extends Application {
     private Group notePane;
     
     @FXML
-    private VBox playLinePane; //I think that we can now refer to these in other functions.
+    private BorderPane playLinePane; //I think that we can now refer to these in other functions.
     
-    public void playLine(int endXCoordinate){
-        final Rectangle rect = new Rectangle(0, 0,1,1280);
-        rect.setFill(Color.RED);
-        playLinePane.getChildren().add(rect);
+    public void playLineMove(int endXCoordinate){
+        playLine.setFill(Color.RED);
+        playLinePane.getChildren().add(playLine);
         
-//        Timeline timeline = new Timeline();
-//        timeline.setCycleCount(1);
-//        timeline.setAutoReverse(false);
-//        
-//        KeyValue keyValueX = new KeyValue(rect.xProperty(), endXCoordinate);
-////        KeyValue keyValueColor = new KeyValue(rect., endXCoordinate);
-////        KeyValue keyScale = new KeyValue(rect.scaleXProperty(), 2000);
-// 
-//        
-//        //constant speed of XXX pixels per second
-//        Duration duration = Duration.millis(endXCoordinate); //directly proportional to length of time
-////        EventHandler onFinished = new EventHandler<ActionEvent>() {
-////            public void handle(ActionEvent t) {
-////                timeline.stop();
-////                playLinePane.getChildren().remove(rect);
-////            }
-////       
-////        };
-// 
-////        KeyFrame keyFrame = new KeyFrame(duration, onFinished , keyValueX);
-//        KeyFrame keyFrame = new KeyFrame(duration , keyValueX);
-////        KeyFrame keyFrameScale = new KeyFrame(duration, keyScale);
-// 
-//        //add the keyframe to the timeline
-//        timeline.getKeyFrames().add(keyFrame);
-////        timeline.getKeyFrames().add(keyFrameScale);
-// 
-//        timeline.play();
+        timeline = new Timeline();
+        timeline.setCycleCount(1);
+        timeline.setAutoReverse(false);
         
-        int duration = endXCoordinate*10;
-        TranslateTransition tt = new TranslateTransition(Duration.millis(duration), rect);
-        tt.setFromX(0);
-        tt.setToX(200);
-        tt.setAutoReverse(false);
-
-        tt.play();
+        KeyValue keyValueX = new KeyValue(playLine.xProperty(), endXCoordinate);
+        KeyValue keyScale = new KeyValue(playLine.scaleXProperty(), 2000);
+ 
+        
+        //constant speed of 100 pixels per second
+        Duration duration = Duration.millis(endXCoordinate*10); //directly proportional to length of time
+        EventHandler onFinished = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                timeline.stop();
+                playLinePane.getChildren();
+            }
+       
+        };
+ 
+//        KeyFrame keyFrame = new KeyFrame(duration, onFinished , keyValueX);
+        KeyFrame keyFrame = new KeyFrame(duration , keyValueX);
+//        KeyFrame keyFrameScale = new KeyFrame(duration, keyScale);
+ 
+        //add the keyframe to the timeline
+        timeline.getKeyFrames().add(keyFrame);
+//        timeline.getKeyFrames().add(keyFrameScale);
+ 
+        timeline.play();
+        
+//        int duration = endXCoordinate*10;
+//        TranslateTransition tt = new TranslateTransition(Duration.millis(duration), rect);
+//        tt.setFromX(0);
+//        tt.setToX(200);
+//        tt.setAutoReverse(false);
+//
+//        tt.play();
+//        final Rectangle rectBasicTimeline = new Rectangle(100, 50, 100, 50);
+//        playLinePane.getChildren().add(rectBasicTimeline);
+//        rectBasicTimeline.setFill(Color.RED);
+//
+//        final Timeline timeline2 = new Timeline();
+//        timeline2.setCycleCount(Timeline.INDEFINITE);
+//        timeline2.setAutoReverse(true);
+//        final KeyValue kv = new KeyValue(rectBasicTimeline.xProperty(), 300);
+//        final KeyFrame kf = new KeyFrame(Duration.millis(500), kv);
+//        timeline2.getKeyFrames().add(kf);
+//        timeline2.play();
     }
     
     
