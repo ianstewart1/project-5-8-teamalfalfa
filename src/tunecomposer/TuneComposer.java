@@ -1,5 +1,10 @@
 /*
  * CS 300-A, 2017S
+ *
+ * TODO
+ * Spencer says that we can name or click handler function in the FXML. It's
+ * associated with a Pane. The handler accepts a MouseEvent, which has getX()
+ * and getY() methods.
  */
 package tunecomposer;
 
@@ -22,6 +27,10 @@ import javafx.stage.WindowEvent;
 import java.util.*;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+
 
 /**
  * This JavaFX app lets the user play scales.
@@ -37,7 +46,7 @@ public class TuneComposer extends Application {
     public static final MidiPlayer PLAYER = new MidiPlayer(1,60);
     
     private static Set<Note> allNotes = new HashSet<Note>();
-    
+
     /**
      * Constructs a new ScalePlayer application.
      */
@@ -98,14 +107,28 @@ public class TuneComposer extends Application {
             row.setStroke(Color.LIGHTGREY);
             background.getChildren().add(row);
         }
+
+        playLinePane.setMouseTransparent(true);
     }
     
     @FXML
-    private Group notePane;
+    private Pane notePane;
+
+    public void addNoteRect(Rectangle noteRect) {
+        notePane.getChildren().add(noteRect);
+    }
+
+    public void handleClick(MouseEvent event) {
+        Note note = new Note(this, event.getSceneX(), event.getSceneY());
+        allNotes.add(note);
+        note.draw();
+    }
     
     @FXML
-    private Group playLinePane; //I think that we can now refer to these in other functions.
+    private Group playLinePane;
     
+    @FXML
+    private Group clickZone;
     
     /**
      * Construct the scene and start the application.
@@ -116,27 +139,18 @@ public class TuneComposer extends Application {
     public void start(Stage primaryStage) throws IOException {                
         Parent root = FXMLLoader.load(getClass().getResource("TuneComposer.fxml"));
         Scene scene = new Scene(root);
+
+        //Rectangle r = new Rectangle(413, 413, 413, 413);
+        //notePane.getChildren().add(r);
         
         primaryStage.setTitle("Scale Player");
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest((WindowEvent we) -> {
             System.exit(0);
-        });   
-        root.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("CLICK!");
-                Note note = new Note(event.getSceneX(), event.getSceneY());
-                allNotes.add(note);
-                System.out.println(note);
-                note.draw();
-            }
         });
         primaryStage.show();
     }
-    
-   
-    
+
 
     /**
      * Launch the application.
