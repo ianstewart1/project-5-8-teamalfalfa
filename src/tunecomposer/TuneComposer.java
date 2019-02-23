@@ -68,7 +68,8 @@ public class TuneComposer extends Application {
         PLAYER.clear();
         allNotes.forEach((note) -> {
             note.schedule();
-        }
+        });
+        
         PLAYER.play();      
         playLineMove(2000); //TODO, pass correct x coordinate
     }
