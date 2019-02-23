@@ -2,15 +2,13 @@
  * CS 300-A, 2017S
  *
  * TODO
- * Spencer says that we can name or click handler function in the FXML. It's
- * associated with a Pane. The handler accepts a MouseEvent, which has getX()
- * and getY() methods.
+ * Set rectangle style in CSS
+ * Stop playLine at the end of the last note
+ * Set time scale to 100 ticks per beat and 1 beat per second
  */
 package tunecomposer;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,18 +17,20 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import java.util.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-
+import javafx.util.Duration;
 
 /**
  * This JavaFX app lets the user play scales.
@@ -45,13 +45,20 @@ public class TuneComposer extends Application {
      */
     public static final MidiPlayer PLAYER = new MidiPlayer(1,60);
     
+//    private Stage primaryStage;
+//    private Timeline timeline;
     private static Set<Note> allNotes = new HashSet<Note>();
 
+    private Timeline timeline;
+    private Rectangle playLine = new Rectangle(0, 0,1,1280);
+    
     /**
      * Constructs a new ScalePlayer application.
      */
     public TuneComposer() {
         //PLAYER = new MidiPlayer(1,60);
+        playLine.setFill(Color.RED);
+        playLine.setVisible(false);
     }
     
     public static void addNote(Note note) {
@@ -69,7 +76,9 @@ public class TuneComposer extends Application {
         allNotes.forEach((note) -> {
             note.schedule();
         });
-        PLAYER.play();
+        
+        PLAYER.play();      
+        playLineMove(2000); //TODO, pass correct x coordinate
     }
     
     public void startPlaying(ActionEvent ignored) {
@@ -81,11 +90,18 @@ public class TuneComposer extends Application {
      * Called when the Stop button is clicked.
      */
     public void stopPlaying() {
-        //TODO Stop line movement
         PLAYER.stop();
+        timeline.stop();
+        playLine.setVisible(false);
+        
     }
-    
-    public void stopPlaying(ActionEvent ignored) {
+
+    /**
+     * When the user clicks the "Stop playing" button, stop playing the scale.
+     * @param event the button click event
+     */
+    @FXML 
+    protected void stopPlaying(ActionEvent event) {
         stopPlaying();
     }
     
@@ -98,38 +114,79 @@ public class TuneComposer extends Application {
         System.exit(0);
     }
     
+    /**
+     * The background of the application
+     */
     @FXML
     private Group background;
-     
+    
+    /**
+     * The pane in which notes are constructed
+     */
+    @FXML
+    private Pane notePane;
+
+    
+    /**
+     * The pane in which the play line is constructed and plays
+     */
+    @FXML
+    private BorderPane playLinePane;
+    
+    /**
+     * Initializes FXML: 
+     * (1) adds 127 gray lines to background
+     * (2) adds the playLine (set to invisible) 
+     */
     public void initialize(){
-        for(int i = 0; i < 128; i++){
+        for(int i = 1; i < 128; i++){
             Line row = new Line(0,10*i, 2000, 10*i);
             row.setStroke(Color.LIGHTGREY);
             background.getChildren().add(row);
         }
 
         playLinePane.setMouseTransparent(true);
+        playLinePane.getChildren().add(playLine);
     }
     
-    @FXML
-    private Pane notePane;
-
     public void addNoteRect(Rectangle noteRect) {
         notePane.getChildren().add(noteRect);
     }
 
     public void handleClick(MouseEvent event) {
-        Note note = new Note(this, event.getSceneX(), event.getSceneY());
+        Note note = new Note(this, event.getX(), event.getY());
         allNotes.add(note);
         note.draw();
     }
     
-    @FXML
-    private Group playLinePane;
-    
-    @FXML
-    private Group clickZone;
-    
+    /**
+     * Make a red line track across the composition at constant speed
+     * @param endXCoordinate the x coordinate of the final note of the composition
+     */
+    public void playLineMove(double endXCoordinate){
+        playLine.setX(0); //place playLine back at the beginning 
+        playLine.setVisible(true);
+        
+        timeline = new Timeline();
+        timeline.setCycleCount(1);
+        timeline.setAutoReverse(false);
+        KeyValue keyValueX = new KeyValue(playLine.xProperty(), endXCoordinate);
+        
+        //duration calculated for constant speed of 100 pixels per second
+        Duration duration = Duration.millis(endXCoordinate*10); 
+        
+        //when finsihed, playLine will disappear
+        EventHandler onFinished = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                playLine.setVisible(false);
+            }
+        };
+ 
+        KeyFrame keyFrame = new KeyFrame(duration, onFinished, keyValueX);
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.play();
+    }
+
     /**
      * Construct the scene and start the application.
      * @param primaryStage the stage for the main window
@@ -140,9 +197,6 @@ public class TuneComposer extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("TuneComposer.fxml"));
         Scene scene = new Scene(root);
 
-        //Rectangle r = new Rectangle(413, 413, 413, 413);
-        //notePane.getChildren().add(r);
-        
         primaryStage.setTitle("Scale Player");
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest((WindowEvent we) -> {
