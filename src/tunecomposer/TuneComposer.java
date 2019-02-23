@@ -4,7 +4,6 @@
  * TODO
  * Set rectangle style in CSS
  * Stop playLine at the end of the last note
- * Set time scale to 100 ticks per beat and 1 beat per second
  */
 package tunecomposer;
 
@@ -43,7 +42,7 @@ public class TuneComposer extends Application {
      /**
      * A MidiPlayer for all notes to use.
      */
-    public static final MidiPlayer PLAYER = new MidiPlayer(1,60);
+    public static final MidiPlayer PLAYER = new MidiPlayer(100,60);
     
 //    private Stage primaryStage;
 //    private Timeline timeline;
@@ -56,7 +55,6 @@ public class TuneComposer extends Application {
      * Constructs a new ScalePlayer application.
      */
     public TuneComposer() {
-        //PLAYER = new MidiPlayer(1,60);
         playLine.setFill(Color.RED);
         playLine.setVisible(false);
     }
