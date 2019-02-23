@@ -26,6 +26,10 @@ public class Note {
     public Note(double x, double y) {
         this.x = x;
         this.y = y;
+        //TODO fix startTime and pitch
+        startTime = (int)x/100;
+        pitch = 128-(int)y/10;
+        TuneComposer.addNote(this);
     }
     
     public void draw() {
@@ -34,6 +38,11 @@ public class Note {
     
     public void schedule() {
         TuneComposer.PLAYER.addNote(pitch, VOLUME, startTime, DURATION, 0, 0);
+    }
+    
+    public String toString() {
+        // TODO
+        return "Start Time: " + startTime + ", Pitch: " + pitch;
     }
     
     

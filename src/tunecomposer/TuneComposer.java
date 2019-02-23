@@ -41,7 +41,7 @@ public class TuneComposer extends Application {
     
 //    private Stage primaryStage;
 //    private Timeline timeline;
-    private Set<Note> allNotes = new HashSet<Note>();
+    private static Set<Note> allNotes = new HashSet<Note>();
     private Timeline timeline;
     private Rectangle playLine = new Rectangle(0, 0,1,1280);
     
@@ -54,22 +54,29 @@ public class TuneComposer extends Application {
         playLine.setVisible(false);
     }
     
+    public static void addNote(Note note) {
+        allNotes.add(note);
+    }
+    
     /**
      * Plays notes that have been added.
      * Called when the Play button is clicked.
      */
-    
     public void startPlaying() {
         //TODO Start red line movement
         PLAYER.stop();
         PLAYER.clear();
-        for (Note note : allNotes) {
+        allNotes.forEach((note) -> {
             note.schedule();
         }
         PLAYER.play();      
         playLineMove(2000); //TODO, pass correct x coordinate
     }
     
+    public void startPlaying(ActionEvent ignored) {
+        startPlaying();
+    }
+
     /**
      * Stops playing.
      * Called when the Stop button is clicked.
@@ -80,31 +87,15 @@ public class TuneComposer extends Application {
         playLine.setVisible(false);
         
     }
-    
-    /**
-     * When the user clicks the "Play scale" button, show a dialog to get the 
-     * starting note and then import javafx.animation.transition.*; play the scale.
-     * @param event the button click event
-     */
-    @FXML 
-    protected void handlePlayScaleButtonAction(ActionEvent event) {
-        startPlaying();
-        TextInputDialog pitchDialog = new TextInputDialog("60");
-        pitchDialog.setHeaderText("Give me a starting note (0-115):");
-            pitchDialog.showAndWait().ifPresent(response -> {
-                //playScale(Integer.parseInt(response));
-            });
-    }    
-    
+
     /**
      * When the user clicks the "Stop playing" button, stop playing the scale.
      * @param event the button click event
      */
     @FXML 
-    protected void handleStopPlayingButtonAction(ActionEvent event) {
-        //player.stop();
+    protected void stopPlaying(ActionEvent event) {
         stopPlaying();
-    }    
+    }
     
     /**
      * When the user clicks the "Exit" menu item, exit the program.
@@ -195,8 +186,10 @@ public class TuneComposer extends Application {
         root.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                System.out.println("CLICK!");
                 Note note = new Note(event.getSceneX(), event.getSceneY());
                 allNotes.add(note);
+                System.out.println(note);
                 note.draw();
             }
         });
