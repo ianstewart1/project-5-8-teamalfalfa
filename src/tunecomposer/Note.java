@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package tunecomposer;
+import javafx.scene.shape.Rectangle;
 
 /**
  *
@@ -16,24 +17,32 @@ public class Note {
      */
     private static final int VOLUME = 127;
     private static final int DURATION = 1;
+    private static final int RECTWIDTH = 100;
+    private static final int RECTHEIGHT = 10;
     
     
+    private TuneComposer composer;
     private double x;
-    private double y;
+    private double y;       // Rounded to the grey line above
     private int startTime;
     private int pitch;
     
-    public Note(double x, double y) {
-        this.x = x;
-        this.y = y;
+    public Note(TuneComposer composer, double x, double y) {
+        this.composer = composer;
+
         //TODO fix startTime and pitch
-        startTime = (int)x/100;
-        pitch = 128-(int)y/10;
+        startTime = (int)x/RECTWIDTH;
+        pitch = 128-(int)y/RECTHEIGHT;
+        this.x = x;
+        this.y = y - (y%RECTHEIGHT);
         TuneComposer.addNote(this);
     }
     
     public void draw() {
         // TODO Figure out how to draw rectangles in a group in a stackpane
+        Rectangle noteRect = new Rectangle(x, y, RECTWIDTH, RECTHEIGHT);
+        System.out.println("Rectangle: " + x + ", " + y + ", " + RECTWIDTH + ", " + RECTHEIGHT);
+        composer.addNoteRect(noteRect);
     }
     
     public void schedule() {

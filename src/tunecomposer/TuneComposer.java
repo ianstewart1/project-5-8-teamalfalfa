@@ -1,5 +1,10 @@
 /*
  * CS 300-A, 2017S
+ *
+ * TODO
+ * Set rectangle style in CSS
+ * Stop playLine at the end of the last note
+ * Set time scale to 100 ticks per beat and 1 beat per second
  */
 package tunecomposer;
 
@@ -23,8 +28,9 @@ import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 /**
  * This JavaFX app lets the user play scales.
@@ -42,6 +48,7 @@ public class TuneComposer extends Application {
 //    private Stage primaryStage;
 //    private Timeline timeline;
     private static Set<Note> allNotes = new HashSet<Note>();
+
     private Timeline timeline;
     private Rectangle playLine = new Rectangle(0, 0,1,1280);
     
@@ -117,13 +124,14 @@ public class TuneComposer extends Application {
      * The pane in which notes are constructed
      */
     @FXML
-    private Group notePane;
+    private Pane notePane;
+
     
     /**
      * The pane in which the play line is constructed and plays
      */
     @FXML
-    private BorderPane playLinePane; //I think that we can now refer to these in other functions.
+    private BorderPane playLinePane;
     
     /**
      * Initializes FXML: 
@@ -136,8 +144,19 @@ public class TuneComposer extends Application {
             row.setStroke(Color.LIGHTGREY);
             background.getChildren().add(row);
         }
+
+        playLinePane.setMouseTransparent(true);
         playLinePane.getChildren().add(playLine);
-        
+    }
+    
+    public void addNoteRect(Rectangle noteRect) {
+        notePane.getChildren().add(noteRect);
+    }
+
+    public void handleClick(MouseEvent event) {
+        Note note = new Note(this, event.getX(), event.getY());
+        allNotes.add(note);
+        note.draw();
     }
     
     /**
@@ -167,8 +186,7 @@ public class TuneComposer extends Application {
         timeline.getKeyFrames().add(keyFrame);
         timeline.play();
     }
-    
-    
+
     /**
      * Construct the scene and start the application.
      * @param primaryStage the stage for the main window
@@ -178,27 +196,15 @@ public class TuneComposer extends Application {
     public void start(Stage primaryStage) throws IOException {                
         Parent root = FXMLLoader.load(getClass().getResource("TuneComposer.fxml"));
         Scene scene = new Scene(root);
-        
+
         primaryStage.setTitle("Scale Player");
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest((WindowEvent we) -> {
             System.exit(0);
-        });   
-        root.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("CLICK!");
-                Note note = new Note(event.getSceneX(), event.getSceneY());
-                allNotes.add(note);
-                System.out.println(note);
-                note.draw();
-            }
         });
         primaryStage.show();
     }
-    
-   
-    
+
 
     /**
      * Launch the application.
