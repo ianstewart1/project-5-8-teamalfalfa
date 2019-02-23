@@ -145,6 +145,7 @@ public class TuneComposer extends Application {
             background.getChildren().add(row);
         }
         playLinePane.getChildren().add(playLine);
+        
     }
     
     /**
