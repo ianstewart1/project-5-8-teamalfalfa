@@ -16,7 +16,7 @@ public class Note {
      * Play notes at maximum volume.
      */
     private static final int VOLUME = 127;
-    private static final int DURATION = 1;
+    private static final int DURATION = 100;
     private static final int RECTWIDTH = 100;
     private static final int RECTHEIGHT = 10;
     
@@ -31,7 +31,7 @@ public class Note {
         this.composer = composer;
 
         //TODO fix startTime and pitch
-        startTime = (int)x/RECTWIDTH;
+        startTime = (int)x;
         pitch = 128-(int)y/RECTHEIGHT;
         this.x = x;
         this.y = y - (y%RECTHEIGHT);
@@ -39,7 +39,6 @@ public class Note {
     }
     
     public void draw() {
-        // TODO Figure out how to draw rectangles in a group in a stackpane
         Rectangle noteRect = new Rectangle(x, y, RECTWIDTH, RECTHEIGHT);
         System.out.println("Rectangle: " + x + ", " + y + ", " + RECTWIDTH + ", " + RECTHEIGHT);
         composer.addNoteRect(noteRect);
@@ -50,7 +49,6 @@ public class Note {
     }
     
     public String toString() {
-        // TODO
         return "Start Time: " + startTime + ", Pitch: " + pitch;
     }
     
