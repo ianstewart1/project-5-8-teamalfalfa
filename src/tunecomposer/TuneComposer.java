@@ -4,8 +4,6 @@
 package tunecomposer;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,14 +12,19 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import java.util.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
+import javafx.scene.layout.BorderPane;
 
 /**
  * This JavaFX app lets the user play scales.
@@ -36,13 +39,19 @@ public class TuneComposer extends Application {
      */
     public static final MidiPlayer PLAYER = new MidiPlayer(1,60);
     
+//    private Stage primaryStage;
+//    private Timeline timeline;
     private static Set<Note> allNotes = new HashSet<Note>();
+    private Timeline timeline;
+    private Rectangle playLine = new Rectangle(0, 0,1,1280);
     
     /**
      * Constructs a new ScalePlayer application.
      */
     public TuneComposer() {
         //PLAYER = new MidiPlayer(1,60);
+        playLine.setFill(Color.RED);
+        playLine.setVisible(false);
     }
     
     public static void addNote(Note note) {
@@ -59,8 +68,9 @@ public class TuneComposer extends Application {
         PLAYER.clear();
         allNotes.forEach((note) -> {
             note.schedule();
-        });
-        PLAYER.play();
+        }
+        PLAYER.play();      
+        playLineMove(2000); //TODO, pass correct x coordinate
     }
     
     public void startPlaying(ActionEvent ignored) {
@@ -72,11 +82,18 @@ public class TuneComposer extends Application {
      * Called when the Stop button is clicked.
      */
     public void stopPlaying() {
-        //TODO Stop line movement
         PLAYER.stop();
+        timeline.stop();
+        playLine.setVisible(false);
+        
     }
-    
-    public void stopPlaying(ActionEvent ignored) {
+
+    /**
+     * When the user clicks the "Stop playing" button, stop playing the scale.
+     * @param event the button click event
+     */
+    @FXML 
+    protected void stopPlaying(ActionEvent event) {
         stopPlaying();
     }
     
@@ -89,22 +106,66 @@ public class TuneComposer extends Application {
         System.exit(0);
     }
     
+    /**
+     * The background of the application
+     */
     @FXML
     private Group background;
-     
+    
+    /**
+     * The pane in which notes are constructed
+     */
+    @FXML
+    private Group notePane;
+    
+    /**
+     * The pane in which the play line is constructed and plays
+     */
+    @FXML
+    private BorderPane playLinePane; //I think that we can now refer to these in other functions.
+    
+    /**
+     * Initializes FXML: 
+     * (1) adds 127 gray lines to background
+     * (2) adds the playLine (set to invisible) 
+     */
     public void initialize(){
-        for(int i = 0; i < 128; i++){
+        for(int i = 1; i < 128; i++){
             Line row = new Line(0,10*i, 2000, 10*i);
             row.setStroke(Color.LIGHTGREY);
             background.getChildren().add(row);
         }
+        playLinePane.getChildren().add(playLine);
+        
     }
     
-    @FXML
-    private Group notePane;
-    
-    @FXML
-    private Group playLinePane; //I think that we can now refer to these in other functions.
+    /**
+     * Make a red line track across the composition at constant speed
+     * @param endXCoordinate the x coordinate of the final note of the composition
+     */
+    public void playLineMove(double endXCoordinate){
+        playLine.setX(0); //place playLine back at the beginning 
+        playLine.setVisible(true);
+        
+        timeline = new Timeline();
+        timeline.setCycleCount(1);
+        timeline.setAutoReverse(false);
+        KeyValue keyValueX = new KeyValue(playLine.xProperty(), endXCoordinate);
+        
+        //duration calculated for constant speed of 100 pixels per second
+        Duration duration = Duration.millis(endXCoordinate*10); 
+        
+        //when finsihed, playLine will disappear
+        EventHandler onFinished = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                playLine.setVisible(false);
+            }
+        };
+ 
+        KeyFrame keyFrame = new KeyFrame(duration, onFinished, keyValueX);
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.play();
+    }
     
     
     /**
