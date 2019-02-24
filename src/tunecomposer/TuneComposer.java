@@ -200,6 +200,7 @@ public class TuneComposer extends Application {
         primaryStage.setOnCloseRequest((WindowEvent we) -> {
             System.exit(0);
         });
+        scene.getStylesheets().add("tunecomposer.css");
         primaryStage.show();
     }
 
