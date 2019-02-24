@@ -5,6 +5,9 @@
  */
 package tunecomposer;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
+import javafx.scene.paint.Color;
+
 
 /**
  *
@@ -40,6 +43,7 @@ public class Note {
     
     public void draw() {
         Rectangle noteRect = new Rectangle(x, y, RECTWIDTH, RECTHEIGHT);
+        noteRect.getStyleClass().add("note-rect");
         System.out.println("Rectangle: " + x + ", " + y + ", " + RECTWIDTH + ", " + RECTHEIGHT);
         composer.addNoteRect(noteRect);
     }
