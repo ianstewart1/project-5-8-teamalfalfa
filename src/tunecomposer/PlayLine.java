@@ -8,7 +8,10 @@ package tunecomposer;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.layout.Pane;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -22,42 +25,65 @@ import javafx.util.Duration;
  */
 public class PlayLine {
     
-//    private boolean visible;
     private final Rectangle movingLine;
-    private final Timeline timeline;
-//    private double runLength;
-    public Stage stage;
-    public Group group;
+    private Timeline timeline;
     
-    
-    public PlayLine(Stage stage, Group group) {
+    /**
+     * Initializes a new PlayLine object in the newPane
+     * @param newPane a layout pane, currently implemented with BorderPane
+     */
+    public PlayLine(Pane pane) {
         
+        //initialize Timeline
         timeline = new Timeline();
-        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.setCycleCount(1);
         timeline.setAutoReverse(false);
         
-        movingLine = new Rectangle(0,0,1,100);
+        //initialize the red line
+        movingLine = new Rectangle(0,0,1,1280);
         movingLine.setFill(Color.RED);
+        movingLine.setVisible(false);
+        
+        //add the red line to correct pane of FXML
+        pane.getChildren().add(movingLine);
 
     }
     
-    public void play() {
-//        this.visible = true;
+    /**
+     * Make a red line track across the composition at constant speed
+     * @param endXCoordinate the x coordinate of the final note of the composition
+     */
+    public void play(double endXCoordinate) {
+        movingLine.setX(0); //place playLine back at the beginning 
+        movingLine.setVisible(true);
         
-        KeyValue xValue = new KeyValue(movingLine.xProperty(), stage.getWidth()); //figure out when this works
-        KeyFrame kf = new KeyFrame(Duration.millis(1500), xValue);
-        timeline.getKeyFrames().add(kf);
+        timeline = new Timeline();
+        timeline.setCycleCount(1);
+        timeline.setAutoReverse(false);
+        KeyValue keyValueX = new KeyValue(movingLine.xProperty(), endXCoordinate);
+        
+        //duration calculated for constant speed of 100 pixels per second
+        Duration duration = Duration.millis(endXCoordinate*10); 
+        
+        //when finsihed, playLine will disappear
+        EventHandler onFinished = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent t) {
+                movingLine.setVisible(false);
+            }
+        };
+ 
+        KeyFrame keyFrame = new KeyFrame(duration, onFinished, keyValueX);
+        timeline.getKeyFrames().add(keyFrame);
         timeline.play();
     }
     
+    /**
+     * Stop the red line and make it disappear
+     */
     public void stop() {
         timeline.stop();
+        movingLine.setVisible(false);
         
-    }
-    
-    public void pause() {
-        timeline.pause();
-    }
-    
+    } 
     
 }

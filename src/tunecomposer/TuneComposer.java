@@ -39,20 +39,10 @@ public class TuneComposer extends Application {
      */
     public static final MidiPlayer PLAYER = new MidiPlayer(100,60);
     
-//    private Stage primaryStage;
-//    private Timeline timeline;
+    private static PlayLine playLine;
     private static Set<Note> allNotes = new HashSet<Note>();
 
     private Timeline timeline;
-    private Rectangle playLine = new Rectangle(0, 0,1,1280);
-    
-    /**
-     * Constructs a new ScalePlayer application.
-     */
-    public TuneComposer() {
-        playLine.setFill(Color.RED);
-        playLine.setVisible(false);
-    }
     
     public static void addNote(Note note) {
         allNotes.add(note);
@@ -70,7 +60,7 @@ public class TuneComposer extends Application {
         });
         
         PLAYER.play();      
-        playLineMove(Note.getNotesEnd());
+        playLine.play(Note.getNotesEnd());
     }
     
     public void startPlaying(ActionEvent ignored) {
@@ -83,8 +73,7 @@ public class TuneComposer extends Application {
      */
     public void stopPlaying() {
         PLAYER.stop();
-        timeline.stop();
-        playLine.setVisible(false);
+        playLine.stop();
         
     }
 
@@ -128,7 +117,7 @@ public class TuneComposer extends Application {
     /**
      * Initializes FXML: 
      * (1) adds 127 gray lines to background
-     * (2) adds the playLine (set to invisible) 
+     * (2) initializes the playLine(set to invisible) 
      */
     public void initialize(){
         for(int i = 1; i < 128; i++){
@@ -136,9 +125,8 @@ public class TuneComposer extends Application {
             row.setStroke(Color.LIGHTGREY);
             background.getChildren().add(row);
         }
-
+        playLine = new PlayLine(playLinePane);
         playLinePane.setMouseTransparent(true);
-        playLinePane.getChildren().add(playLine);
     }
     
     public void addNoteRect(Rectangle noteRect) {
@@ -151,34 +139,6 @@ public class TuneComposer extends Application {
         note.draw();
     }
     
-    /**
-     * Make a red line track across the composition at constant speed
-     * @param endXCoordinate the x coordinate of the final note of the composition
-     */
-    public void playLineMove(double endXCoordinate){
-        playLine.setX(0); //place playLine back at the beginning 
-        playLine.setVisible(true);
-        
-        timeline = new Timeline();
-        timeline.setCycleCount(1);
-        timeline.setAutoReverse(false);
-        KeyValue keyValueX = new KeyValue(playLine.xProperty(), endXCoordinate);
-        
-        //duration calculated for constant speed of 100 pixels per second
-        Duration duration = Duration.millis(endXCoordinate*10); 
-        
-        //when finsihed, playLine will disappear
-        EventHandler onFinished = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent t) {
-                playLine.setVisible(false);
-            }
-        };
- 
-        KeyFrame keyFrame = new KeyFrame(duration, onFinished, keyValueX);
-        timeline.getKeyFrames().add(keyFrame);
-        timeline.play();
-    }
-
     /**
      * Construct the scene and start the application.
      * @param primaryStage the stage for the main window
