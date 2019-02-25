@@ -23,13 +23,13 @@ import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 /**
  * This JavaFX app lets the user play scales.
- * @author Janet Davis 
- * @author SOLUTION - PROJECT 1
+ * @author Madi, Ian, Haley, Nathaniel
  * @since January 26, 2017
  */
 public class TuneComposer extends Application {
@@ -37,37 +37,36 @@ public class TuneComposer extends Application {
      /**
      * A MidiPlayer for all notes to use.
      */
-    public static final MidiPlayer PLAYER = new MidiPlayer(1,60);
+    public static final MidiPlayer PLAYER = new MidiPlayer(100,60);
     
-//    private Stage primaryStage;
-//    private Timeline timeline;
-    private Set<Note> allNotes = new HashSet<Note>();
     private static PlayLine playLine;
+    private static Set<Note> allNotes = new HashSet<Note>();
+
+    private Timeline timeline;
     
-    /**
-     * Constructs a new ScalePlayer application.
-     */
-    public TuneComposer() {
-        //PLAYER = new MidiPlayer(1,60);
-        
+    public static void addNote(Note note) {
+        allNotes.add(note);
     }
     
     /**
      * Plays notes that have been added.
      * Called when the Play button is clicked.
      */
-    
     public void startPlaying() {
-        //TODO Start red line movement
         PLAYER.stop();
         PLAYER.clear();
-        for (Note note : allNotes) {
+        allNotes.forEach((note) -> {
             note.schedule();
-        }
+        });
+        
         PLAYER.play();      
-        playLine.play(2000); //TODO, pass correct x coordinate
+        playLine.play(Note.getNotesEnd());
     }
     
+    public void startPlaying(ActionEvent ignored) {
+        startPlaying();
+    }
+
     /**
      * Stops playing.
      * Called when the Stop button is clicked.
@@ -77,31 +76,15 @@ public class TuneComposer extends Application {
         playLine.stop();
         
     }
-    
-    /**
-     * When the user clicks the "Play scale" button, show a dialog to get the 
-     * starting note and then import javafx.animation.transition.*; play the scale.
-     * @param event the button click event
-     */
-    @FXML 
-    protected void handlePlayScaleButtonAction(ActionEvent event) {
-        startPlaying();
-        TextInputDialog pitchDialog = new TextInputDialog("60");
-        pitchDialog.setHeaderText("Give me a starting note (0-115):");
-            pitchDialog.showAndWait().ifPresent(response -> {
-                //playScale(Integer.parseInt(response));
-            });
-    }    
-    
+
     /**
      * When the user clicks the "Stop playing" button, stop playing the scale.
      * @param event the button click event
      */
     @FXML 
-    protected void handleStopPlayingButtonAction(ActionEvent event) {
-        //player.stop();
+    protected void stopPlaying(ActionEvent event) {
         stopPlaying();
-    }    
+    }
     
     /**
      * When the user clicks the "Exit" menu item, exit the program.
@@ -122,13 +105,14 @@ public class TuneComposer extends Application {
      * The pane in which notes are constructed
      */
     @FXML
-    private Group notePane;
+    private Pane notePane;
+
     
     /**
      * The pane in which the play line is constructed and plays
      */
     @FXML
-    private BorderPane playLinePane; //I think that we can now refer to these in other functions.
+    private BorderPane playLinePane;
     
     /**
      * Initializes FXML: 
@@ -142,6 +126,17 @@ public class TuneComposer extends Application {
             background.getChildren().add(row);
         }
         playLine = new PlayLine(playLinePane);
+        playLinePane.setMouseTransparent(true);
+    }
+    
+    public void addNoteRect(Rectangle noteRect) {
+        notePane.getChildren().add(noteRect);
+    }
+
+    public void handleClick(MouseEvent event) {
+        Note note = new Note(this, event.getX(), event.getY());
+        allNotes.add(note);
+        note.draw();
     }
     
     /**
@@ -153,26 +148,16 @@ public class TuneComposer extends Application {
     public void start(Stage primaryStage) throws IOException {                
         Parent root = FXMLLoader.load(getClass().getResource("TuneComposer.fxml"));
         Scene scene = new Scene(root);
-      
-        
+
         primaryStage.setTitle("Scale Player");
         primaryStage.setScene(scene);
         primaryStage.setOnCloseRequest((WindowEvent we) -> {
             System.exit(0);
-        });   
-        root.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Note note = new Note(event.getSceneX(), event.getSceneY());
-                allNotes.add(note);
-                note.draw();
-            }
         });
+        scene.getStylesheets().add("tunecomposer.css");
         primaryStage.show();
     }
-    
-   
-    
+
 
     /**
      * Launch the application.
