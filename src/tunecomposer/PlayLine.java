@@ -30,7 +30,7 @@ public class PlayLine {
     
     /**
      * Initializes a new PlayLine object in the newPane
-     * @param newPane a layout pane, currently implemented with BorderPane
+     * @param pane a layout pane, currently implemented with BorderPane
      */
     public PlayLine(Pane pane) {
         
@@ -41,7 +41,7 @@ public class PlayLine {
         
         //initialize the red line
         movingLine = new Rectangle(0,0,1,1280);
-        movingLine.setFill(Color.RED);
+        movingLine.getStyleClass().add("play-line");
         movingLine.setVisible(false);
         
         //add the red line to correct pane of FXML
