@@ -15,3 +15,8 @@
     -fx-fill: #7795F6;
     -fx-stroke: #000000;
 }
+
+.play-line {
+    -fx-fill: #E81A0B;
+}
+
