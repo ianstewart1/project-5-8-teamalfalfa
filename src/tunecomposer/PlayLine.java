@@ -54,6 +54,7 @@ public class PlayLine {
      * @param endXCoordinate the x coordinate of the final note of the composition
      */
     public void play(double endXCoordinate) {
+        timeline.getKeyFrames().clear();
         movingLine.setX(0); //place playLine back at the beginning 
         movingLine.setVisible(true);
         
