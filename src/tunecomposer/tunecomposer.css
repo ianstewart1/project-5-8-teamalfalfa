@@ -7,6 +7,10 @@
     -fx-pref-height: 1280;
 }
 
+.row-divider {
+    -fx-stroke: #e8e8e8;
+}
+
 .note-rect {
     -fx-fill: #7795F6;
     -fx-stroke: #000000;

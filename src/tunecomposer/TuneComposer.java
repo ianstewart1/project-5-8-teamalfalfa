@@ -8,10 +8,16 @@ import java.util.*;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -129,7 +135,7 @@ public class TuneComposer extends Application {
         // Add grey lines to background
         for(int i = 1; i < 128; i++){
             Line row = new Line(0,10*i, 2000, 10*i);
-            row.setStroke(Color.LIGHTGREY);
+            row.getStyleClass().add("row-divider");
             background.getChildren().add(row);
         }
 
