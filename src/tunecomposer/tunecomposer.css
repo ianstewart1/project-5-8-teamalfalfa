@@ -7,10 +7,6 @@
     -fx-pref-height: 1280;
 }
 
-.Line {
-    -fx-stroke: #00000077;
-}
-
 .note-rect {
     -fx-fill: #7795F6;
     -fx-stroke: #000000;

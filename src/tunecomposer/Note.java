@@ -34,7 +34,6 @@ public class Note {
     public Note(TuneComposer composer, double x, double y) {
         this.composer = composer;
 
-        //TODO fix startTime and pitch
         startTime = (int)x;
         pitch = 128-(int)y/RECTHEIGHT;
         this.x = x;
