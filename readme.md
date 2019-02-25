@@ -22,7 +22,7 @@ Teamwork
 
 For the most part, our entire team met at the same time. We split into teams of two at the beginning of the process in order to develop different parts of the project (the Note class and the background). Throughout the process, we either pair programmed or worked individually next to another team member.
 
-When Ian was asked about our teamwork on this assignment, he simply gave the thumbs up. In general, we were satisfied with each other. Aside from minor scheduling difficulties–which was inevitable with four people–we didn't have many issues. As more improvements to our process, only one one of our members was an expert in Git. For those of us who were Git novices, we probably could have practiced better committing/branch/merging techniques, but we always did have backup if we needed it. 
+When Ian was asked about our teamwork on this assignment, he simply gave the thumbs up. I think we all feel that way: in general, we were satisfied with each other. Aside from minor scheduling difficulties–which was inevitable with four people–we didn't have many issues. We did notice that only one one of our members was an expert in Git. For those of us who were Git novices, we probably could have practiced better committing/branch/merging techniques, but we always did have backup if we needed it. 
 
 
 Future Feature ideas
