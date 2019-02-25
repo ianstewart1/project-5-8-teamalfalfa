@@ -6,8 +6,6 @@ Our design attempted to clarify each part of the application by separating indep
 
 This design is significantly different than the design for Project 2. Our TuneComposer file now does less than it used to: more of the program is distributed into separate classes. The FXML is now more complex, with layers of elements and an initialization function to inject the horizontal background lines. In general, the program is 
 
-Explain what, if anything, in your solution is inelegant and why you didn't make it elegant (for example, maybe you didn't have time or the knowledge to fix it).
-
 Is it Elegant?
 =====
 
@@ -15,7 +13,6 @@ During our first meeting, we intentionally planned how our program would fit tog
 
 What is inelegant about our design? As beginners using FXML, perhaps there are ways to better inject new GUI elements into the TuneComposer.fxml file that we do not know about. We also intermittently treat TuneComposer as a static class, using static methods and fields sometimes and not others. Of course, we can't make it static because it needs to be instantiated, even if only once. This also means that we're less object oriented, but we think that makes sense here.
 
-Finally, describe how your team collaborated on the project. What did you do together? What did you do separately? What did each team member contribute? Optionally, include a brief team retrospective: What is one thing you did well as a team? What is one thing you could have improved?
 
 Teamwork
 ======
@@ -31,3 +28,4 @@ During our design process, we thought of possible improvements. Here are a few o
 * Make the notes draggable, which changes their duration
 * Make notes snap to a grid of vertical lines
 * Make window infinitely long
+* Loop play feature
