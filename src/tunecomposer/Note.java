@@ -23,13 +23,14 @@ public class Note {
     private static final int RECTWIDTH = 100;
     private static final int RECTHEIGHT = 10;
     
+    private static double lastNoteX = 0;
     
     private TuneComposer composer;
     private double x;
     private double y;       // Rounded to the grey line above
     private int startTime;
     private int pitch;
-    
+
     public Note(TuneComposer composer, double x, double y) {
         this.composer = composer;
 
@@ -38,7 +39,18 @@ public class Note {
         pitch = 128-(int)y/RECTHEIGHT;
         this.x = x;
         this.y = y - (y%RECTHEIGHT);
+        updateLastNote();
         TuneComposer.addNote(this);
+    }
+
+    private void updateLastNote() {
+        if (x > lastNoteX) {
+            lastNoteX = x;
+        }
+    }
+
+    public static double getNotesEnd() {
+        return lastNoteX + 100;
     }
     
     public void draw() {

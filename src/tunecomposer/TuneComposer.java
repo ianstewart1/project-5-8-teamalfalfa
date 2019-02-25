@@ -1,9 +1,5 @@
 /*
  * CS 300-A, 2017S
- *
- * TODO
- * Set rectangle style in CSS
- * Stop playLine at the end of the last note
  */
 package tunecomposer;
 
@@ -33,8 +29,7 @@ import javafx.util.Duration;
 
 /**
  * This JavaFX app lets the user play scales.
- * @author Janet Davis 
- * @author SOLUTION - PROJECT 1
+ * @author Madi, Ian, Haley, Nathaniel
  * @since January 26, 2017
  */
 public class TuneComposer extends Application {
@@ -68,7 +63,6 @@ public class TuneComposer extends Application {
      * Called when the Play button is clicked.
      */
     public void startPlaying() {
-        //TODO Start red line movement
         PLAYER.stop();
         PLAYER.clear();
         allNotes.forEach((note) -> {
@@ -76,7 +70,7 @@ public class TuneComposer extends Application {
         });
         
         PLAYER.play();      
-        playLineMove(2000); //TODO, pass correct x coordinate
+        playLineMove(Note.getNotesEnd());
     }
     
     public void startPlaying(ActionEvent ignored) {
