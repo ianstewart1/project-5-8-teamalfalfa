@@ -9,12 +9,15 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.Pane?>
 
+<!-- TODO: Wrap long lines -->
+<!-- TODO: Move alignment, width/height to CSS -->
 <BorderPane id="root-pane" prefHeight="1369.0" prefWidth="2022.0" stylesheets="@tunecomposer.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tunecomposer.TuneComposer">
    <top>
       <MenuBar>
         <menus>
           <Menu text="File">
             <items>
+            <!-- TODO: Make accelerators platform-independent. I should be able to use Command-Q on my Mac. -->
               <MenuItem accelerator="Ctrl+Q" mnemonicParsing="true" onAction="#handleExitMenuItemAction" text="Exit" />
             </items>
           </Menu>

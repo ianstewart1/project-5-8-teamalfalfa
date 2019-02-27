@@ -1,4 +1,6 @@
-# GRADE: 64/64
+# GRADE: 61/64
+
+_Well done!_
 
 ## Functional requirements: 36/36 points total
 
@@ -50,15 +52,15 @@
 |      1 |        1 | The animation should stop when the **Stop** menu item is selected.
 |      1 |        1 | The line should not be visible when there are no sounds playing.
 
-## Elegance; implementation and submission requirements - 20/20 points
+## Elegance; implementation and submission requirements - 17/20 points
 | Earned | Possible | Requirement
 | ------:|---------:|------------
 |      2 |        2 | Thoughtful division of code into classes and methods.
-|      4 |        4 | Self-explanatory code: names, javadoc, inline comments.
-|      2 |        2 | Reasonable choices of type modifiers in Java code. 
-|      2 |        2 | No unused fields or methods. No debugging code.
-|      2 |        2 | Appropriate use of basic Java language constructs and JavaFX components; reasonably concise code.
-|      2 |        2 | Whenever possible, JavaFX components are created in FXML.
+|      3 |        4 | Self-explanatory code: names, javadoc, inline comments. _You are thoughtful about naming and inline comments, but the Note class is entirely devoid of Javadoc._
+|      2 |        2 | Reasonable choices of type modifiers in Java code. _I'm giving you a pass on your use of static fields and methods in ```TuneComposer``` because you recognized this as inelegant. If you build on this code in Project 4, it's an issue you should resolve._
+|      1 |        2 | No unused fields or methods. No debugging code. _See annotations._
+|      1 |        2 | Appropriate use of basic Java language constructs and JavaFX components; reasonably concise code. _Compile with ```javac -Xlint:unchecked``` and resolve these warnings._
+|      2 |        2 | Whenever possible, JavaFX components are created in FXML. _You should create the red line in FXML. I'm giving you a pass on this because of the effort you made to divide your code into appropriate classes. You will want to make a new FXML file for the red line pane, and make PlayLine the corresponding controller._
 |      2 |        2 | Whenever possible, JavaFX components are styled using CSS.
 |      2 |        2 | Minimal, well-formatted FXML and CSS code.
 |      1 |        1 | Keep the starting point for your application in the given TuneComposer class.
