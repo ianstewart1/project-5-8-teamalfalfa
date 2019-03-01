@@ -17,6 +17,6 @@
 }
 
 .play-line {
-    -fx-fill: #E81A0B;
+    -fx-stroke: #E81A0B;
 }
 

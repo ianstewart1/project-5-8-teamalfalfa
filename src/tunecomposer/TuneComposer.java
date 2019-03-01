@@ -17,7 +17,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -68,8 +68,13 @@ public class TuneComposer extends Application {
      * The pane in which the play line is constructed and plays.
      */
     @FXML
-    private BorderPane playLinePane;
+    private AnchorPane playLinePane;
     
+    /**
+     * TODO
+     */
+    @FXML
+    private Line movingLine;
     
     public TuneComposer() {
         allNotes = new HashSet<Note>();
@@ -145,7 +150,7 @@ public class TuneComposer extends Application {
      * (1) adds 127 grey lines to background
      * (2) initializes the playLine(set to invisible)
      */
-    public void initialize(){
+    public void initialize() {
         // Add grey lines to background
         for(int i = 1; i < 128; i++){
             Line row = new Line(0,10*i, 2000, 10*i);
@@ -153,7 +158,7 @@ public class TuneComposer extends Application {
             background.getChildren().add(row);
         }
 
-        playLine = new PlayLine(playLinePane);
+        playLine = new PlayLine(movingLine);
 
         // Let mouse events go through to notePane
         playLinePane.setMouseTransparent(true);
