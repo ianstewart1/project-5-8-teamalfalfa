@@ -40,6 +40,8 @@ public class PlayLine {
         timeline.setAutoReverse(false);
         
         //initialize the red line
+        //TODO: Create this component in FXML.
+        //TODO: It seems like movingLine should be a Line, not a Rectangle.
         movingLine = new Rectangle(0,0,1,1280);
         movingLine.getStyleClass().add("play-line");
         movingLine.setVisible(false);
@@ -54,6 +56,7 @@ public class PlayLine {
      * @param endXCoordinate the x coordinate of the final note of the composition
      */
     public void play(double endXCoordinate) {
+        //TODO: To simplify your code use a TranslateTransition instead of a Timeline.
         timeline.getKeyFrames().clear();
         movingLine.setX(0); //place playLine back at the beginning 
         movingLine.setVisible(true);
@@ -67,6 +70,7 @@ public class PlayLine {
         Duration duration = Duration.millis(endXCoordinate*10); 
         
         //when finsihed, playLine will disappear
+        //NOTE: Good, this is the right way to do it.
         EventHandler onFinished = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent t) {
                 movingLine.setVisible(false);

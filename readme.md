@@ -4,7 +4,9 @@ Design Overview
 
 Our design attempted to clarify each part of the application by separating independent parts into different panes and classes. In addition to the TuneComposer controller file and the FXML and CSS, we created separate Note and PlayLine classes to handle the data and drawing of the notes and moving red line. In the GUI, we placed the background lines in one pane, created notes in a second pane, and put the moving line in a third pane. The three panes are layered in a single StackPane. 
 
-This design is significantly different than the design for Project 2. Our TuneComposer file now does less than it used to: more of the program is distributed into separate classes. The FXML is now more complex, with layers of elements and an initialization function to inject the horizontal background lines. In general, the program is 
+_I like this separation of concerns._
+
+This design is significantly different than the design for Project 2. Our TuneComposer file now does less than it used to: more of the program is distributed into separate classes. The FXML is now more complex, with layers of elements and an initialization function to inject the horizontal background lines. In general, the program is  _...?_
 
 Is it Elegant?
 =====
@@ -12,6 +14,8 @@ Is it Elegant?
 During our first meeting, we intentionally planned how our program would fit together. By adhering fairly closely to this plan, we believe that most aspects of our design are elegant. We split our program up into readable and extensible classes. We don't rely on extremely long methods that are difficult to maintain. From our testing, it appears that our code is usable and robust. 
 
 What is inelegant about our design? As beginners using FXML, perhaps there are ways to better inject new GUI elements into the TuneComposer.fxml file that we do not know about. We also intermittently treat TuneComposer as a static class, using static methods and fields sometimes and not others. Of course, we can't make it static because it needs to be instantiated, even if only once. This also means that we're less object oriented, but we think that makes sense here.
+
+_Just having read the ```Note``` class, I agree that the use of static fields and methods in ```TuneComposer``` is inelegant. I would even go so far as to say confusing and inconsistent. I would be much more selective about what is static - perhaps only constants._
 
 
 Teamwork
@@ -25,7 +29,9 @@ When Ian was asked about our teamwork on this assignment, they simply gave the t
 Future Feature ideas
 =====
 During our design process, we thought of possible improvements. Here are a few of our feature ideas:
-* Make the notes draggable, which changes their duration
+* Make the notes draggable, which changes their duration _Oh, you are foresightful! See the Project 4 requirements._
 * Make notes snap to a grid of vertical lines
 * Make window infinitely long
 * Loop play feature
+
+_The rest sound like good ideas to keep in mind for the final project assignment._

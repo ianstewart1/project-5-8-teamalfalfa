@@ -37,6 +37,8 @@ public class TuneComposer extends Application {
      * The set of all notes, to be played later.
      */
     private static Set<Note> allNotes = new HashSet<Note>();
+    //NOTE: Hmm, it seems like you are duplicating information about notes.
+    //      This could make things difficult later.
 
     /**
      * A line moves from left to right across the main pane. It crosses each
@@ -84,11 +86,16 @@ public class TuneComposer extends Application {
         allNotes.forEach((note) -> {
             note.schedule();
         });
+        //NOTE: Nice use of higher-order programming!
+        //NOTE: You could write this all on one line and it would still be 
+        //      readable.
         
         PLAYER.play();      
         playLine.play(Note.getNotesEnd());
     }
     
+    //TODO: Overloading doesn't seem right here. Could you name the 
+    //      event handlers so that it's clear they are event handlers?
     /**
      * Overload version of startPlaying() which ignores an ActionEvent.
      * @param ignored not used
@@ -143,6 +150,7 @@ public class TuneComposer extends Application {
 
         // Let mouse events go through to notePane
         playLinePane.setMouseTransparent(true);
+        //NOTE: Good that you figured this out!
     }
     
     /**
