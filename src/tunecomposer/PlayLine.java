@@ -24,15 +24,15 @@ import javafx.util.Duration;
  * @author larsonnd
  */
 public class PlayLine {
-    
-    private final Rectangle movingLine;
+
+    private Line movingLine;
     private Timeline timeline;
     
     /**
      * Initializes a new PlayLine object in the newPane
-     * @param pane a layout pane, currently implemented with BorderPane
+     * @param pane a layout pane, now implemented with AnchorPane
      */
-    public PlayLine(Pane pane) {
+    public PlayLine(Line line) {
         
         //initialize Timeline
         timeline = new Timeline();
@@ -42,12 +42,13 @@ public class PlayLine {
         //initialize the red line
         //TODO: Create this component in FXML.
         //TODO: It seems like movingLine should be a Line, not a Rectangle.
-        movingLine = new Rectangle(0,0,1,1280);
-        movingLine.getStyleClass().add("play-line");
+        //movingLine = new Line(0,0,0,1280);
+        movingLine = line;
+        //movingLine.getStyleClass().add("play-line");
         movingLine.setVisible(false);
         
         //add the red line to correct pane of FXML
-        pane.getChildren().add(movingLine);
+        //pane.getChildren().add(movingLine);
 
     }
     
@@ -58,13 +59,15 @@ public class PlayLine {
     public void play(double endXCoordinate) {
         //TODO: To simplify your code use a TranslateTransition instead of a Timeline.
         timeline.getKeyFrames().clear();
-        movingLine.setX(0); //place playLine back at the beginning 
+        movingLine.setEndX(0); //place playLine back at the beginning 
+        movingLine.setStartX(0);
         movingLine.setVisible(true);
         
         timeline = new Timeline();
         timeline.setCycleCount(1);
         timeline.setAutoReverse(false);
-        KeyValue keyValueX = new KeyValue(movingLine.xProperty(), endXCoordinate);
+        KeyValue keyValueXEnd = new KeyValue(movingLine.endXProperty(), endXCoordinate);
+        KeyValue keyValueXStart = new KeyValue(movingLine.startXProperty(), endXCoordinate);
         
         //duration calculated for constant speed of 100 pixels per second
         Duration duration = Duration.millis(endXCoordinate*10); 
@@ -77,8 +80,9 @@ public class PlayLine {
             }
         };
  
-        KeyFrame keyFrame = new KeyFrame(duration, onFinished, keyValueX);
-        timeline.getKeyFrames().add(keyFrame);
+        KeyFrame keyFrameEnd = new KeyFrame(duration, onFinished, keyValueXEnd);
+        KeyFrame keyFrameStart = new KeyFrame(duration, onFinished, keyValueXStart);
+        timeline.getKeyFrames().addAll(keyFrameEnd, keyFrameStart);
         timeline.play();
     }
     
