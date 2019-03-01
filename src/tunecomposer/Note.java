@@ -32,31 +32,30 @@ public class Note {
     //      to maintain a reference to a TuneComposer. 
     //      If a TuneComposer object is calling the methods where
     //      this field is used, could it pass itself as a parameter?
-    private TuneComposer composer;
-    private double x;
-    private double y;       // Rounded to the grey line above
+    //private TuneComposer composer;
+    private double x_coord;
+    private double y_coord;       // Rounded to the grey line above
     private int startTime;
     private int pitch;
 
     //TODO: Document constructors as well as other methods
-    public Note(TuneComposer composer, double x, double y) {
-        this.composer = composer;
+    public Note(double x, double y) {
+        //this.composer = composer;
 
         startTime = (int)x;
         //TODO: Where does 128 come from?
         //TODO: (Otherwise you are doing relatively well at 
         //      avoiding magic numbers.)
         pitch = 128-(int)y/RECTHEIGHT;
-        this.x = x;
-        this.y = y - (y%RECTHEIGHT);
+        x_coord = x;
+        y_coord = y - (y%RECTHEIGHT);
         updateLastNote();
-        TuneComposer.addNote(this);
     }
 
     //TODO: Document even private methods!
     private void updateLastNote() {
-        if (x > lastNoteX) {
-            lastNoteX = x;
+        if (x_coord > lastNoteX) {
+            lastNoteX = x_coord;
         }
     }
 
@@ -65,12 +64,12 @@ public class Note {
         //TODO: Where does 100 come from?
     }
     
-    public void draw() {
-        Rectangle noteRect = new Rectangle(x, y, RECTWIDTH, RECTHEIGHT);
+    public Rectangle draw() {
+        Rectangle noteRect = new Rectangle(x_coord, y_coord, RECTWIDTH, RECTHEIGHT);
         noteRect.getStyleClass().add("note-rect");
         //TODO: Delete debugging code before merging to master branch.
-        System.out.println("Rectangle: " + x + ", " + y + ", " + RECTWIDTH + ", " + RECTHEIGHT);
-        composer.addNoteRect(noteRect);
+        System.out.println("Rectangle: " + x_coord + ", " + y_coord + ", " + RECTWIDTH + ", " + RECTHEIGHT);
+        return noteRect;
     }
     
     public void schedule() {

@@ -33,10 +33,11 @@ public class TuneComposer extends Application {
      */
     public static final MidiPlayer PLAYER = new MidiPlayer(100,60);
     
+    
     /**
      * The set of all notes, to be played later.
      */
-    private static Set<Note> allNotes = new HashSet<Note>();
+    private static Set<Note> allNotes;
     //NOTE: Hmm, it seems like you are duplicating information about notes.
     //      This could make things difficult later.
 
@@ -69,8 +70,14 @@ public class TuneComposer extends Application {
     @FXML
     private BorderPane playLinePane;
     
+    
+    public TuneComposer() {
+        allNotes = new HashSet<Note>();
+    }
+    
     /**
      * Add the given note to the set of all notes, to be played later.
+     * @param note note added to composition
      */
     public static void addNote(Note note) {
         allNotes.add(note);
@@ -154,21 +161,13 @@ public class TuneComposer extends Application {
     }
     
     /**
-     * Draw a rectangle representing a note.
-     * @param noteRect a Rectangle to be drawn
-     */
-    public void addNoteRect(Rectangle noteRect) {
-        notePane.getChildren().add(noteRect);
-    }
-
-    /**
      * Construct a note from a click. Called via FXML.
      * @param event a mouse click
      */
     public void handleClick(MouseEvent event) {
-        Note note = new Note(this, event.getX(), event.getY());
+        Note note = new Note(event.getX(), event.getY());
         allNotes.add(note);
-        note.draw();
+        notePane.getChildren().add(note.draw());
     }
     
     /**
