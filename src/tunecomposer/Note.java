@@ -67,8 +67,6 @@ public class Note {
     public Rectangle draw() {
         Rectangle noteRect = new Rectangle(x_coord, y_coord, RECTWIDTH, RECTHEIGHT);
         noteRect.getStyleClass().add("note-rect");
-        //TODO: Delete debugging code before merging to master branch.
-        System.out.println("Rectangle: " + x_coord + ", " + y_coord + ", " + RECTWIDTH + ", " + RECTHEIGHT);
         return noteRect;
     }
     
