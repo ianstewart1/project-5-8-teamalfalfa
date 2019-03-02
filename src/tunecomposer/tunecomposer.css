@@ -20,3 +20,34 @@
     -fx-stroke: #E81A0B;
 }
 
+.piano {
+    -fx-background-color: lightgray;
+}
+
+.harpsicord {
+    -fx-background-color: beige;
+}
+
+.marimba {
+    -fx-background-color: lightsalmon;
+}
+
+.church-organ {
+    -fx-background-color: lightblue;
+}
+
+.accordion {
+    -fx-background-color: orange;
+}
+
+.guitar {
+    -fx-background-color: lightgreen;
+}
+
+.violin {
+    -fx-background-color: rosybrown;
+}
+
+.french-horn {
+    -fx-background-color: gold;
+}

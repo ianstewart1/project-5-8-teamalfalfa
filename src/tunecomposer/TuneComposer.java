@@ -13,6 +13,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.input.MouseEvent;
@@ -75,6 +77,39 @@ public class TuneComposer extends Application {
      */
     @FXML
     private Line movingLine;
+    
+    /**
+     * TODO
+     */
+    @FXML
+    private ToggleGroup instrumentToggle;
+    
+    private enum Instrument {
+        PIANO, 
+        HARPSICORD, 
+        MARIMBA, 
+        CHURCH_ORGAN, 
+        ACCORDION, 
+        GUITAR, 
+        VIOLIN, 
+        FRENCH_HORN;
+        
+        @Override
+        public String toString() {
+            switch(this) {
+                case PIANO:         return "piano";
+                case HARPSICORD:    return "harpsicord";
+                case MARIMBA:       return "marimba";
+                case CHURCH_ORGAN:  return "church-organ";
+                case ACCORDION:     return "accordion";
+                case GUITAR:        return "guitar";
+                case VIOLIN:        return "violin";
+                case FRENCH_HORN:   return "french-horn";
+                default: throw new IllegalArgumentException();
+            }
+        }
+    }
+    
     
     public TuneComposer() {
         allNotes = new HashSet<Note>();
@@ -163,6 +198,26 @@ public class TuneComposer extends Application {
         // Let mouse events go through to notePane
         playLinePane.setMouseTransparent(true);
         //NOTE: Good that you figured this out!
+    }
+    
+    /**
+     * TODO
+     */
+    private Instrument getInstrument() {
+        RadioButton selectedButton = (RadioButton)instrumentToggle.getSelectedToggle();
+        String instrument = selectedButton.getText();
+        switch(instrument) {
+            case "Piano":           return Instrument.PIANO;
+            case "Harpsicord":      return Instrument.HARPSICORD;
+            case "Marimba":         return Instrument.MARIMBA;
+            case "Church Organ":    return Instrument.CHURCH_ORGAN;
+            case "Accordion":       return Instrument.ACCORDION;
+            case "Guitar":          return Instrument.GUITAR;
+            case "Violin":          return Instrument.VIOLIN;
+            case "French Horn":     return Instrument.FRENCH_HORN;
+            default: 
+                throw new IllegalArgumentException("Unrecognized Instrument");
+        }
     }
     
     /**
