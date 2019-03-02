@@ -4,11 +4,14 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
 <!-- TODO: Wrap long lines -->
@@ -50,4 +53,22 @@
          </content>
       </ScrollPane>
    </center>
+   <left>
+      <VBox prefHeight="1254.0" prefWidth="161.0" BorderPane.alignment="CENTER">
+         <children>
+            <RadioButton mnemonicParsing="false" selected="true" text="Piano">
+               <toggleGroup>
+                  <ToggleGroup fx:id="instrumentToggle" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton mnemonicParsing="false" text="Harpsicord" toggleGroup="$instrumentToggle" />
+            <RadioButton mnemonicParsing="false" text="Marimba" toggleGroup="$instrumentToggle" />
+            <RadioButton mnemonicParsing="false" text="Church Organ" toggleGroup="$instrumentToggle" />
+            <RadioButton mnemonicParsing="false" text="Accordion" toggleGroup="$instrumentToggle" />
+            <RadioButton mnemonicParsing="false" text="Guitar" toggleGroup="$instrumentToggle" />
+            <RadioButton mnemonicParsing="false" text="Violin" toggleGroup="$instrumentToggle" />
+            <RadioButton mnemonicParsing="false" text="French Horn" toggleGroup="$instrumentToggle" />
+         </children>
+      </VBox>
+   </left>
 </BorderPane>

@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.input.MouseEvent;
@@ -75,6 +76,12 @@ public class TuneComposer extends Application {
      */
     @FXML
     private Line movingLine;
+    
+    /**
+     * TODO
+     */
+    @FXML
+    private ToggleGroup instrumentToggle;
     
     public TuneComposer() {
         allNotes = new HashSet<Note>();
