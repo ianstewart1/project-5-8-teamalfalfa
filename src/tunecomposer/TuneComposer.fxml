@@ -7,6 +7,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -31,6 +32,20 @@
               <items>
                 <MenuItem accelerator="Ctrl+P" mnemonicParsing="true" onAction="#startPlaying" text="Play" />
                   <MenuItem accelerator="Ctrl+S" mnemonicParsing="true" onAction="#stopPlaying" text="Stop" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleSelectAll" text="Select All">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                <MenuItem mnemonicParsing="false" onAction="#handleDelete" text="Delete">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="BACK_SPACE" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
               </items>
             </Menu>
         </menus>
