@@ -61,7 +61,7 @@
                   <ToggleGroup fx:id="instrumentToggle" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" styleClass="harpsicord" text="Harpsicord" toggleGroup="$instrumentToggle" />
+            <RadioButton mnemonicParsing="false" styleClass="harpsichord" text="Harpsichord" toggleGroup="$instrumentToggle" />
             <RadioButton mnemonicParsing="false" styleClass="marimba" text="Marimba" toggleGroup="$instrumentToggle" />
             <RadioButton mnemonicParsing="false" styleClass="church-organ" text="Church Organ" toggleGroup="$instrumentToggle" />
             <RadioButton mnemonicParsing="false" styleClass="accordion" text="Accordion" toggleGroup="$instrumentToggle" />
