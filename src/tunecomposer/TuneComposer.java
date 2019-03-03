@@ -225,8 +225,11 @@ public class TuneComposer extends Application {
      * @param event a mouse click
      */
     public void handleClick(MouseEvent event) {
-        //TODO fix third param
-        Note note = new Note(event.getX(), event.getY(), false);
+        //stopPlaying();
+        if (! event.isControlDown()) {
+            selectAll(false);
+        }
+        Note note = new Note(event.getX(), event.getY());
         allNotes.add(note);
         notePane.getChildren().add(note.getRectangle());
     }
@@ -253,9 +256,13 @@ public class TuneComposer extends Application {
      */
     @FXML
     void handleSelectAll(ActionEvent event) {
-        for (Note n : allNotes) {
-            n.setSelected(true);
-        }
+        selectAll(true);
+    }
+    
+    private void selectAll(boolean selected) {
+        allNotes.forEach((note) -> {
+            note.setSelected(selected);
+        });
     }
 
     
