@@ -11,17 +11,13 @@
     -fx-stroke: #e8e8e8;
 }
 
+.note-rect {
+    -fx-fill: #7795F6;
+    -fx-stroke: #000000;
+}
+
 .play-line {
     -fx-stroke: #E81A0B;
-}
-
-.selected {
-    -fx-stroke: #E81A0B;
-    -fx-stroke-width: 3px;
-}
-
-.unselected {
-    -fx-stroke: #000000;
 }
 
 .piano {
