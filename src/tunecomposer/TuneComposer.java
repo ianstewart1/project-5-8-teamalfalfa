@@ -36,7 +36,7 @@ public class TuneComposer extends Application {
      */
     public static final MidiPlayer PLAYER = new MidiPlayer(100,60);
 
-    private final int[] timbreList = new int[] {0, 6, 19, 21, 24, 40, 60};
+    private final int[] timbreList = new int[] {0, 6, 12, 19, 21, 24, 40, 60};
 
     /**
      * The set of all notes, to be played later.
