@@ -39,13 +39,14 @@ public class Note {
      * @param y
      * @param selected 
      */
-    public Note(double x, double y, boolean selected) {
+    public Note(double x, double y, String inst) {
         startTime = (int)x;
         pitch = MAX_PITCH-(int)y/RECTHEIGHT;
         x_coord = x;
         y_coord = y - (y%RECTHEIGHT);
         noteRect = new Rectangle(x_coord, y_coord, RECTWIDTH, RECTHEIGHT);
-        setSelected(selected);
+        noteRect.getStyleClass().addAll("selected", inst);
+        isSelected = true;
         updateLastNote();
     }
 
@@ -80,10 +81,10 @@ public class Note {
     public void setSelected(boolean selected) {
         isSelected = selected;
         if (selected) {
-            noteRect.getStyleClass().remove("unselected");
+            noteRect.getStyleClass().clear();
             noteRect.getStyleClass().add("selected");
         } else {
-            noteRect.getStyleClass().remove("selected");
+            noteRect.getStyleClass().clear();
             noteRect.getStyleClass().add("unselected");
         }
     }

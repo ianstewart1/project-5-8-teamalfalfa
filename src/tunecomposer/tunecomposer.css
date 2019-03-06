@@ -17,15 +17,21 @@
 
 .selected {
     -fx-stroke: #E81A0B;
-    -fx-stroke-width: 3px;
+    -fx-stroke-width: 2px;
 }
 
 .unselected {
     -fx-stroke: #000000;
+    -fx-stroke-width: 1px;
+}
+
+.spacing {
+    -fx-max-width: 161px;
 }
 
 .piano {
     -fx-background-color: lightgray;
+    -fx-fill: lightgray;
 }
 
 .harpsicord {

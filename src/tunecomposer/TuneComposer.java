@@ -225,11 +225,12 @@ public class TuneComposer extends Application {
      * @param event a mouse click
      */
     public void handleClick(MouseEvent event) {
-        //stopPlaying();
+        // TODO: stopPlaying();
         if (! event.isControlDown()) {
             selectAll(false);
         }
-        Note note = new Note(event.getX(), event.getY());
+        Instrument instrument = getInstrument();
+        Note note = new Note(event.getX(), event.getY(), instrument.toString());
         allNotes.add(note);
         notePane.getChildren().add(note.getRectangle());
     }

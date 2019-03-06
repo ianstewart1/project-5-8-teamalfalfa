@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -71,18 +72,50 @@
    <left>
       <VBox prefHeight="1254.0" prefWidth="161.0" BorderPane.alignment="CENTER">
          <children>
-            <RadioButton mnemonicParsing="false" selected="true" styleClass="piano" text="Piano">
+            <RadioButton mnemonicParsing="false" selected="true" text="Piano">
                <toggleGroup>
                   <ToggleGroup fx:id="instrumentToggle" />
                </toggleGroup>
+               <styleClass>
+                  <String fx:value="piano" />
+                  <String fx:value="spacing" />
+               </styleClass>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" styleClass="harpsicord" text="Harpsicord" toggleGroup="$instrumentToggle" />
-            <RadioButton mnemonicParsing="false" styleClass="marimba" text="Marimba" toggleGroup="$instrumentToggle" />
-            <RadioButton mnemonicParsing="false" styleClass="church-organ" text="Church Organ" toggleGroup="$instrumentToggle" />
-            <RadioButton mnemonicParsing="false" styleClass="accordion" text="Accordion" toggleGroup="$instrumentToggle" />
-            <RadioButton mnemonicParsing="false" styleClass="guitar" text="Guitar" toggleGroup="$instrumentToggle" />
-            <RadioButton mnemonicParsing="false" styleClass="violin" text="Violin" toggleGroup="$instrumentToggle" />
-            <RadioButton mnemonicParsing="false" styleClass="french-horn" text="French Horn" toggleGroup="$instrumentToggle" />
+            <RadioButton mnemonicParsing="false" text="Harpsicord" toggleGroup="$instrumentToggle">
+               <styleClass>
+                  <String fx:value="harpsicord" />
+                  <String fx:value="spacing" />
+               </styleClass></RadioButton>
+            <RadioButton mnemonicParsing="false" text="Marimba" toggleGroup="$instrumentToggle">
+               <styleClass>
+                  <String fx:value="marimba" />
+                  <String fx:value="spacing" />
+               </styleClass></RadioButton>
+            <RadioButton mnemonicParsing="false" text="Church Organ" toggleGroup="$instrumentToggle">
+               <styleClass>
+                  <String fx:value="church-organ" />
+                  <String fx:value="spacing" />
+               </styleClass></RadioButton>
+            <RadioButton mnemonicParsing="false" text="Accordion" toggleGroup="$instrumentToggle">
+               <styleClass>
+                  <String fx:value="accordion" />
+                  <String fx:value="spacing" />
+               </styleClass></RadioButton>
+            <RadioButton mnemonicParsing="false" text="Guitar" toggleGroup="$instrumentToggle">
+               <styleClass>
+                  <String fx:value="guitar" />
+                  <String fx:value="spacing" />
+               </styleClass></RadioButton>
+            <RadioButton mnemonicParsing="false" text="Violin" toggleGroup="$instrumentToggle">
+               <styleClass>
+                  <String fx:value="violin" />
+                  <String fx:value="spacing" />
+               </styleClass></RadioButton>
+            <RadioButton mnemonicParsing="false" text="French Horn" toggleGroup="$instrumentToggle">
+               <styleClass>
+                  <String fx:value="french-horn" />
+                  <String fx:value="spacing" />
+               </styleClass></RadioButton>
          </children>
       </VBox>
    </left>
