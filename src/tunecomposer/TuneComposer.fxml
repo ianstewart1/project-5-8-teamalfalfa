@@ -8,7 +8,6 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -33,20 +32,6 @@
               <items>
                 <MenuItem accelerator="Ctrl+P" mnemonicParsing="true" onAction="#startPlaying" text="Play" />
                   <MenuItem accelerator="Ctrl+S" mnemonicParsing="true" onAction="#stopPlaying" text="Stop" />
-              </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Edit">
-              <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleSelectAll" text="Select All">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-                <MenuItem mnemonicParsing="false" onAction="#handleDelete" text="Delete">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="BACK_SPACE" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
               </items>
             </Menu>
         </menus>
@@ -81,41 +66,13 @@
                   <String fx:value="spacing" />
                </styleClass>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="Harpsicord" toggleGroup="$instrumentToggle">
-               <styleClass>
-                  <String fx:value="harpsicord" />
-                  <String fx:value="spacing" />
-               </styleClass></RadioButton>
-            <RadioButton mnemonicParsing="false" text="Marimba" toggleGroup="$instrumentToggle">
-               <styleClass>
-                  <String fx:value="marimba" />
-                  <String fx:value="spacing" />
-               </styleClass></RadioButton>
-            <RadioButton mnemonicParsing="false" text="Church Organ" toggleGroup="$instrumentToggle">
-               <styleClass>
-                  <String fx:value="church-organ" />
-                  <String fx:value="spacing" />
-               </styleClass></RadioButton>
-            <RadioButton mnemonicParsing="false" text="Accordion" toggleGroup="$instrumentToggle">
-               <styleClass>
-                  <String fx:value="accordion" />
-                  <String fx:value="spacing" />
-               </styleClass></RadioButton>
-            <RadioButton mnemonicParsing="false" text="Guitar" toggleGroup="$instrumentToggle">
-               <styleClass>
-                  <String fx:value="guitar" />
-                  <String fx:value="spacing" />
-               </styleClass></RadioButton>
-            <RadioButton mnemonicParsing="false" text="Violin" toggleGroup="$instrumentToggle">
-               <styleClass>
-                  <String fx:value="violin" />
-                  <String fx:value="spacing" />
-               </styleClass></RadioButton>
-            <RadioButton mnemonicParsing="false" text="French Horn" toggleGroup="$instrumentToggle">
-               <styleClass>
-                  <String fx:value="french-horn" />
-                  <String fx:value="spacing" />
-               </styleClass></RadioButton>
+            <RadioButton mnemonicParsing="false" styleClass="harpsichord" text="Harpsichord" toggleGroup="$instrumentToggle" />
+            <RadioButton mnemonicParsing="false" styleClass="marimba" text="Marimba" toggleGroup="$instrumentToggle" />
+            <RadioButton mnemonicParsing="false" styleClass="church-organ" text="Church Organ" toggleGroup="$instrumentToggle" />
+            <RadioButton mnemonicParsing="false" styleClass="accordion" text="Accordion" toggleGroup="$instrumentToggle" />
+            <RadioButton mnemonicParsing="false" styleClass="guitar" text="Guitar" toggleGroup="$instrumentToggle" />
+            <RadioButton mnemonicParsing="false" styleClass="violin" text="Violin" toggleGroup="$instrumentToggle" />
+            <RadioButton mnemonicParsing="false" styleClass="french-horn" text="French Horn" toggleGroup="$instrumentToggle" />
          </children>
       </VBox>
    </left>

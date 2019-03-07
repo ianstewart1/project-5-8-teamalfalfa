@@ -11,11 +11,12 @@
     -fx-stroke: #e8e8e8;
 }
 
-.play-line {
-    -fx-stroke: #E81A0B;
+.note-rect {
+    -fx-fill: #7795F6;
+    -fx-stroke: #000000;
 }
 
-.selected {
+.play-line {
     -fx-stroke: #E81A0B;
     -fx-stroke-width: 2px;
 }
@@ -34,7 +35,7 @@
     -fx-fill: lightgray;
 }
 
-.harpsicord {
+.harpsichord {
     -fx-background-color: beige;
 }
 

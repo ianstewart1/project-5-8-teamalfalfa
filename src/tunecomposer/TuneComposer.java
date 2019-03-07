@@ -22,20 +22,22 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javax.sound.midi.ShortMessage;
 
 /**
  * This JavaFX app lets the user play scales.
- * @author Madi, Ian, Haley, Nathaniel
+ * @author Ian[0], Ian[1], Angie, Melissa
  * @since January 26, 2017
  */
 public class TuneComposer extends Application {
-    
+
      /**
      * A MidiPlayer for all notes to use.
      */
     public static final MidiPlayer PLAYER = new MidiPlayer(100,60);
-    
-    
+
+    private final int[] timbreList = new int[] {0, 6, 12, 19, 21, 24, 40, 60};
+
     /**
      * The set of all notes, to be played later.
      */
@@ -53,52 +55,70 @@ public class TuneComposer extends Application {
      * Controls the movement of playLine.
      */
     private Timeline timeline;
-    
+
     /**
      * The background of the application.
      */
     @FXML
     private Group background;
-    
+
     /**
      * The pane in which notes are constructed.
      */
     @FXML
     private Pane notePane;
-    
+
     /**
      * The pane in which the play line is constructed and plays.
      */
     @FXML
     private AnchorPane playLinePane;
-    
+
     /**
-     * TODO
+     * The line wrapped by PlayLine.
      */
     @FXML
     private Line movingLine;
-    
+
     /**
-     * TODO
+     * A group of sidebar radio buttons for selecting an instrument.
      */
     @FXML
     private ToggleGroup instrumentToggle;
-    
+
     private enum Instrument {
-        PIANO, 
-        HARPSICORD, 
-        MARIMBA, 
-        CHURCH_ORGAN, 
-        ACCORDION, 
-        GUITAR, 
-        VIOLIN, 
+//        PIANO (0),
+//        HARPSICHORD (6),
+//        MARIMBA (12),
+//        CHURCH_ORGAN (19),
+//        ACCORDION (21),
+//        GUITAR (24),
+//        VIOLIN (40),
+//        FRENCH_HORN (60);
+        PIANO,
+        HARPSICHORD,
+        MARIMBA,
+        CHURCH_ORGAN,
+        ACCORDION,
+        GUITAR,
+        VIOLIN,
         FRENCH_HORN;
-        
+
+//        private int timbre;
+//
+//        Instrument(int value) {
+//           timbre = value;
+//        }
+//
+//        public int getTimbre(){
+//            return timbre;
+//        }
+
         @Override
         public String toString() {
             switch(this) {
                 case PIANO:         return "piano";
-                case HARPSICORD:    return "harpsicord";
+                case HARPSICHORD:    return "harpsichord";
                 case MARIMBA:       return "marimba";
                 case CHURCH_ORGAN:  return "church-organ";
                 case ACCORDION:     return "accordion";
@@ -109,12 +129,12 @@ public class TuneComposer extends Application {
             }
         }
     }
-    
-    
+
+
     public TuneComposer() {
         allNotes = new HashSet<Note>();
     }
-    
+
     /**
      * Add the given note to the set of all notes, to be played later.
      * @param note note added to composition
@@ -122,7 +142,7 @@ public class TuneComposer extends Application {
     public static void addNote(Note note) {
         allNotes.add(note);
     }
-    
+
     /**
      * Plays notes that have been added.
      * Called when the Play button is clicked.
@@ -134,14 +154,14 @@ public class TuneComposer extends Application {
             note.schedule();
         });
         //NOTE: Nice use of higher-order programming!
-        //NOTE: You could write this all on one line and it would still be 
+        //NOTE: You could write this all on one line and it would still be
         //      readable.
-        
-        PLAYER.play();      
+
+        PLAYER.play();
         playLine.play(Note.getNotesEnd());
     }
-    
-    //TODO: Overloading doesn't seem right here. Could you name the 
+
+    //TODO: Overloading doesn't seem right here. Could you name the
     //      event handlers so that it's clear they are event handlers?
     /**
      * Overload version of startPlaying() which ignores an ActionEvent.
@@ -159,18 +179,18 @@ public class TuneComposer extends Application {
     public void stopPlaying() {
         PLAYER.stop();
         playLine.stop();
-        
+
     }
 
     /**
      * When the user clicks the "Stop playing" button, stop playing the scale.
      * @param event the button click event
      */
-    @FXML 
+    @FXML
     protected void stopPlaying(ActionEvent event) {
         stopPlaying();
     }
-    
+
     /**
      * When the user clicks the "Exit" menu item, exit the program.
      * @param event the menu selection event
@@ -179,7 +199,7 @@ public class TuneComposer extends Application {
     protected void handleExitMenuItemAction(ActionEvent event) {
         System.exit(0);
     }
-    
+
     /**
      * Initializes FXML. Called automatically.
      * (1) adds 127 grey lines to background
@@ -199,27 +219,28 @@ public class TuneComposer extends Application {
         playLinePane.setMouseTransparent(true);
         //NOTE: Good that you figured this out!
     }
-    
+
     /**
-     * TODO
+     * Get the instrument currently selected in the sidebar.
+     * @return the selected instrument
      */
     private Instrument getInstrument() {
         RadioButton selectedButton = (RadioButton)instrumentToggle.getSelectedToggle();
         String instrument = selectedButton.getText();
         switch(instrument) {
             case "Piano":           return Instrument.PIANO;
-            case "Harpsicord":      return Instrument.HARPSICORD;
+            case "Harpsichord":      return Instrument.HARPSICHORD;
             case "Marimba":         return Instrument.MARIMBA;
             case "Church Organ":    return Instrument.CHURCH_ORGAN;
             case "Accordion":       return Instrument.ACCORDION;
             case "Guitar":          return Instrument.GUITAR;
             case "Violin":          return Instrument.VIOLIN;
             case "French Horn":     return Instrument.FRENCH_HORN;
-            default: 
+            default:
                 throw new IllegalArgumentException("Unrecognized Instrument");
         }
     }
-    
+
     /**
      * Construct a note from a click. Called via FXML.
      * @param event a mouse click
@@ -232,9 +253,9 @@ public class TuneComposer extends Application {
         Instrument instrument = getInstrument();
         Note note = new Note(event.getX(), event.getY(), instrument.toString());
         allNotes.add(note);
-        notePane.getChildren().add(note.getRectangle());
+        notePane.getChildren().add(note.draw());
     }
-    
+
     /**
      * TODO
      * @param event 
@@ -265,17 +286,19 @@ public class TuneComposer extends Application {
             note.setSelected(selected);
         });
     }
-
-    
     /**
      * Construct the scene and start the application.
      * @param primaryStage the stage for the main window
      * @throws java.io.IOException
      */
     @Override
-    public void start(Stage primaryStage) throws IOException {                
+    public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("TuneComposer.fxml"));
         Scene scene = new Scene(root);
+
+        for(int i=0; i<8; i++){
+            PLAYER.addMidiEvent(ShortMessage.PROGRAM_CHANGE + i, timbreList[i], 0, 0, 0);
+        }
 
         primaryStage.setTitle("Scale Player");
         primaryStage.setScene(scene);
@@ -294,5 +317,5 @@ public class TuneComposer extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
