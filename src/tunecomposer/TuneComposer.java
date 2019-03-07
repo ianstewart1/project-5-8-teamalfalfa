@@ -253,7 +253,7 @@ public class TuneComposer extends Application {
         Instrument instrument = getInstrument();
         Note note = new Note(event.getX(), event.getY(), instrument.toString());
         allNotes.add(note);
-        notePane.getChildren().add(note.draw());
+        notePane.getChildren().add(note.getRectangle());
     }
 
     /**
