@@ -246,11 +246,46 @@ public class TuneComposer extends Application {
      * @param event a mouse click
      */
     public void handleClick(MouseEvent event) {
-        Note note = new Note(event.getX(), event.getY());
+        // TODO: stopPlaying();
+        if (! event.isControlDown()) {
+            selectAll(false);
+        }
+        Instrument instrument = getInstrument();
+        Note note = new Note(event.getX(), event.getY(), instrument.toString());
         allNotes.add(note);
-        notePane.getChildren().add(note.draw());
+        notePane.getChildren().add(note.getRectangle());
     }
 
+    /**
+     * TODO
+     * @param event 
+     */
+    @FXML
+    void handleDelete(ActionEvent event) {
+        Collection toDelete = new ArrayList();
+        allNotes.forEach((note) -> {
+            if (note.getSelected()) {
+                toDelete.add(note);
+                notePane.getChildren().remove(note.getRectangle());
+            }
+        });
+        allNotes.removeAll(toDelete);
+    }
+    
+    /**
+     * TODO
+     * @param event 
+     */
+    @FXML
+    void handleSelectAll(ActionEvent event) {
+        selectAll(true);
+    }
+    
+    private void selectAll(boolean selected) {
+        allNotes.forEach((note) -> {
+            note.setSelected(selected);
+        });
+    }
     /**
      * Construct the scene and start the application.
      * @param primaryStage the stage for the main window

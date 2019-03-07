@@ -23,32 +23,32 @@ public class Note {
     private static final int DURATION = 100;
     private static final int RECTWIDTH = 100;
     private static final int RECTHEIGHT = 10;
+    private static final int MAX_PITCH = 128;
     
     private static double lastNoteX = 0;
     
-    //NOTE: You haven't documented these private fields, but
-    //      they are pretty self-explanatory.
-    //TODO: That said, it seems a bit inelegant for a Note
-    //      to maintain a reference to a TuneComposer. 
-    //      If a TuneComposer object is calling the methods where
-    //      this field is used, could it pass itself as a parameter?
-    //private TuneComposer composer;
+    private Rectangle noteRect;
     private double x_coord;
     private double y_coord;       // Rounded to the grey line above
     private int startTime;
     private int pitch;
+    
+    private boolean isSelected;
 
-    //TODO: Document constructors as well as other methods
-    public Note(double x, double y) {
-        //this.composer = composer;
-
+    /**
+     * TODO
+     * @param x
+     * @param y
+     * @param selected 
+     */
+    public Note(double x, double y, String inst) {
         startTime = (int)x;
-        //TODO: Where does 128 come from?
-        //TODO: (Otherwise you are doing relatively well at 
-        //      avoiding magic numbers.)
-        pitch = 128-(int)y/RECTHEIGHT;
+        pitch = MAX_PITCH-(int)y/RECTHEIGHT;
         x_coord = x;
         y_coord = y - (y%RECTHEIGHT);
+        noteRect = new Rectangle(x_coord, y_coord, RECTWIDTH, RECTHEIGHT);
+        noteRect.getStyleClass().addAll("selected", inst);
+        isSelected = true;
         updateLastNote();
     }
 
@@ -64,9 +64,7 @@ public class Note {
         //TODO: Where does 100 come from?
     }
     
-    public Rectangle draw() {
-        Rectangle noteRect = new Rectangle(x_coord, y_coord, RECTWIDTH, RECTHEIGHT);
-        noteRect.getStyleClass().add("note-rect");
+    public Rectangle getRectangle() {
         return noteRect;
     }
     
@@ -78,5 +76,23 @@ public class Note {
         return "Start Time: " + startTime + ", Pitch: " + pitch;
     }
     
+    public boolean getSelected() {
+        return isSelected;
+    }
+    
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+        if (selected) {
+            noteRect.getStyleClass().clear();
+            noteRect.getStyleClass().add("selected");
+        } else {
+            noteRect.getStyleClass().clear();
+            noteRect.getStyleClass().add("unselected");
+        }
+    }
+    
+    public void toggleSelected() {
+        isSelected = !isSelected;
+    }
     
 }

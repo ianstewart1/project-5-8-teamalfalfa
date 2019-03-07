@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -7,6 +8,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -32,6 +34,20 @@
                 <MenuItem accelerator="Ctrl+P" mnemonicParsing="true" onAction="#startPlaying" text="Play" />
                   <MenuItem accelerator="Ctrl+S" mnemonicParsing="true" onAction="#stopPlaying" text="Stop" />
               </items>
+           </Menu>
+           <Menu mnemonicParsing="false" text="Edit">
+              <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleSelectAll" text="Select All">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                <MenuItem mnemonicParsing="false" onAction="#handleDelete" text="Delete">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="BACK_SPACE" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+              </items>
             </Menu>
         </menus>
       </MenuBar>
@@ -56,10 +72,14 @@
    <left>
       <VBox prefHeight="1254.0" prefWidth="161.0" BorderPane.alignment="CENTER">
          <children>
-            <RadioButton mnemonicParsing="false" selected="true" styleClass="piano" text="Piano">
+            <RadioButton mnemonicParsing="false" selected="true" text="Piano">
                <toggleGroup>
                   <ToggleGroup fx:id="instrumentToggle" />
                </toggleGroup>
+               <styleClass>
+                  <String fx:value="piano" />
+                  <String fx:value="spacing" />
+               </styleClass>
             </RadioButton>
             <RadioButton mnemonicParsing="false" styleClass="harpsichord" text="Harpsichord" toggleGroup="$instrumentToggle" />
             <RadioButton mnemonicParsing="false" styleClass="marimba" text="Marimba" toggleGroup="$instrumentToggle" />
