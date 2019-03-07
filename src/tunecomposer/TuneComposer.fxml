@@ -31,8 +31,8 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Action">
               <items>
-                <MenuItem accelerator="Ctrl+P" mnemonicParsing="true" onAction="#startPlaying" text="Play" />
-                  <MenuItem accelerator="Ctrl+S" mnemonicParsing="true" onAction="#stopPlaying" text="Stop" />
+                <MenuItem accelerator="Ctrl+P" mnemonicParsing="true" onAction="#handleStartPlaying" text="Play" />
+                  <MenuItem accelerator="Ctrl+S" mnemonicParsing="true" onAction="#handleStopPlaying" text="Stop" />
               </items>
            </Menu>
            <Menu mnemonicParsing="false" text="Edit">

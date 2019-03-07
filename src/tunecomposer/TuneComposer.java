@@ -110,21 +110,17 @@ public class TuneComposer extends Application {
         allNotes.forEach((note) -> {
             note.schedule();
         });
-        //NOTE: Nice use of higher-order programming!
-        //NOTE: You could write this all on one line and it would still be
-        //      readable.
 
         PLAYER.play();
         playLine.play(Note.getNotesEnd());
     }
 
-    //TODO: Overloading doesn't seem right here. Could you name the
-    //      event handlers so that it's clear they are event handlers?
     /**
      * Overload version of startPlaying() which ignores an ActionEvent.
      * @param ignored not used
      */
-    public void startPlaying(ActionEvent ignored) {
+    @FXML
+    public void handleStartPlaying(ActionEvent ignored) {
         startPlaying();
     }
 
@@ -144,7 +140,7 @@ public class TuneComposer extends Application {
      * @param event the button click event
      */
     @FXML
-    protected void stopPlaying(ActionEvent event) {
+    protected void handleStopPlaying(ActionEvent event) {
         stopPlaying();
     }
 
@@ -203,8 +199,11 @@ public class TuneComposer extends Application {
      * @param event a mouse click
      */
     public void handleClick(MouseEvent event) {
-        // TODO: stopPlaying();
-        if (createNewNote) {
+        System.out.println(playLine.isPlaying());
+        if (playLine.isPlaying()) {
+            stopPlaying();
+        }
+        else if (createNewNote) {
             if (! event.isControlDown()) {
                 selectAll(false);
             }
