@@ -55,6 +55,8 @@ public class TuneComposer extends Application {
      * Controls the movement of playLine.
      */
     private Timeline timeline;
+    
+    private boolean createNewNote = true;
 
     /**
      * The background of the application.
@@ -85,51 +87,6 @@ public class TuneComposer extends Application {
      */
     @FXML
     private ToggleGroup instrumentToggle;
-
-    private enum Instrument {
-//        PIANO (0),
-//        HARPSICHORD (6),
-//        MARIMBA (12),
-//        CHURCH_ORGAN (19),
-//        ACCORDION (21),
-//        GUITAR (24),
-//        VIOLIN (40),
-//        FRENCH_HORN (60);
-        PIANO,
-        HARPSICHORD,
-        MARIMBA,
-        CHURCH_ORGAN,
-        ACCORDION,
-        GUITAR,
-        VIOLIN,
-        FRENCH_HORN;
-
-//        private int timbre;
-//
-//        Instrument(int value) {
-//           timbre = value;
-//        }
-//
-//        public int getTimbre(){
-//            return timbre;
-//        }
-
-        @Override
-        public String toString() {
-            switch(this) {
-                case PIANO:         return "piano";
-                case HARPSICHORD:    return "harpsichord";
-                case MARIMBA:       return "marimba";
-                case CHURCH_ORGAN:  return "church-organ";
-                case ACCORDION:     return "accordion";
-                case GUITAR:        return "guitar";
-                case VIOLIN:        return "violin";
-                case FRENCH_HORN:   return "french-horn";
-                default: throw new IllegalArgumentException();
-            }
-        }
-    }
-
 
     public TuneComposer() {
         allNotes = new HashSet<Note>();
@@ -247,13 +204,34 @@ public class TuneComposer extends Application {
      */
     public void handleClick(MouseEvent event) {
         // TODO: stopPlaying();
-        if (! event.isControlDown()) {
-            selectAll(false);
+        if (createNewNote) {
+            if (! event.isControlDown()) {
+                selectAll(false);
+            }
+            Instrument instrument = getInstrument();
+            Note note = new Note(event.getX(), event.getY(), instrument);
+            allNotes.add(note);
+            notePane.getChildren().add(note.getRectangle());
+            note.getRectangle().setOnMouseClicked((MouseEvent ev) ->  {
+                handleNoteClick(ev, note);
+            });
         }
-        Instrument instrument = getInstrument();
-        Note note = new Note(event.getX(), event.getY(), instrument.toString());
-        allNotes.add(note);
-        notePane.getChildren().add(note.getRectangle());
+        createNewNote = true;
+
+    }
+    
+    private void handleNoteClick(MouseEvent event, Note note) {
+        createNewNote = false;
+        boolean control = event.isControlDown();
+        boolean selected = note.getSelected();
+        if (! control && ! selected) {
+            selectAll(false);
+            note.setSelected(true);
+        } else if ( control && ! selected) {
+            note.setSelected(true);
+        } else if (control && selected) {
+            note.setSelected(false);
+        }
     }
 
     /**
