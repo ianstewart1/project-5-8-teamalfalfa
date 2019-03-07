@@ -86,8 +86,13 @@ public class TuneComposer extends Application {
     /**
      * An area for click-and-drag note selection.
      */
+    private SelectionArea selection;
+
+    /**
+     * TODO
+     */
     @FXML
-    private Rectangle selectionRectangle;
+    private Rectangle selectRect;
 
     /**
      * A group of sidebar radio buttons for selecting an instrument.
@@ -227,6 +232,8 @@ public class TuneComposer extends Application {
         // Let mouse events go through to notePane
         playLinePane.setMouseTransparent(true);
         //NOTE: Good that you figured this out!
+
+        selection = new SelectionArea(selectRect);
     }
 
     /**
@@ -255,6 +262,7 @@ public class TuneComposer extends Application {
      * @param event a mouse click
      */
     public void handleClick(MouseEvent event) {
+        // TODO stop note from being created at release of selection rectangle
         System.out.println("Cluck");
         Note note = new Note(event.getX(), event.getY());
         allNotes.add(note);
@@ -263,23 +271,15 @@ public class TuneComposer extends Application {
 
     public void startDrag(MouseEvent event) {
 
-        // TODO We might choose not to use this method and only use
-        // `continueDrag` to detect the start of a drag.
-
         // TODO If the ctrl key isn't pressed, deselect all notes.
         //      If the ctrl key is pressed, add to the existing selection.
 
         // Put first rectangle corner at cursor
-        selectionRectangle.setX(event.getX());
-        selectionRectangle.setY(event.getY());
-
-        // Make rectangle visible
-        selectionRectangle.setVisible(true);
+        selection.startRectangle(event.getX(), event.getY());
 
         // TODO These lines are for testing
         System.out.println("Start drag");
-        selectionRectangle.setWidth(100);
-        selectionRectangle.setHeight(70);
+
     }
 
     public void continueDrag(MouseEvent event) {
@@ -288,15 +288,19 @@ public class TuneComposer extends Application {
         // We need a container of sorta-selected notes that fall within the
         // rectangle but aren't fully selected yet.
 
-        // TODO If we've started dragging, update the width and height of the
-        // rectangle.
+        // TODO Update the width and height of the rectangle.
+        selection.update(event.getX(), event.getY());
 
-        // TODO It might make sense to have a SelectionRectangle class with its own
+        // TODO It might make sense to have a selectRect class with its own
         // properties, so that we can keep track of how far the mouse has been
         // dragged.
         // Alternatively, we can get the coordinates of the rectangle's first
         // corner and compare those values to the click coordinates to
         // calculate the rectangle's new width and height.
+    }
+    
+    public void endDrag(MouseEvent event){
+        selection.endRectangle();
     }
 
     /**
