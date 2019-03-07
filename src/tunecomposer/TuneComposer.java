@@ -36,6 +36,9 @@ public class TuneComposer extends Application {
      */
     public static final MidiPlayer PLAYER = new MidiPlayer(100,60);
 
+    /**
+     * A list of instrument values to associate with MidiPlayer channels
+     */
     private final int[] timbreList = new int[] {0, 6, 12, 19, 21, 24, 40, 60};
 
     /**
@@ -79,6 +82,12 @@ public class TuneComposer extends Application {
      */
     @FXML
     private Line movingLine;
+
+    /**
+     * An area for click-and-drag note selection.
+     */
+    @FXML
+    private Rectangle selectionRectangle;
 
     /**
      * A group of sidebar radio buttons for selecting an instrument.
@@ -229,7 +238,7 @@ public class TuneComposer extends Application {
         String instrument = selectedButton.getText();
         switch(instrument) {
             case "Piano":           return Instrument.PIANO;
-            case "Harpsichord":      return Instrument.HARPSICHORD;
+            case "Harpsichord":     return Instrument.HARPSICHORD;
             case "Marimba":         return Instrument.MARIMBA;
             case "Church Organ":    return Instrument.CHURCH_ORGAN;
             case "Accordion":       return Instrument.ACCORDION;
@@ -246,9 +255,48 @@ public class TuneComposer extends Application {
      * @param event a mouse click
      */
     public void handleClick(MouseEvent event) {
+        System.out.println("Cluck");
         Note note = new Note(event.getX(), event.getY());
         allNotes.add(note);
         notePane.getChildren().add(note.draw());
+    }
+
+    public void startDrag(MouseEvent event) {
+
+        // TODO We might choose not to use this method and only use
+        // `continueDrag` to detect the start of a drag.
+
+        // TODO If the ctrl key isn't pressed, deselect all notes.
+        //      If the ctrl key is pressed, add to the existing selection.
+
+        // Put first rectangle corner at cursor
+        selectionRectangle.setX(event.getX());
+        selectionRectangle.setY(event.getY());
+
+        // Make rectangle visible
+        selectionRectangle.setVisible(true);
+
+        // TODO These lines are for testing
+        System.out.println("Start drag");
+        selectionRectangle.setWidth(100);
+        selectionRectangle.setHeight(70);
+    }
+
+    public void continueDrag(MouseEvent event) {
+        System.out.println("Drug");
+        // TODO Select all notes within the rectangle and deselect others.
+        // We need a container of sorta-selected notes that fall within the
+        // rectangle but aren't fully selected yet.
+
+        // TODO If we've started dragging, update the width and height of the
+        // rectangle.
+
+        // TODO It might make sense to have a SelectionRectangle class with its own
+        // properties, so that we can keep track of how far the mouse has been
+        // dragged.
+        // Alternatively, we can get the coordinates of the rectangle's first
+        // corner and compare those values to the click coordinates to
+        // calculate the rectangle's new width and height.
     }
 
     /**

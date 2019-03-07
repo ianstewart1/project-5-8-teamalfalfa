@@ -20,6 +20,11 @@
     -fx-stroke: #E81A0B;
 }
 
+.selection-rect {
+    -fx-fill: transparent;
+    -fx-stroke: #f2c500;
+}
+
 .piano {
     -fx-background-color: lightgray;
 }
