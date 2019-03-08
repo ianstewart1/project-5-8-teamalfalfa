@@ -37,6 +37,9 @@ public class TuneComposer extends Application {
      */
     public static final MidiPlayer PLAYER = new MidiPlayer(100,60);
 
+    /**
+     * A list of instrument values to associate with MidiPlayer channels
+     */
     private final int[] timbreList = new int[] {0, 6, 12, 19, 21, 24, 40, 60};
 
     /**
@@ -57,6 +60,9 @@ public class TuneComposer extends Application {
      */
     private Timeline timeline;
     
+    /**
+     * TODO
+     */
     private boolean createNewNote = true;
 
     /**
@@ -82,6 +88,17 @@ public class TuneComposer extends Application {
      */
     @FXML
     private Line movingLine;
+
+    /**
+     * An area for click-and-drag note selection.
+     */
+    private SelectionArea selection;
+
+    /**
+     * TODO
+     */
+    @FXML
+    private Rectangle selectRect;
 
     /**
      * A group of sidebar radio buttons for selecting an instrument.
@@ -172,6 +189,8 @@ public class TuneComposer extends Application {
         // Let mouse events go through to notePane
         playLinePane.setMouseTransparent(true);
         //NOTE: Good that you figured this out!
+
+        selection = new SelectionArea(selectRect);
     }
 
     /**
@@ -183,7 +202,7 @@ public class TuneComposer extends Application {
         String instrument = selectedButton.getText();
         switch(instrument) {
             case "Piano":           return Instrument.PIANO;
-            case "Harpsichord":      return Instrument.HARPSICHORD;
+            case "Harpsichord":     return Instrument.HARPSICHORD;
             case "Marimba":         return Instrument.MARIMBA;
             case "Church Organ":    return Instrument.CHURCH_ORGAN;
             case "Accordion":       return Instrument.ACCORDION;
@@ -267,6 +286,35 @@ public class TuneComposer extends Application {
         });
     }
 
+    public void startDrag(MouseEvent event) {
+
+        // TODO If the ctrl key isn't pressed, deselect all notes.
+        //      If the ctrl key is pressed, add to the existing selection.
+
+        // Put first rectangle corner at cursor
+        selection.startRectangle(event.getX(), event.getY());
+    }
+
+    public void continueDrag(MouseEvent event) {
+        // TODO Select all notes within the rectangle and deselect others.
+        // We need a container of sorta-selected notes that fall within the
+        // rectangle but aren't fully selected yet.
+
+        // TODO Update the width and height of the rectangle.
+        selection.update(event.getX(), event.getY());
+
+        // TODO It might make sense to have a selectRect class with its own
+        // properties, so that we can keep track of how far the mouse has been
+        // dragged.
+        // Alternatively, we can get the coordinates of the rectangle's first
+        // corner and compare those values to the click coordinates to
+        // calculate the rectangle's new width and height.
+    }
+    
+    public void endDrag(MouseEvent event){
+        selection.endRectangle();
+    }
+
     /**
      * TODO
      * @param event 
@@ -292,11 +340,15 @@ public class TuneComposer extends Application {
         selectAll(true);
     }
     
+    /**
+     * TODO
+     */
     private void selectAll(boolean selected) {
         allNotes.forEach((note) -> {
             note.setSelected(selected);
         });
     }
+
     /**
      * Construct the scene and start the application.
      * @param primaryStage the stage for the main window
