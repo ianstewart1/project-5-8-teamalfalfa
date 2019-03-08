@@ -26,7 +26,6 @@
         <menus>
           <Menu text="File">
             <items>
-            <!-- TODO: Make accelerators platform-independent. I should be able to use Command-Q on my Mac. -->
               <MenuItem onAction="#handleExitMenuItemAction" text="Exit" >
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Q" control="DOWN" 
