@@ -1,7 +1,7 @@
 # README.md
 
 #### Give a concise overview of your design. How did you divide the code into classes and methods, and why? How does your 
-design for Project 4 differ from the design you inherited for Project 3? How did you respond to my feedback on that solution?
+#### design for Project 4 differ from the design you inherited for Project 3? How did you respond to my feedback on that solution?
 
 * We divided our code into five classes, adding SelectionArea and Instrument to the pre-existing ones from project 3. We 
 used Instrument.java to handle our instrument enumeration, and SelectionArea.java was implemented to handle the selection when
