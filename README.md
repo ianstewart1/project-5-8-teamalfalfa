@@ -1,4 +1,4 @@
-# project-4-ian-melissa-angie-ian
+# README.md
 project-4-ian-melissa-angie-ian created by GitHub Classroom
 
 Give a concise overview of your design. How did you divide the code into classes and methods, and why? How does your 
