@@ -11,7 +11,7 @@ project 3 and corrected/modified to account for them wherever we could when work
 #### Explain what, if anything, in your solution is inelegant and why you didn't make it elegant (for example, maybe you didn't have time or the knowledge to fix it).
 
 * We were unable to refactor some of our more complicated methods to have them operate on the same level of abstraction as we 
-ended up running out of time working to finish up functionality and add last-minute javadoc comments. We were also unable
+ended up running out of time while working to finish up functionality and add last-minute javadoc comments. We were also unable
 to transition the path for the PlayLine to the recommended implementation from your comments on project 3 due to the same
 reason as above.
 
@@ -26,6 +26,5 @@ error spotting, as the article earlier this semester suggested it might).
 #### In your reflection on collaboration, include a reflection on estimation: How did you use your estimates? For which requirement(s) did you make the most inaccurate estimate(s)? Why?
 
 * We used our estimate to gauge how long we anticipated the project would take, and especially as a progress indicator 
-as we worked throught the various project requirements. A lot of our estimates we noe especially accurate, as we
-ended up implementing things in a different order than I think we anticipated we would during the planning poker
-phase.
+as we worked throught the various project requirements. A lot of our estimates were not especially accurate, as we
+ended up implementing things in a different order than we anticipated we would during the planning poker phase.
