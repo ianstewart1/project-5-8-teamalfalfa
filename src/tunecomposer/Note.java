@@ -4,11 +4,8 @@
  * and open the template in the editor.
  */
 package tunecomposer;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
-import javafx.scene.paint.Color;
 
 
 //TODO: Write Javadoc for classes
@@ -22,21 +19,23 @@ public class Note {
      * Play notes at maximum volume.
      */
     private static final int VOLUME = 127;
-    private static final int DURATION = 100;
-    private static final int RECTWIDTH = 100;
     private static final int RECTHEIGHT = 10;
     private static final int MAX_PITCH = 128;
+    private static final int MARGIN = 5;
+    private static final int DEFAULT_DURATION = 100;
     
     private static double lastNoteX = 0;
     
-    private Rectangle noteRect;
+    private final Rectangle noteRect;
     private double x_coord;
     private double y_coord;       // Rounded to the grey line above
+    private double rectWidth;
     private int startTime;
     private int pitch;
     private final Instrument instrument;
     private double xOffset;
     private double yOffset;
+    private double widthOffset;
     
     private boolean isSelected;
 
@@ -44,7 +43,7 @@ public class Note {
      * TODO
      * @param x
      * @param y
-     * @param selected 
+     * @param inst 
      */
     public Note(double x, double y, Instrument inst) {
         startTime = (int) x;
@@ -52,23 +51,22 @@ public class Note {
         x_coord = x;
         y_coord = y - ( y % RECTHEIGHT);
         instrument = inst;
-        noteRect = new Rectangle(x_coord, y_coord, RECTWIDTH, RECTHEIGHT);
+        rectWidth = DEFAULT_DURATION;
+        noteRect = new Rectangle(x_coord, y_coord, rectWidth, RECTHEIGHT);
         noteRect.getStyleClass().addAll("selected", instrument.toString());
         noteRect.setMouseTransparent(false);
         isSelected = true;
         updateLastNote();
     }
 
-    //TODO: Document even private methods!
     private void updateLastNote() {
-        if (x_coord > lastNoteX) {
-            lastNoteX = x_coord;
+        if (x_coord + rectWidth > lastNoteX) {
+            lastNoteX = x_coord + rectWidth;
         }
     }
 
     public static double getNotesEnd() {
-        return lastNoteX + 100;
-        //TODO: Where does 100 come from?
+        return lastNoteX;
     }
     
     public Rectangle getRectangle() {
@@ -76,11 +74,7 @@ public class Note {
     }
     
     public void schedule() {
-        TuneComposer.PLAYER.addNote(pitch, VOLUME, startTime, DURATION, instrument.ordinal(), 0);
-    }
-    
-    public String toString() {
-        return "Start Time: " + startTime + ", Pitch: " + pitch;
+        TuneComposer.PLAYER.addNote(pitch, VOLUME, startTime, (int)rectWidth, instrument.ordinal(), 0);
     }
     
     public boolean getSelected() {
@@ -96,10 +90,6 @@ public class Note {
             noteRect.getStyleClass().clear();
             noteRect.getStyleClass().addAll("unselected", instrument.toString());
         }
-    }
-    
-    public void toggleSelected() {
-        isSelected = !isSelected;
     }
     
     public void setMovingCoords(MouseEvent event) {
@@ -122,6 +112,29 @@ public class Note {
         
         noteRect.setX(x_coord);
         noteRect.setY(y_coord);
+    }
+    
+    public boolean inLastFive(MouseEvent event) {
+        return (event.getX() > x_coord + rectWidth - MARGIN);
+    }
+    
+    public void setMovingDuration(MouseEvent event) {
+        widthOffset = x_coord + rectWidth - event.getX();
+    }
+    
+    public void moveDuration(MouseEvent event) {
+        double tempWidth = event.getX() - x_coord + widthOffset;
+        if (tempWidth < 5) tempWidth = 5;
+        noteRect.setWidth(tempWidth);
+    }
+    
+    public void stopDuration(MouseEvent event) {
+        rectWidth = event.getX() - x_coord + widthOffset;
+        if (rectWidth < MARGIN) rectWidth = MARGIN;
+        
+        noteRect.setWidth(rectWidth);
+        
+        updateLastNote();
     }
     
 }
