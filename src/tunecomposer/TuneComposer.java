@@ -135,6 +135,9 @@ public class TuneComposer extends Application {
     public void startPlaying() {
         PLAYER.stop();
         PLAYER.clear();
+        for(int i=0; i<8; i++){
+            PLAYER.addMidiEvent(ShortMessage.PROGRAM_CHANGE + i, timbreList[i], 0, 0, 0);
+        }
         allNotes.forEach((note) -> {
             note.schedule();
         });
@@ -362,10 +365,6 @@ public class TuneComposer extends Application {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("TuneComposer.fxml"));
         Scene scene = new Scene(root);
-
-        for(int i=0; i<8; i++){
-            PLAYER.addMidiEvent(ShortMessage.PROGRAM_CHANGE + i, timbreList[i], 0, 0, 0);
-        }
 
         primaryStage.setTitle("Scale Player");
         primaryStage.setScene(scene);
