@@ -263,10 +263,15 @@ public class TuneComposer extends Application {
      */
     public void handleClick(MouseEvent event) {
         // TODO stop note from being created at release of selection rectangle
-        System.out.println("Cluck");
-        Note note = new Note(event.getX(), event.getY());
+
+        // TODO: stopPlaying();
+        if (! event.isControlDown()) {
+            selectAll(false);
+        }
+        Instrument instrument = getInstrument();
+        Note note = new Note(event.getX(), event.getY(), instrument.toString());
         allNotes.add(note);
-        notePane.getChildren().add(note.draw());
+        notePane.getChildren().add(note.getRectangle());
     }
 
     public void startDrag(MouseEvent event) {
@@ -301,6 +306,40 @@ public class TuneComposer extends Application {
     
     public void endDrag(MouseEvent event){
         selection.endRectangle();
+    }
+
+    /**
+     * TODO
+     * @param event 
+     */
+    @FXML
+    void handleDelete(ActionEvent event) {
+        Collection toDelete = new ArrayList();
+        allNotes.forEach((note) -> {
+            if (note.getSelected()) {
+                toDelete.add(note);
+                notePane.getChildren().remove(note.getRectangle());
+            }
+        });
+        allNotes.removeAll(toDelete);
+    }
+    
+    /**
+     * TODO
+     * @param event 
+     */
+    @FXML
+    void handleSelectAll(ActionEvent event) {
+        selectAll(true);
+    }
+    
+    /**
+     * TODO
+     */
+    private void selectAll(boolean selected) {
+        allNotes.forEach((note) -> {
+            note.setSelected(selected);
+        });
     }
 
     /**
