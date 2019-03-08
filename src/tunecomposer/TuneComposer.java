@@ -5,7 +5,6 @@ package tunecomposer;
 
 import java.io.IOException;
 import java.util.*;
-import javafx.animation.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,8 +25,7 @@ import javax.sound.midi.ShortMessage;
 
 /**
  * This JavaFX app lets the user play scales.
- * @author Ian[0], Ian[1], Angie, Melissa
- * @since January 26, 2017
+ * @author Ian Stewart, Ian Hawkins, Angie Mead, Melissa Kohl
  */
 public class TuneComposer extends Application {
 
