@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package tunecomposer;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -33,7 +34,9 @@ public class Note {
     private double y_coord;       // Rounded to the grey line above
     private int startTime;
     private int pitch;
-    private Instrument instrument;
+    private final Instrument instrument;
+    private double xOffset;
+    private double yOffset;
     
     private boolean isSelected;
 
@@ -44,10 +47,10 @@ public class Note {
      * @param selected 
      */
     public Note(double x, double y, Instrument inst) {
-        startTime = (int)x;
-        pitch = MAX_PITCH-(int)y/RECTHEIGHT;
+        startTime = (int) x;
+        pitch = MAX_PITCH - (int) y / RECTHEIGHT;
         x_coord = x;
-        y_coord = y - (y%RECTHEIGHT);
+        y_coord = y - ( y % RECTHEIGHT);
         instrument = inst;
         noteRect = new Rectangle(x_coord, y_coord, RECTWIDTH, RECTHEIGHT);
         noteRect.getStyleClass().addAll("selected", instrument.toString());
@@ -97,6 +100,28 @@ public class Note {
     
     public void toggleSelected() {
         isSelected = !isSelected;
+    }
+    
+    public void setMovingCoords(MouseEvent event) {
+        xOffset = event.getX() - x_coord;
+        yOffset = event.getY() - y_coord;
+    }
+    
+    public void moveNote(MouseEvent event) {
+        noteRect.setX(event.getX() - xOffset);
+        noteRect.setY(event.getY() - yOffset );
+    }
+    
+    public void stopMoving(MouseEvent event) {
+        double x = event.getX() - xOffset;
+        double y = event.getY() - yOffset;
+        startTime = (int) x;
+        pitch = MAX_PITCH - (int) y / RECTHEIGHT;
+        x_coord = x;
+        y_coord = y - (y % RECTHEIGHT);
+        
+        noteRect.setX(x_coord);
+        noteRect.setY(y_coord);
     }
     
 }

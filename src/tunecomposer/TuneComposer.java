@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.input.MouseEvent;
@@ -199,7 +200,6 @@ public class TuneComposer extends Application {
      * @param event a mouse click
      */
     public void handleClick(MouseEvent event) {
-        System.out.println(playLine.isPlaying());
         if (playLine.isPlaying()) {
             stopPlaying();
         }
@@ -211,12 +211,21 @@ public class TuneComposer extends Application {
             Note note = new Note(event.getX(), event.getY(), instrument);
             allNotes.add(note);
             notePane.getChildren().add(note.getRectangle());
-            note.getRectangle().setOnMouseClicked((MouseEvent ev) ->  {
-                handleNoteClick(ev, note);
+            
+            note.getRectangle().setOnMousePressed((MouseEvent pressedEvent) -> {
+                handleNoteClick(pressedEvent, note);
+                handleNotePress(pressedEvent, note);
+            });
+            
+            note.getRectangle().setOnMouseDragged((MouseEvent dragEvent) -> {
+                handleNoteDrag(dragEvent);
+            });
+            
+            note.getRectangle().setOnMouseReleased((MouseEvent releaseEvent) -> {
+                handleNoteStopDragging(releaseEvent);
             });
         }
         createNewNote = true;
-
     }
     
     private void handleNoteClick(MouseEvent event, Note note) {
@@ -231,6 +240,31 @@ public class TuneComposer extends Application {
         } else if (control && selected) {
             note.setSelected(false);
         }
+    }
+    
+    private void handleNotePress(MouseEvent event, Note note) {
+        allNotes.forEach((n) -> {
+            if (n.getSelected()) {
+                n.setMovingCoords(event);
+            }
+        });
+    }
+    
+    private void handleNoteDrag(MouseEvent event) {
+        allNotes.forEach((n) -> {
+            if (n.getSelected()) {
+                n.moveNote(event);
+            }
+        });
+    }
+    
+    private void handleNoteStopDragging(MouseEvent event) {
+        createNewNote = false;
+        allNotes.forEach((n) -> {
+            if (n.getSelected()) {
+                n.stopMoving(event);
+            }
+        });
     }
 
     /**
