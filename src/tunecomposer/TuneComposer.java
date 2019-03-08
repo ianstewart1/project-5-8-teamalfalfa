@@ -143,10 +143,11 @@ public class TuneComposer extends Application {
         }
         allNotes.forEach((note) -> {
             note.schedule();
+            note.updateLastNote();
         });
 
         PLAYER.play();
-        playLine.play(Note.getNotesEnd());
+        playLine.play(Note.lastNote);
     }
 
     /**

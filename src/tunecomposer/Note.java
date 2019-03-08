@@ -14,6 +14,8 @@ import javafx.scene.shape.Rectangle;
  * @author Ian Hawkins, Madi Crowley
  */
 public class Note {
+    
+    public static double lastNote = 0;
 
     /**
      * Play notes at maximum volume.
@@ -23,8 +25,6 @@ public class Note {
     private static final int MAX_PITCH = 128;
     private static final int MARGIN = 5;
     private static final int DEFAULT_DURATION = 100;
-    
-    private static double lastNoteX = 0;
     
     private final Rectangle noteRect;
     private double x_coord;
@@ -56,17 +56,12 @@ public class Note {
         noteRect.getStyleClass().addAll("selected", instrument.toString());
         noteRect.setMouseTransparent(false);
         isSelected = true;
-        updateLastNote();
     }
 
-    private void updateLastNote() {
-        if (x_coord + rectWidth > lastNoteX) {
-            lastNoteX = x_coord + rectWidth;
+    public void updateLastNote() {
+        if (x_coord + rectWidth > lastNote) {
+            lastNote = x_coord + rectWidth;
         }
-    }
-
-    public static double getNotesEnd() {
-        return lastNoteX;
     }
     
     public Rectangle getRectangle() {
@@ -133,8 +128,6 @@ public class Note {
         if (rectWidth < MARGIN) rectWidth = MARGIN;
         
         noteRect.setWidth(rectWidth);
-        
-        updateLastNote();
     }
     
 }
