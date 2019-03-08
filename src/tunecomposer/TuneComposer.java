@@ -63,7 +63,17 @@ public class TuneComposer extends Application {
     /**
      * TODO
      */
-    private boolean createNewNote = true;
+    private boolean clickInPane = true;
+    
+    /**
+     * TODO
+     */
+    private boolean isDragSelecting = false;
+    
+    /**
+     * List of notes being selected by the selection area
+     */
+    private Set<Note> selectedNotes;
 
     /**
      * The background of the application.
@@ -108,6 +118,7 @@ public class TuneComposer extends Application {
 
     public TuneComposer() {
         allNotes = new HashSet<Note>();
+        selectedNotes = new HashSet<Note>();
     }
 
     /**
@@ -222,7 +233,12 @@ public class TuneComposer extends Application {
         if (playLine.isPlaying()) {
             stopPlaying();
         }
-        else if (createNewNote) {
+        else if (isDragSelecting){
+            isDragSelecting = false;
+            selection.endRectangle();
+            selectedNotes.clear();
+        }
+        else if (clickInPane) {
             if (! event.isControlDown()) {
                 selectAll(false);
             }
@@ -244,11 +260,11 @@ public class TuneComposer extends Application {
                 handleNoteStopDragging(releaseEvent);
             });
         }
-        createNewNote = true;
+        clickInPane = true;
     }
     
     private void handleNoteClick(MouseEvent event, Note note) {
-        createNewNote = false;
+        clickInPane = false;
         boolean control = event.isControlDown();
         boolean selected = note.getSelected();
         if (! control && ! selected) {
@@ -278,7 +294,7 @@ public class TuneComposer extends Application {
     }
     
     private void handleNoteStopDragging(MouseEvent event) {
-        createNewNote = false;
+        clickInPane = false;
         allNotes.forEach((n) -> {
             if (n.getSelected()) {
                 n.stopMoving(event);
@@ -288,14 +304,30 @@ public class TuneComposer extends Application {
 
     public void startDrag(MouseEvent event) {
 
-        // TODO If the ctrl key isn't pressed, deselect all notes.
-        //      If the ctrl key is pressed, add to the existing selection.
-
-        // Put first rectangle corner at cursor
-        selection.startRectangle(event.getX(), event.getY());
+        if (clickInPane) {
+            handleSelectionStartDrag(event);
+        }
     }
 
     public void continueDrag(MouseEvent event) {
+        if (clickInPane) {
+            handleSelectionContinueDrag(event);
+        }
+    }
+    
+    private void handleSelectionStartDrag(MouseEvent event) {
+        // TODO If the ctrl key isn't pressed, deselect all notes.
+        //      If the ctrl key is pressed, add to the existing selection.
+        isDragSelecting = true;
+        // Put first rectangle corner at cursor
+        selection.startRectangle(event.getX(), event.getY());
+
+        if(!event.isControlDown()){
+            selectAll(false);
+        }
+    }
+    
+    private void handleSelectionContinueDrag(MouseEvent event) {
         // TODO Select all notes within the rectangle and deselect others.
         // We need a container of sorta-selected notes that fall within the
         // rectangle but aren't fully selected yet.
@@ -303,16 +335,35 @@ public class TuneComposer extends Application {
         // TODO Update the width and height of the rectangle.
         selection.update(event.getX(), event.getY());
 
+        allNotes.forEach((note) -> {
+            Rectangle rect = note.getRectangle();
+            double horizontal = selectRect.getX() + selectRect.getWidth();
+            double vertical = selectRect.getY() + selectRect.getHeight();
+
+            if((rect.getX() > selectRect.getX() && rect.getX() < horizontal) 
+            && (rect.getY() > selectRect.getY() && rect.getY() < vertical)){
+                if(!note.getSelected()){
+                    selectedNotes.add(note);
+                    note.setSelected(true);
+                }
+            } else{
+                if(selectedNotes.contains(note)){
+                    note.setSelected(false);
+                    selectedNotes.remove(note); 
+                }
+            }
+        });
+
+        //detect note in rectangle
+        //add to list
+        //select it
+
         // TODO It might make sense to have a selectRect class with its own
         // properties, so that we can keep track of how far the mouse has been
         // dragged.
         // Alternatively, we can get the coordinates of the rectangle's first
         // corner and compare those values to the click coordinates to
         // calculate the rectangle's new width and height.
-    }
-    
-    public void endDrag(MouseEvent event){
-        selection.endRectangle();
     }
 
     /**
