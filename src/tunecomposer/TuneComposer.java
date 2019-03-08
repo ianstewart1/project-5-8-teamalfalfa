@@ -15,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.input.MouseEvent;
@@ -46,30 +45,18 @@ public class TuneComposer extends Application {
      * The set of all notes, to be played later.
      */
     private static Set<Note> allNotes;
-    //NOTE: Hmm, it seems like you are duplicating information about notes.
-    //      This could make things difficult later.
 
     /**
      * A line moves from left to right across the main pane. It crosses each
      * note as that note is played.
      */
     private static PlayLine playLine;
-
-    /**
-     * Controls the movement of playLine.
-     */
-    private Timeline timeline;
     
     /**
-     * TODO
+     * Boolean flags to control flow when user clicks in composition panel
      */
     private boolean clickInPane = true;
-    
     private boolean changeDuration = false;
-    
-    /**
-     * TODO
-     */
     private boolean isDragSelecting = false;
     
     /**
@@ -107,7 +94,7 @@ public class TuneComposer extends Application {
     private SelectionArea selection;
 
     /**
-     * TODO
+     * Rectangle used in click-and-drag note selection
      */
     @FXML
     private Rectangle selectRect;
@@ -118,9 +105,12 @@ public class TuneComposer extends Application {
     @FXML
     private ToggleGroup instrumentToggle;
 
+    /**
+     * Constructor initializes Note sets
+     */
     public TuneComposer() {
-        allNotes = new HashSet<Note>();
-        selectedNotes = new HashSet<Note>();
+        allNotes = new HashSet();
+        selectedNotes = new HashSet();
     }
 
     /**
@@ -151,7 +141,7 @@ public class TuneComposer extends Application {
     }
 
     /**
-     * Overload version of startPlaying() which ignores an ActionEvent.
+     * When user selects "Start" menu item, start playing composition
      * @param ignored not used
      */
     @FXML
@@ -160,7 +150,7 @@ public class TuneComposer extends Application {
     }
 
     /**
-     * Stops playing.
+     * Stops playing composition.
      * Called when the Stop button is clicked. Does not remove notes from the
      * screen or from allNotes.
      */
@@ -171,16 +161,16 @@ public class TuneComposer extends Application {
     }
 
     /**
-     * When the user clicks the "Stop playing" button, stop playing the scale.
-     * @param event the button click event
+     * When the user selects "Stop" menu item, stop playing composition
+     * @param ignored not used
      */
     @FXML
-    protected void handleStopPlaying(ActionEvent event) {
+    protected void handleStopPlaying(ActionEvent ignored) {
         stopPlaying();
     }
 
     /**
-     * When the user clicks the "Exit" menu item, exit the program.
+     * When the user selects the "Exit" menu item, exit the program.
      * @param event the menu selection event
      */
     @FXML
@@ -190,13 +180,13 @@ public class TuneComposer extends Application {
 
     /**
      * Initializes FXML. Called automatically.
-     * (1) adds 127 grey lines to background
+     * (1) adds 127 gray lines to background
      * (2) initializes the playLine(set to invisible)
      */
     public void initialize() {
-        // Add grey lines to background
-        for(int i = 1; i < 128; i++){
-            Line row = new Line(0,10*i, 2000, 10*i);
+        // Add gray lines to background
+        for (int i = 1; i < 128; i++) {
+            Line row = new Line(0, 10 * i, 2000, 10 * i);
             row.getStyleClass().add("row-divider");
             background.getChildren().add(row);
         }
@@ -205,7 +195,6 @@ public class TuneComposer extends Application {
 
         // Let mouse events go through to notePane
         playLinePane.setMouseTransparent(true);
-        //NOTE: Good that you figured this out!
 
         selection = new SelectionArea(selectRect);
     }
@@ -248,8 +237,10 @@ public class TuneComposer extends Application {
             if (! event.isControlDown()) {
                 selectAll(false);
             }
+            
             Instrument instrument = getInstrument();
             Note note = new Note(event.getX(), event.getY(), instrument);
+            
             allNotes.add(note);
             notePane.getChildren().add(note.getRectangle());
             
@@ -269,6 +260,12 @@ public class TuneComposer extends Application {
         clickInPane = true;
     }
     
+    /**
+     * When user presses on a note, set the notes to be selected or 
+     * unselected accordingly.
+     * @param event mouse click
+     * @param note note Rectangle that was clicked
+     */
     private void handleNoteClick(MouseEvent event, Note note) {
         clickInPane = false;
         boolean control = event.isControlDown();
@@ -283,6 +280,12 @@ public class TuneComposer extends Application {
         }
     }
     
+    /**
+     * When user presses on a note, set offsets in each Note in case the user
+     * drags the mouse.
+     * @param event mouse click
+     * @param note note Rectangle that was clicked
+     */
     private void handleNotePress(MouseEvent event, Note note) {
         changeDuration = note.inLastFive(event);
         allNotes.forEach((n) -> {
@@ -296,6 +299,11 @@ public class TuneComposer extends Application {
         });
     }
     
+    /**
+     * When the user drags the mouse on a note Rectangle, move all selected
+     * notes
+     * @param event mouse drag
+     */
     private void handleNoteDrag(MouseEvent event) {
         allNotes.forEach((n) -> {
             if (n.getSelected()) {
@@ -308,6 +316,10 @@ public class TuneComposer extends Application {
         });
     }
     
+    /**
+     * When the user stops dragging the mouse, stop moving the selected notes
+     * @param event mouse click
+     */
     private void handleNoteStopDragging(MouseEvent event) {
         clickInPane = false;
         allNotes.forEach((n) -> {
@@ -322,6 +334,12 @@ public class TuneComposer extends Application {
         changeDuration = false;
     }
 
+    /**
+     * Automatically-called when user drags mouse. Stops playing if composition
+     * is playing, and starts dragging selection rectangle if mouse click is
+     * not on a note Rectangle.
+     * @param event mouse click
+     */
     public void startDrag(MouseEvent event) {
         if (playLine.isPlaying()) {
             stopPlaying();
@@ -330,6 +348,12 @@ public class TuneComposer extends Application {
         }
     }
 
+    /**
+     * Automatically-called when user drags mouse. Stops playing if composition
+     * is playing, and continues to drag selection rectangle if initial mouse 
+     * click was not on a note Rectangle.
+     * @param event mouse click
+     */
     public void continueDrag(MouseEvent event) {
         if (playLine.isPlaying()) {
             stopPlaying();
@@ -338,11 +362,13 @@ public class TuneComposer extends Application {
         }
     }
     
+    /**
+     * Move lower-right corner of selection rectangle with the dragging mouse
+     * @param event mouse drag
+     */
     private void handleSelectionStartDrag(MouseEvent event) {
-        // TODO If the ctrl key isn't pressed, deselect all notes.
-        //      If the ctrl key is pressed, add to the existing selection.
         isDragSelecting = true;
-        // Put first rectangle corner at cursor
+        
         selection.startRectangle(event.getX(), event.getY());
 
         if(!event.isControlDown()){
@@ -425,7 +451,7 @@ public class TuneComposer extends Application {
         primaryStage.setOnCloseRequest((WindowEvent we) -> {
             System.exit(0);
         });
-        scene.getStylesheets().add("tunecomposer.css");
+        
         primaryStage.show();
     }
 
