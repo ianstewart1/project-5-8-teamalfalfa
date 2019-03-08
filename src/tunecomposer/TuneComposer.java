@@ -58,6 +58,11 @@ public class TuneComposer extends Application {
      * Controls the movement of playLine.
      */
     private Timeline timeline;
+    
+    /**
+     * TODO
+     */
+    private boolean createNewNote = true;
 
     /**
      * The background of the application.
@@ -100,51 +105,6 @@ public class TuneComposer extends Application {
     @FXML
     private ToggleGroup instrumentToggle;
 
-    private enum Instrument {
-//        PIANO (0),
-//        HARPSICHORD (6),
-//        MARIMBA (12),
-//        CHURCH_ORGAN (19),
-//        ACCORDION (21),
-//        GUITAR (24),
-//        VIOLIN (40),
-//        FRENCH_HORN (60);
-        PIANO,
-        HARPSICHORD,
-        MARIMBA,
-        CHURCH_ORGAN,
-        ACCORDION,
-        GUITAR,
-        VIOLIN,
-        FRENCH_HORN;
-
-//        private int timbre;
-//
-//        Instrument(int value) {
-//           timbre = value;
-//        }
-//
-//        public int getTimbre(){
-//            return timbre;
-//        }
-
-        @Override
-        public String toString() {
-            switch(this) {
-                case PIANO:         return "piano";
-                case HARPSICHORD:    return "harpsichord";
-                case MARIMBA:       return "marimba";
-                case CHURCH_ORGAN:  return "church-organ";
-                case ACCORDION:     return "accordion";
-                case GUITAR:        return "guitar";
-                case VIOLIN:        return "violin";
-                case FRENCH_HORN:   return "french-horn";
-                default: throw new IllegalArgumentException();
-            }
-        }
-    }
-
-
     public TuneComposer() {
         allNotes = new HashSet<Note>();
     }
@@ -167,21 +127,17 @@ public class TuneComposer extends Application {
         allNotes.forEach((note) -> {
             note.schedule();
         });
-        //NOTE: Nice use of higher-order programming!
-        //NOTE: You could write this all on one line and it would still be
-        //      readable.
 
         PLAYER.play();
         playLine.play(Note.getNotesEnd());
     }
 
-    //TODO: Overloading doesn't seem right here. Could you name the
-    //      event handlers so that it's clear they are event handlers?
     /**
      * Overload version of startPlaying() which ignores an ActionEvent.
      * @param ignored not used
      */
-    public void startPlaying(ActionEvent ignored) {
+    @FXML
+    public void handleStartPlaying(ActionEvent ignored) {
         startPlaying();
     }
 
@@ -201,7 +157,7 @@ public class TuneComposer extends Application {
      * @param event the button click event
      */
     @FXML
-    protected void stopPlaying(ActionEvent event) {
+    protected void handleStopPlaying(ActionEvent event) {
         stopPlaying();
     }
 
@@ -264,14 +220,37 @@ public class TuneComposer extends Application {
     public void handleClick(MouseEvent event) {
         // TODO stop note from being created at release of selection rectangle
 
-        // TODO: stopPlaying();
-        if (! event.isControlDown()) {
-            selectAll(false);
+        if (playLine.isPlaying()) {
+            stopPlaying();
         }
-        Instrument instrument = getInstrument();
-        Note note = new Note(event.getX(), event.getY(), instrument.toString());
-        allNotes.add(note);
-        notePane.getChildren().add(note.getRectangle());
+        else if (createNewNote) {
+            if (! event.isControlDown()) {
+                selectAll(false);
+            }
+            Instrument instrument = getInstrument();
+            Note note = new Note(event.getX(), event.getY(), instrument);
+            allNotes.add(note);
+            notePane.getChildren().add(note.getRectangle());
+            note.getRectangle().setOnMouseClicked((MouseEvent ev) ->  {
+                handleNoteClick(ev, note);
+            });
+        }
+        createNewNote = true;
+
+    }
+    
+    private void handleNoteClick(MouseEvent event, Note note) {
+        createNewNote = false;
+        boolean control = event.isControlDown();
+        boolean selected = note.getSelected();
+        if (! control && ! selected) {
+            selectAll(false);
+            note.setSelected(true);
+        } else if ( control && ! selected) {
+            note.setSelected(true);
+        } else if (control && selected) {
+            note.setSelected(false);
+        }
     }
 
     public void startDrag(MouseEvent event) {
@@ -281,14 +260,9 @@ public class TuneComposer extends Application {
 
         // Put first rectangle corner at cursor
         selection.startRectangle(event.getX(), event.getY());
-
-        // TODO These lines are for testing
-        System.out.println("Start drag");
-
     }
 
     public void continueDrag(MouseEvent event) {
-        System.out.println("Drug");
         // TODO Select all notes within the rectangle and deselect others.
         // We need a container of sorta-selected notes that fall within the
         // rectangle but aren't fully selected yet.

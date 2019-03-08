@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package tunecomposer;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.paint.Color;
@@ -32,6 +33,7 @@ public class Note {
     private double y_coord;       // Rounded to the grey line above
     private int startTime;
     private int pitch;
+    private Instrument instrument;
     
     private boolean isSelected;
 
@@ -41,13 +43,15 @@ public class Note {
      * @param y
      * @param selected 
      */
-    public Note(double x, double y, String inst) {
+    public Note(double x, double y, Instrument inst) {
         startTime = (int)x;
         pitch = MAX_PITCH-(int)y/RECTHEIGHT;
         x_coord = x;
         y_coord = y - (y%RECTHEIGHT);
+        instrument = inst;
         noteRect = new Rectangle(x_coord, y_coord, RECTWIDTH, RECTHEIGHT);
-        noteRect.getStyleClass().addAll("selected", inst);
+        noteRect.getStyleClass().addAll("selected", instrument.toString());
+        noteRect.setMouseTransparent(false);
         isSelected = true;
         updateLastNote();
     }
@@ -84,10 +88,10 @@ public class Note {
         isSelected = selected;
         if (selected) {
             noteRect.getStyleClass().clear();
-            noteRect.getStyleClass().add("selected");
+            noteRect.getStyleClass().addAll("selected", instrument.toString());
         } else {
             noteRect.getStyleClass().clear();
-            noteRect.getStyleClass().add("unselected");
+            noteRect.getStyleClass().addAll("unselected", instrument.toString());
         }
     }
     
