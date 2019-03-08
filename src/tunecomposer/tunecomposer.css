@@ -28,6 +28,11 @@
     -fx-max-width: 161px;
 }
 
+.selection-rect {
+    -fx-fill: transparent;
+    -fx-stroke: #f2c500;
+}
+
 .piano {
     -fx-background-color: lightgray;
     -fx-fill: lightgray;
