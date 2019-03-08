@@ -12,9 +12,9 @@ import javafx.scene.shape.Rectangle;
  */
 public class SelectionArea {
 
-    Rectangle rect;
-    double originX;
-    double originY;
+    private Rectangle rect;
+    private double originX;
+    private double originY;
 
     public SelectionArea(Rectangle newRect) {
         rect = newRect;
