@@ -50,4 +50,8 @@ public class SelectionArea {
         rect.setWidth(0);
         rect.setHeight(0);
     }
+
+    public Rectangle getRectangle() {
+        return rect;
+    }
 }

@@ -359,14 +359,12 @@ public class TuneComposer extends Application {
             double horizontal = selectRect.getX() + selectRect.getWidth();
             double vertical = selectRect.getY() + selectRect.getHeight();
 
-            if((rect.getX() > selectRect.getX() && rect.getX() < horizontal) 
-            && (rect.getY() > selectRect.getY() && rect.getY() < vertical)){
-                if(!note.getSelected()){
-                    selectedNotes.add(note);
-                    note.setSelected(true);
-                }
-            } else{
-                if(selectedNotes.contains(note)){
+            // Thanks to Paul for suggesting the `intersects` method.
+            if(selection.getRectangle().intersects(note.getRectangle().getLayoutBounds())) {
+                selectedNotes.add(note);
+                note.setSelected(true);
+            } else {
+                if(selectedNotes.contains(note)) {
                     note.setSelected(false);
                     selectedNotes.remove(note); 
                 }
