@@ -65,6 +65,8 @@ public class TuneComposer extends Application {
      */
     private boolean clickInPane = true;
     
+    private boolean changeDuration = false;
+    
     /**
      * TODO
      */
@@ -281,9 +283,14 @@ public class TuneComposer extends Application {
     }
     
     private void handleNotePress(MouseEvent event, Note note) {
+        changeDuration = note.inLastFive(event);
         allNotes.forEach((n) -> {
             if (n.getSelected()) {
-                n.setMovingCoords(event);
+                if (changeDuration) {
+                    n.setMovingDuration(event);
+                } else {
+                    n.setMovingCoords(event);
+                }
             }
         });
     }
@@ -291,7 +298,11 @@ public class TuneComposer extends Application {
     private void handleNoteDrag(MouseEvent event) {
         allNotes.forEach((n) -> {
             if (n.getSelected()) {
-                n.moveNote(event);
+                if (changeDuration) {
+                    n.moveDuration(event);
+                } else {
+                    n.moveNote(event);
+                }
             }
         });
     }
@@ -300,9 +311,14 @@ public class TuneComposer extends Application {
         clickInPane = false;
         allNotes.forEach((n) -> {
             if (n.getSelected()) {
-                n.stopMoving(event);
+                if (changeDuration) {
+                    n.stopDuration(event);
+                } else {
+                    n.stopMoving(event);
+                }
             }
         });
+        changeDuration = false;
     }
 
     public void startDrag(MouseEvent event) {
