@@ -13,6 +13,8 @@ import javafx.scene.shape.Rectangle;
  * @author Ian Hawkins, Madi Crowley, Ian Stewart, Melissa Kohl
  */
 public class Note {
+    
+    public static double lastNote = 0;
 
     /**
      * Constants for playing note in MidiPlayer
@@ -34,6 +36,7 @@ public class Note {
     /**
      * Note fields for creating rectangle and playing note
      */
+
     private final Rectangle noteRect;
     private double x_coord;
     private double y_coord;
@@ -73,14 +76,10 @@ public class Note {
         isSelected = true;
     }
 
-    private void updateLastNote() {
-        if (x_coord + rectWidth > lastNoteX) {
-            lastNoteX = x_coord + rectWidth;
+    public void updateLastNote() {
+        if (x_coord + rectWidth > lastNote) {
+            lastNote = x_coord + rectWidth;
         }
-    }
-
-    public static double getNotesEnd() {
-        return lastNoteX;
     }
     
     public Rectangle getRectangle() {

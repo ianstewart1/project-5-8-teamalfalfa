@@ -143,10 +143,11 @@ public class TuneComposer extends Application {
         }
         allNotes.forEach((note) -> {
             note.schedule();
+            note.updateLastNote();
         });
 
         PLAYER.play();
-        playLine.play(Note.getNotesEnd());
+        playLine.play(Note.lastNote);
     }
 
     /**
@@ -322,14 +323,17 @@ public class TuneComposer extends Application {
     }
 
     public void startDrag(MouseEvent event) {
-
-        if (clickInPane) {
+        if (playLine.isPlaying()) {
+            stopPlaying();
+        } else if (clickInPane) {
             handleSelectionStartDrag(event);
         }
     }
 
     public void continueDrag(MouseEvent event) {
-        if (clickInPane) {
+        if (playLine.isPlaying()) {
+            stopPlaying();
+        } else if (clickInPane) {
             handleSelectionContinueDrag(event);
         }
     }
@@ -359,14 +363,12 @@ public class TuneComposer extends Application {
             double horizontal = selectRect.getX() + selectRect.getWidth();
             double vertical = selectRect.getY() + selectRect.getHeight();
 
-            if((rect.getX() > selectRect.getX() && rect.getX() < horizontal) 
-            && (rect.getY() > selectRect.getY() && rect.getY() < vertical)){
-                if(!note.getSelected()){
-                    selectedNotes.add(note);
-                    note.setSelected(true);
-                }
-            } else{
-                if(selectedNotes.contains(note)){
+            // Thanks to Paul for suggesting the `intersects` method.
+            if(selection.getRectangle().intersects(note.getRectangle().getLayoutBounds())) {
+                selectedNotes.add(note);
+                note.setSelected(true);
+            } else {
+                if(selectedNotes.contains(note)) {
                     note.setSelected(false);
                     selectedNotes.remove(note); 
                 }
