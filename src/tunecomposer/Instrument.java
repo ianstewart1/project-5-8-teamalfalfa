@@ -6,8 +6,8 @@
 package tunecomposer;
 
 /**
- *
- * @author stewarim
+ * Enumerates the instruments playable in the TuneComposer application
+ * @author Ian Hawkins, Ian Stewart, Melissa Kohl, Angie Mead
  */
 public enum Instrument {
         PIANO,
@@ -18,7 +18,11 @@ public enum Instrument {
         GUITAR,
         VIOLIN,
         FRENCH_HORN;
-
+        
+        /**
+         * Override the built-in method from the Enum class
+         * @return Lower case string of instrument name with dashes as spaces
+         */
         @Override
         public String toString() {
             switch(this) {
