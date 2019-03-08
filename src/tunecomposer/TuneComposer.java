@@ -322,14 +322,17 @@ public class TuneComposer extends Application {
     }
 
     public void startDrag(MouseEvent event) {
-
-        if (clickInPane) {
+        if (playLine.isPlaying()) {
+            stopPlaying();
+        } else if (clickInPane) {
             handleSelectionStartDrag(event);
         }
     }
 
     public void continueDrag(MouseEvent event) {
-        if (clickInPane) {
+        if (playLine.isPlaying()) {
+            stopPlaying();
+        } else if (clickInPane) {
             handleSelectionContinueDrag(event);
         }
     }
