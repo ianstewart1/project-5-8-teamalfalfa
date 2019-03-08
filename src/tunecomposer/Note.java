@@ -8,39 +8,54 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
 
-//TODO: Write Javadoc for classes
 /**
- *
- * @author Ian Hawkins, Madi Crowley
+ * Note class creates a Rectangle representing the note to be played
+ * @author Ian Hawkins, Madi Crowley, Ian Stewart, Melissa Kohl
  */
 public class Note {
 
     /**
-     * Play notes at maximum volume.
+     * Constants for playing note in MidiPlayer
      */
     private static final int VOLUME = 127;
-    private static final int RECTHEIGHT = 10;
     private static final int MAX_PITCH = 128;
-    private static final int MARGIN = 5;
     private static final int DEFAULT_DURATION = 100;
+    /**
+     * Constants for Rectangle in composition panel
+     */
+    private static final int RECTHEIGHT = 10;
+    private static final int MARGIN = 5;
     
+    /**
+     * End time for MidiPlayer
+     */
     private static double lastNoteX = 0;
     
+    /**
+     * Note fields for creating rectangle and playing note
+     */
     private final Rectangle noteRect;
     private double x_coord;
-    private double y_coord;       // Rounded to the grey line above
+    private double y_coord;
     private double rectWidth;
     private int startTime;
     private int pitch;
     private final Instrument instrument;
+    
+    /**
+     * Offsets for dragging Rectangle
+     */
     private double xOffset;
     private double yOffset;
     private double widthOffset;
     
+    /**
+     * Is this note currently selected
+     */
     private boolean isSelected;
 
     /**
-     * TODO
+     * Creates new selected Rectangle
      * @param x
      * @param y
      * @param inst 
@@ -56,7 +71,6 @@ public class Note {
         noteRect.getStyleClass().addAll("selected", instrument.toString());
         noteRect.setMouseTransparent(false);
         isSelected = true;
-        updateLastNote();
     }
 
     private void updateLastNote() {
@@ -133,8 +147,6 @@ public class Note {
         if (rectWidth < MARGIN) rectWidth = MARGIN;
         
         noteRect.setWidth(rectWidth);
-        
-        updateLastNote();
     }
     
 }
