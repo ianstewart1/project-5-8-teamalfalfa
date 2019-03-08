@@ -76,7 +76,7 @@ public class Note {
     }
     
     public void schedule() {
-        TuneComposer.PLAYER.addNote(pitch, VOLUME, startTime, DURATION, 0, 0);
+        TuneComposer.PLAYER.addNote(pitch, VOLUME, startTime, DURATION, instrument.ordinal(), 0);
     }
     
     public String toString() {
