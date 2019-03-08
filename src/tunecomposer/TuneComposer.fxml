@@ -17,35 +17,58 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<!-- TODO: Wrap long lines -->
-<!-- TODO: Move alignment, width/height to CSS -->
 
-<BorderPane id="root-pane" prefHeight="1369.0" prefWidth="2022.0" stylesheets="@tunecomposer.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tunecomposer.TuneComposer">
+<BorderPane id="root-pane" stylesheets="@tunecomposer.css" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="tunecomposer.TuneComposer">
    <top>
       <MenuBar>
         <menus>
           <Menu text="File">
             <items>
             <!-- TODO: Make accelerators platform-independent. I should be able to use Command-Q on my Mac. -->
-              <MenuItem accelerator="Ctrl+Q" mnemonicParsing="true" onAction="#handleExitMenuItemAction" text="Exit" />
-            </items>
-          </Menu>
-            <Menu mnemonicParsing="false" text="Action">
-              <items>
-                <MenuItem accelerator="Ctrl+P" mnemonicParsing="true" onAction="#handleStartPlaying" text="Play" />
-                  <MenuItem accelerator="Ctrl+S" mnemonicParsing="true" onAction="#handleStopPlaying" text="Stop" />
-              </items>
-           </Menu>
-           <Menu mnemonicParsing="false" text="Edit">
-              <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleSelectAll" text="Select All">
+              <MenuItem onAction="#handleExitMenuItemAction" text="Exit" >
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="A" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        <KeyCodeCombination alt="UP" code="Q" control="DOWN" 
+                                            meta="UP" shift="UP" 
+                                            shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                <MenuItem mnemonicParsing="false" onAction="#handleDelete" text="Delete">
+            </items>
+          </Menu>
+            <Menu text="Action">
+              <items>
+                <MenuItem onAction="#handleStartPlaying" text="Play" >
                      <accelerator>
-                        <KeyCodeCombination alt="UP" code="BACK_SPACE" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                        <KeyCodeCombination alt="UP" code="P" control="DOWN" 
+                                            meta="UP" shift="UP" 
+                                            shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem onAction="#handleStopPlaying" text="Stop" >
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" 
+                                            meta="UP" shift="UP" 
+                                            shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+              </items>
+           </Menu>
+           <Menu text="Edit">
+              <items>
+                  <MenuItem onAction="#handleSelectAll" text="Select All">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="A" control="DOWN" 
+                                            meta="UP" shift="UP" 
+                                            shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                <MenuItem onAction="#handleDelete" 
+                          text="Delete">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="BACK_SPACE" 
+                                            control="DOWN" meta="UP" shift="UP" 
+                                            shortcut="UP" />
                      </accelerator>
                   </MenuItem>
               </items>
@@ -54,16 +77,27 @@
       </MenuBar>
    </top>
    <center>
-      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" 
+                  BorderPane.alignment="CENTER">
          <content>
-            <StackPane alignment="CENTER_LEFT" prefHeight="1280.0" prefWidth="2000.0">
+            <StackPane alignment="CENTER_LEFT" prefHeight="1280.0" 
+                       prefWidth="2000.0">
                <children>
                   <Group fx:id="background" />
-                  <Pane fx:id="notePane" minHeight="1280.0" minWidth="2000.0" onDragDetected="#startDrag" onMouseClicked="#handleClick" onMouseDragged="#continueDrag" />
-                  <AnchorPane fx:id="playLinePane" prefHeight="200.0" prefWidth="200.0">
+                  <Pane fx:id="notePane" minHeight="1280.0" minWidth="2000.0" 
+                        onDragDetected="#startDrag" 
+                        onMouseClicked="#handleClick" 
+                        onMouseDragged="#continueDrag" />
+                  <AnchorPane fx:id="playLinePane" prefHeight="200.0" 
+                              prefWidth="200.0">
                      <children>
-                        <Line fx:id="movingLine" endY="1280.0" styleClass="play-line" visible="false" />
-                        <Rectangle fx:id="selectRect" arcHeight="5.0" arcWidth="5.0" layoutX="0.0" layoutY="0.0" strokeType="INSIDE" styleClass="selection-rect" visible="false" />
+                        <Line fx:id="movingLine" endY="1280.0" 
+                              styleClass="play-line" visible="false" />
+                        <Rectangle fx:id="selectRect" arcHeight="5.0" 
+                                   arcWidth="5.0" layoutX="0.0" layoutY="0.0" 
+                                   strokeType="INSIDE" 
+                                   styleClass="selection-rect" 
+                                   visible="false" />
                      </children>
                   </AnchorPane>
                </children>
@@ -74,7 +108,7 @@
    <left>
       <VBox prefHeight="1254.0" prefWidth="161.0" BorderPane.alignment="CENTER">
          <children>
-            <RadioButton mnemonicParsing="false" selected="true" text="Piano">
+            <RadioButton selected="true" text="Piano">
                <toggleGroup>
                   <ToggleGroup fx:id="instrumentToggle" />
                </toggleGroup>
@@ -83,37 +117,44 @@
                   <String fx:value="spacing" />
                </styleClass>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="Harpsichord" toggleGroup="$instrumentToggle">
+            <RadioButton text="Harpsichord" 
+                         toggleGroup="$instrumentToggle">
                <styleClass>
                   <String fx:value="harpsichord" />
                   <String fx:value="spacing" />
                </styleClass></RadioButton>
-            <RadioButton mnemonicParsing="false" text="Marimba" toggleGroup="$instrumentToggle">
+            <RadioButton text="Marimba" 
+                         toggleGroup="$instrumentToggle">
                <styleClass>
                   <String fx:value="marimba" />
                   <String fx:value="spacing" />
                </styleClass></RadioButton>
-            <RadioButton mnemonicParsing="false" text="Church Organ" toggleGroup="$instrumentToggle">
+            <RadioButton text="Church Organ" 
+                         toggleGroup="$instrumentToggle">
                <styleClass>
                   <String fx:value="church-organ" />
                   <String fx:value="spacing" />
                </styleClass></RadioButton>
-            <RadioButton mnemonicParsing="false" text="Accordion" toggleGroup="$instrumentToggle">
+            <RadioButton text="Accordion" 
+                         toggleGroup="$instrumentToggle">
                <styleClass>
                   <String fx:value="accordion" />
                   <String fx:value="spacing" />
                </styleClass></RadioButton>
-            <RadioButton mnemonicParsing="false" text="Guitar" toggleGroup="$instrumentToggle">
+            <RadioButton text="Guitar" 
+                         toggleGroup="$instrumentToggle">
                <styleClass>
                   <String fx:value="guitar" />
                   <String fx:value="spacing" />
                </styleClass></RadioButton>
-            <RadioButton mnemonicParsing="false" text="Violin" toggleGroup="$instrumentToggle">
+            <RadioButton text="Violin" 
+                         toggleGroup="$instrumentToggle">
                <styleClass>
                   <String fx:value="violin" />
                   <String fx:value="spacing" />
                </styleClass></RadioButton>
-            <RadioButton mnemonicParsing="false" text="French Horn" toggleGroup="$instrumentToggle">
+            <RadioButton text="French Horn" 
+                         toggleGroup="$instrumentToggle">
                <styleClass>
                   <String fx:value="french-horn" />
                   <String fx:value="spacing" />

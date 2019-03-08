@@ -15,12 +15,20 @@ import javafx.util.Duration;
 
 /**
  * Creates and manages the moving red line that moves as the composition plays
- * @author larsonnd
+ * @author Nathaniel Larson
+ * @author Ian Stewart, Melissa Kohl
  */
 public class PlayLine {
-
+    
+    /**
+     * Fields for the PlayLine class
+     */
     private final Line movingLine;
     private Timeline timeline;
+    
+    /**
+     * Check if TuneComposer is currently playing
+     */
     private boolean playing;
     
     /**
@@ -29,48 +37,57 @@ public class PlayLine {
      */
     public PlayLine(Line line) {
         
-        //initialize Timeline
+        // initialize Timeline
         timeline = new Timeline();
         timeline.setCycleCount(1);
         timeline.setAutoReverse(false);
         
-        //initialize the red line
+        // initialize the red line
         movingLine = line;
         movingLine.setVisible(false);
     }
     
     /**
      * Make a red line track across the composition at constant speed
-     * @param endXCoordinate the x coordinate of the final note of the composition
+     * @param endXCoordinate the x coordinate of the final note of 
+     *                       the composition
      */
     public void play(double endXCoordinate) {
         timeline.getKeyFrames().clear();
-        movingLine.setEndX(0); //place playLine back at the beginning 
+        movingLine.setEndX(0); // place playLine back at the beginning 
         movingLine.setStartX(0);
         movingLine.setVisible(true);
         
         timeline = new Timeline();
         timeline.setCycleCount(1);
         timeline.setAutoReverse(false);
-        KeyValue keyValueXEnd = new KeyValue(movingLine.endXProperty(), endXCoordinate);
-        KeyValue keyValueXStart = new KeyValue(movingLine.startXProperty(), endXCoordinate);
+        KeyValue keyValueXEnd = new KeyValue(movingLine.endXProperty(), 
+                                             endXCoordinate);
+        KeyValue keyValueXStart = new KeyValue(movingLine.startXProperty(), 
+                                               endXCoordinate);
         
-        //duration calculated for constant speed of 100 pixels per second
+        // duration calculated for constant speed of 100 pixels per second
         Duration duration = Duration.millis(endXCoordinate*10); 
         
-        //when finsihed, playLine will disappear
-        EventHandler onFinished = (EventHandler<ActionEvent>) (ActionEvent t) -> {
+        // when finsihed, playLine will disappear
+        EventHandler onFinished = (EventHandler<ActionEvent>) (ActionEvent t) -> 
+        {
             movingLine.setVisible(false);
             playing = false;
         };
  
         KeyFrame keyFrameEnd = new KeyFrame(duration, onFinished, keyValueXEnd);
-        KeyFrame keyFrameStart = new KeyFrame(duration, onFinished, keyValueXStart);
+        KeyFrame keyFrameStart = new KeyFrame(duration, onFinished, 
+                                              keyValueXStart);
         timeline.getKeyFrames().addAll(keyFrameEnd, keyFrameStart);
         timeline.play();
         playing = true;
     }
     
+    /**
+     * Gets the current state of the PlayLine
+     * @return Boolean indicating PlayLine status
+     */
     public boolean isPlaying() {
         return playing;
     }

@@ -376,12 +376,11 @@ public class TuneComposer extends Application {
         }
     }
     
+    /**
+     * Continue to update notes throughout drag. Called from FXML
+     * @param event Current value of MouseEvent
+     */
     private void handleSelectionContinueDrag(MouseEvent event) {
-        // TODO Select all notes within the rectangle and deselect others.
-        // We need a container of sorta-selected notes that fall within the
-        // rectangle but aren't fully selected yet.
-
-        // TODO Update the width and height of the rectangle.
         selection.update(event.getX(), event.getY());
 
         allNotes.forEach((note) -> {
@@ -400,22 +399,11 @@ public class TuneComposer extends Application {
                 }
             }
         });
-
-        //detect note in rectangle
-        //add to list
-        //select it
-
-        // TODO It might make sense to have a selectRect class with its own
-        // properties, so that we can keep track of how far the mouse has been
-        // dragged.
-        // Alternatively, we can get the coordinates of the rectangle's first
-        // corner and compare those values to the click coordinates to
-        // calculate the rectangle's new width and height.
     }
 
     /**
-     * TODO
-     * @param event 
+     * Delete all selected notes. Called from FXML
+     * @param event unused
      */
     @FXML
     void handleDelete(ActionEvent event) {
@@ -430,8 +418,8 @@ public class TuneComposer extends Application {
     }
     
     /**
-     * TODO
-     * @param event 
+     * Select all notes. Called from FXML
+     * @param event unused
      */
     @FXML
     void handleSelectAll(ActionEvent event) {
@@ -439,7 +427,8 @@ public class TuneComposer extends Application {
     }
     
     /**
-     * TODO
+     * Sets selection values for all of the notes
+     * @param selected true to select all
      */
     private void selectAll(boolean selected) {
         allNotes.forEach((note) -> {
