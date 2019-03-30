@@ -110,6 +110,10 @@ public class TuneComposer extends Application {
         allNotes = new HashSet();
         selectedNotes = new HashSet();
     }
+    
+    public static Set<Playable> getSelected() {
+        return selectedPlayables;
+    }
 
     /**
      * Add the given note to the set of all notes, to be played later.
