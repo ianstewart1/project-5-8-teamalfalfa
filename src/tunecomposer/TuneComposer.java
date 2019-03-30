@@ -181,6 +181,16 @@ public class TuneComposer extends Application {
     protected void handleStopPlaying(ActionEvent ignored) {
         stopPlaying();
     }
+    
+    @FXML
+    protected void handleGroup(ActionEvent ignored) {
+        //TODO
+    }
+    
+    @FXML
+    protected void handleUngroup(ActionEvent ignored) {
+        //TODO
+    }
 
     /**
      * When the user selects the "Exit" menu item, exit the program.
