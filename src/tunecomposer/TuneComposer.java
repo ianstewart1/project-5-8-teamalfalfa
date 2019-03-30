@@ -4,6 +4,8 @@
 package tunecomposer;
 
 import java.io.IOException;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 import java.util.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -109,6 +111,11 @@ public class TuneComposer extends Application {
     public TuneComposer() {
         allNotes = new HashSet();
         selectedNotes = new HashSet();
+    }
+    
+    
+    public int clamp(int low, int x, int high){
+        return max(low, min(x, high));
     }
 
     /**
