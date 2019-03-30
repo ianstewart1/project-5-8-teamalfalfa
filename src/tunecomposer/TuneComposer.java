@@ -113,8 +113,8 @@ public class TuneComposer extends Application {
         selectedNotes = new HashSet();
     }
     
-    public static Set<Playable> getSelected() {
-        return selectedPlayables;
+    public Set<Note> getSelected() {
+        return selectedNotes;
     }
     
     public int clamp(int low, int x, int high){

@@ -21,10 +21,10 @@ public class Gesture implements Playable{
 
     public Gesture(){
         isSelected = true;
-        Set<Playable> selected = TuneComposer.getSelected();
-        selected.forEach((element) -> {
-            elements.add(element);
-        });
+        //Set<Playable> selected = TuneComposer.getSelected();
+        //selected.forEach((element) -> {
+            //elements.add(element);
+        //});
         //Calculate boundingRect and set elements = to currently selected
     }
     
