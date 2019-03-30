@@ -18,6 +18,16 @@ public class Gesture implements Playable{
     private boolean isSelected;
     protected Rectangle boundingRect;
     protected Set<Playable> elements;
+    private double x_coord;
+    private double y_coord;
+    
+    
+    /**
+     * Offsets for dragging Rectangle
+     */
+    private double xOffset;
+    private double yOffset;
+    private double widthOffset;
 
     public Gesture(){
         isSelected = true;
@@ -51,7 +61,9 @@ public class Gesture implements Playable{
 
     @Override
     public void setMovingCoords(MouseEvent event) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        xOffset = event.getX() - x_coord;
+        yOffset = event.getY() - y_coord;
+        // need to add this for all of the elements
     }
 
     @Override
