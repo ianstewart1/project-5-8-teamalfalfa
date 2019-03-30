@@ -20,6 +20,20 @@
     -fx-stroke-width: 3px;
 }
 
+.selectedGesture {
+    -fx-border-style: dashed; 
+    -fx-stroke: #E81A0B; 
+    -fx-fill: transparent;
+    -fx-stroke-width: 3px;
+}
+
+.unselectedGesture {
+    -fx-border-style: dashed; 
+    -fx-stroke: #000000; 
+    -fx-fill: transparent;
+    -fx-stroke-width: 3px;
+}
+
 .unselected {
     -fx-stroke: #000000;
 }
