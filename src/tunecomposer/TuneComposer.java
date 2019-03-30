@@ -118,6 +118,22 @@ public class TuneComposer extends Application {
     public static void addNote(Note note) {
         allNotes.add(note);
     }
+    
+    /**
+     * Find the last note so we know when to stop the player and red line.
+     * @return lastNote x_coordinate of the last note in the pane, where the red line should stop.
+     */
+    public double findLastNote() {
+        //TODO !! Can this be combined with scheduling so we don't need to run through alNotes twice?
+        double lastNote = 0;       
+        for(Note note : allNotes){
+           double noteEnd = note.getX() + note.getWidth();
+            if(noteEnd > lastNote){
+                lastNote = noteEnd;
+            } 
+        }        
+        return lastNote;
+    }
 
     /**
      * Plays notes that have been added.
@@ -131,11 +147,10 @@ public class TuneComposer extends Application {
         }
         allNotes.forEach((note) -> {
             note.schedule();
-            note.updateLastNote();
         });
 
         PLAYER.play();
-        playLine.play(Note.lastNote);
+        playLine.play(this.findLastNote());
     }
 
     /**
@@ -308,7 +323,7 @@ public class TuneComposer extends Application {
                 if (changeDuration) {
                     n.moveDuration(event);
                 } else {
-                    n.moveNote(event);
+                    n.move(event);
                 }
             }
         });

@@ -12,7 +12,7 @@ import javafx.scene.shape.Rectangle;
  * Note class creates a Rectangle representing the note to be played
  * @author Ian Hawkins, Madi Crowley, Ian Stewart, Melissa Kohl
  */
-public class Note {
+public class Note implements Playable {
     
     /**
      * Constants for playing note in MidiPlayer
@@ -28,10 +28,6 @@ public class Note {
     private static final int RECTHEIGHT = 10;
     private static final int MARGIN = 5;
     
-    /**
-     * End time for MidiPlayer
-     */
-    public static double lastNote = 0;
     
     /**
      * Note fields for creating rectangle and playing note
@@ -81,15 +77,6 @@ public class Note {
         
         isSelected = true;
     }
-
-    /**
-     * Update the last note so we know when to stop the player and red line
-     */
-    public void updateLastNote() {
-        if (x_coord + rectWidth > lastNote) {
-            lastNote = x_coord + rectWidth;
-        }
-    }
     
     /**
      * Get this Note's Rectangle object
@@ -97,6 +84,22 @@ public class Note {
      */
     public Rectangle getRectangle() {
         return noteRect;
+    }
+    
+    /**
+     * Get this Note's x coordinate
+     * @return x_coord double this Note's x coordinate
+     */
+    public double getX() {
+        return x_coord;
+    }
+    
+    /**
+     * Get this Note's width
+     * @return rectWidth double this Note's width
+     */
+    public double getWidth(){
+        return rectWidth;
     }
     
     /**
@@ -111,6 +114,7 @@ public class Note {
      * Checks if this note is selected
      * @return true if note is selected, false otherwise
      */
+    @Override
     public boolean getSelected() {
         return isSelected;
     }
@@ -120,6 +124,7 @@ public class Note {
      * of the Rectangle
      * @param selected boolean to set selected to
      */
+    @Override
     public void setSelected(boolean selected) {
         isSelected = selected;
         if (selected) {
@@ -139,6 +144,7 @@ public class Note {
      * in the Rectangle
      * @param event mouse click
      */
+    @Override
     public void setMovingCoords(MouseEvent event) {
         xOffset = event.getX() - x_coord;
         yOffset = event.getY() - y_coord;
@@ -148,7 +154,8 @@ public class Note {
      * While the user is dragging the mouse, move the Rectangle with it
      * @param event mouse drag
      */
-    public void moveNote(MouseEvent event) {
+    @Override
+    public void move(MouseEvent event) {
         noteRect.setX(event.getX() - xOffset);
         noteRect.setY(event.getY() - yOffset );
     }
@@ -158,6 +165,7 @@ public class Note {
      * Rectangle's current location
      * @param event mouse click
      */
+    @Override
     public void stopMoving(MouseEvent event) {
         double x = event.getX() - xOffset;
         double y = event.getY() - yOffset;
