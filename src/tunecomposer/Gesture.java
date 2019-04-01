@@ -5,6 +5,7 @@
  */
 package tunecomposer;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import javafx.collections.ObservableList;
@@ -85,7 +86,16 @@ public class Gesture implements Playable{
     
     @Override
     public List getNode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List nodeList = new ArrayList();
+        elements.forEach((element) -> {
+            if (element instanceof Note) {
+                nodeList.addAll(element.getNode());
+            }
+            else {
+                element.getNode();
+            }
+        });
+        return nodeList;
     }
     
     
