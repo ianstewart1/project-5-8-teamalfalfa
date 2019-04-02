@@ -113,6 +113,10 @@ public class TuneComposer extends Application {
         selectedPlayables = new HashSet();
     }
     
+    /**
+     * Returns the Set selectedPlayables
+     * @return set of playables that are selected
+     */
     public static Set<Playable> getSelected() {
         return selectedPlayables;
     }
@@ -197,9 +201,41 @@ public class TuneComposer extends Application {
         //TODO
     }
     
+    /**
+     * Removes the selected gesture(s) from the pain and adds all of the
+     * gesture's elements to the Set allPlayables.
+     * This does not remove the gestures nested in the selected gestures.
+     * @param ignored 
+     */
     @FXML
     protected void handleUngroup(ActionEvent ignored) {
-        //TODO
+        getSelected().forEach((selectedPlayable) -> {
+            if (selectedPlayable instanceof Gesture){
+                Gesture gesture = (Gesture) selectedPlayable;
+                ungroupSingleGesture(gesture);
+                removeGesture(gesture);
+            }
+        });
+    }
+    
+    /**
+     * Adds all of the elements in a gesture to the Set of allPLayables and
+     * removes the gesture
+     * @param gesture is the gesture that is going to be ungrouped
+     */
+    protected void ungroupSingleGesture(Gesture gesture){
+        allPlayables.remove(gesture);
+        gesture.getElements().forEach((element) -> {
+            allPlayables.add((Playable)element);
+        });
+    }
+    
+    /**
+     * This method is used to remove a gesture from the pane. 
+     * @param gesture is a Gesture
+     */
+    protected void removeGesture(Gesture gesture){
+        notePane.getChildren().remove(gesture.boundingRect);
     }
 
     /**
