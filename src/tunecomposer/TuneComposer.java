@@ -113,8 +113,8 @@ public class TuneComposer extends Application {
         selectedPlayables = new HashSet();
     }
     
-    public Set<Note> getSelected() {
-        return selectedNotes;
+    public static Set<Playable> getSelected() {
+        return selectedPlayables;
     }
     
     public int clamp(int low, int x, int high){
@@ -194,7 +194,16 @@ public class TuneComposer extends Application {
     
     @FXML
     protected void handleGroup(ActionEvent ignored) {
-        //TODO
+        allPlayables.forEach((element) -> { //change this it ugly
+            if (element.getSelected()) selectedPlayables.add(element);
+        });
+        Gesture gesture = new Gesture();
+        selectedPlayables.forEach((element) -> {
+            allPlayables.remove(element);
+        });
+        allPlayables.add(gesture);
+        selectedPlayables.clear();
+        notePane.getChildren().add(gesture.getBoundingRect());
     }
     
     @FXML
@@ -450,6 +459,7 @@ public class TuneComposer extends Application {
      */
     @FXML
     void handleDelete(ActionEvent event) {
+        // Maybe use .remove() based on selectedPlayables
         Collection toDelete = new ArrayList();
         allPlayables.forEach((note) -> {
             if (note.getSelected()) {
