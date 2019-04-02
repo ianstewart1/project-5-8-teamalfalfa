@@ -6,9 +6,9 @@
 package tunecomposer;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
@@ -35,11 +35,16 @@ public class Gesture implements Playable{
 
     public Gesture(){
         isSelected = true;
+        elements = new HashSet();
         Set<Playable> selected = TuneComposer.getSelected();
         selected.forEach((element) -> {
             elements.add(element);
         });
-        //Calculate boundingRect and set elements = to currently selected
+        boundingRect = calculateBounds();
+        boundingRect.getStyleClass().add("selectedGesture");
+        x_coord = boundingRect.getX();
+        y_coord = boundingRect.getY();
+        // CHECK IF ANYTHING EVEN IN THE GROUP BEFORE ALL THIS
     }
     
     @Override
@@ -95,14 +100,18 @@ public class Gesture implements Playable{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public Rectangle getBoundingRect() {
+        return boundingRect;
+    }
+    
     @Override
     public void schedule() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Override
-    public List getNodeList() {
-        List nodeList = new ArrayList();
+    public List<Rectangle> getNodeList() {
+        List<Rectangle> nodeList = new ArrayList();
         elements.forEach((element) -> {
             if (element instanceof Note) {
                 nodeList.addAll(element.getNodeList());
@@ -112,6 +121,21 @@ public class Gesture implements Playable{
             }
         });
         return nodeList;
+    }
+    
+    private Rectangle calculateBounds() {
+        List<Rectangle> nodes = getNodeList();
+        double minX = Constants.WIDTH;
+        double minY = Constants.HEIGHT;
+        double maxX = 0;
+        double maxY = 0;
+        for (Rectangle r : nodes) {
+            if (r.getX() < minX) minX = r.getX();
+            if (r.getY() < minY) minY = r.getY();
+            if (r.getX() + r.getWidth() > maxX) maxX = r.getX() + r.getWidth();
+            if (r.getY() + r.getHeight() > maxY) maxY = r.getY() + r.getHeight();
+        }
+        return new Rectangle(minX, minY, maxX - minX, maxY - minY);
     }
     
     

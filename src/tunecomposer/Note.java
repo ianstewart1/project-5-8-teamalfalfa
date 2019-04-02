@@ -6,7 +6,6 @@
 package tunecomposer;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;

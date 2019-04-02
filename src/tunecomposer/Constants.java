@@ -15,6 +15,6 @@ public class Constants {
     public static final int LINE_THICKNESS = 1;
     public static final int DURATION = 100;
     
-    public static final int WIDTH = DURATION * 20;
-    public static final int HEIGHT = NUM_PITCHES * LINE_SPACING;
+    public static final double WIDTH = DURATION * 20;
+    public static final double HEIGHT = NUM_PITCHES * LINE_SPACING;
 }

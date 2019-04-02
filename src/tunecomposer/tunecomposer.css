@@ -21,10 +21,10 @@
 }
 
 .selectedGesture {
-    -fx-border-style: dashed; 
+    -fx-stroke-dash-array: 5; 
     -fx-stroke: #E81A0B; 
     -fx-fill: transparent;
-    -fx-stroke-width: 3px;
+    -fx-stroke-width: 2px;
 }
 
 .unselectedGesture {
