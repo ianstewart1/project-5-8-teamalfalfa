@@ -4,6 +4,10 @@
  * and open the template in the editor.
  */
 package tunecomposer;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.collections.ObservableList;
+import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
@@ -86,10 +90,26 @@ public class Note implements Playable {
         return noteRect;
     }
     
+    public List getNode() {
+        List<Rectangle> listRect = new ArrayList();
+        listRect.add(this.getRectangle());
+        return listRect;
+    }
+    
+    /**
+     * Get this Note's Bounds object of the rectangle in the pane
+     * @return this Note's Bounds
+     */
+    @Override
+    public Bounds getBounds() {
+        return this.getRectangle().getLayoutBounds();
+    }
+    
     /**
      * Get this Note's x coordinate
      * @return x_coord double this Note's x coordinate
      */
+    @Override
     public double getX() {
         return x_coord;
     }
@@ -98,6 +118,7 @@ public class Note implements Playable {
      * Get this Note's width
      * @return rectWidth double this Note's width
      */
+    @Override
     public double getWidth(){
         return rectWidth;
     }
@@ -105,6 +126,7 @@ public class Note implements Playable {
     /**
      * Adds this Note to the MidiPlayer
      */
+    @Override
     public void schedule() {
         TuneComposer.PLAYER.addNote(pitch, VOLUME, startTime, (int)rectWidth, 
                                     instrument.ordinal(), TRACK);
