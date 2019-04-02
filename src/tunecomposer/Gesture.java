@@ -33,10 +33,9 @@ public class Gesture implements Playable{
     private double yOffset;
     private double widthOffset;
 
-    public Gesture(){
+    public Gesture(Set<Playable> selected){
         isSelected = true;
         elements = new HashSet();
-        Set<Playable> selected = TuneComposer.getSelected();
         selected.forEach((element) -> {
             elements.add(element);
         });

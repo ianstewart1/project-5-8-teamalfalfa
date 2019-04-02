@@ -58,11 +58,6 @@ public class TuneComposer extends Application {
     private boolean clickInPane = true;
     private boolean changeDuration = false;
     private boolean isDragSelecting = false;
-    
-    /**
-     * List of notes being selected by the selection area
-     */
-    private static Set<Playable> selectedPlayables;
 
     /**
      * The background of the application.
@@ -110,15 +105,6 @@ public class TuneComposer extends Application {
      */
     public TuneComposer() {
         allPlayables = new HashSet();
-        selectedPlayables = new HashSet();
-    }
-    
-    /**
-     * Returns the Set selectedPlayables
-     * @return set of playables that are selected
-     */
-    public static Set<Playable> getSelected() {
-        return selectedPlayables;
     }
     
     public int clamp(int low, int x, int high){
@@ -186,6 +172,14 @@ public class TuneComposer extends Application {
         playLine.stop();
 
     }
+    
+    protected Set<Playable> selectedSet() {
+        Set<Playable> selected = new HashSet();
+        allPlayables.forEach((element) -> {
+            if (element.getSelected()) selected.add(element);
+        });
+        return selected;
+    }
 
     /**
      * When the user selects "Stop" menu item, stop playing composition
@@ -198,15 +192,8 @@ public class TuneComposer extends Application {
     
     @FXML
     protected void handleGroup(ActionEvent ignored) {
-        allPlayables.forEach((element) -> { //change this it ugly
-            if (element.getSelected()) selectedPlayables.add(element);
-        });
-        Gesture gesture = new Gesture();
-        selectedPlayables.forEach((element) -> {
-            allPlayables.remove(element);
-        });
+        Gesture gesture = new Gesture(selectedSet());
         allPlayables.add(gesture);
-        selectedPlayables.clear();
         notePane.getChildren().add(gesture.getBoundingRect());
     }
     
@@ -218,7 +205,7 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleUngroup(ActionEvent ignored) {
-        getSelected().forEach((selectedPlayable) -> {
+            selectedSet().forEach((selectedPlayable) -> {
             if (selectedPlayable instanceof Gesture){
                 Gesture gesture = (Gesture) selectedPlayable;
                 ungroupSingleGesture(gesture);
@@ -309,7 +296,6 @@ public class TuneComposer extends Application {
         else if (isDragSelecting){
             isDragSelecting = false;
             selection.endRectangle();
-            selectedPlayables.clear();
         }
         else if (clickInPane) {
             if (! event.isControlDown()) {
@@ -478,12 +464,10 @@ public class TuneComposer extends Application {
 
             // Thanks to Paul for suggesting the `intersects` method.
             if(selection.getRectangle().intersects(note.getBounds())) {
-                selectedPlayables.add(note);
                 note.setSelected(true);
             } else {
-                if(selectedPlayables.contains(note)) {
+                if (note.getSelected()) {
                     note.setSelected(false);
-                    selectedPlayables.remove(note); 
                 }
             }
         });
@@ -495,7 +479,6 @@ public class TuneComposer extends Application {
      */
     @FXML
     void handleDelete(ActionEvent event) {
-        // Maybe use .remove() based on selectedPlayables
         Collection toDelete = new ArrayList();
         allPlayables.forEach((note) -> {
             if (note.getSelected()) {
