@@ -5,7 +5,11 @@
  */
 package tunecomposer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import javafx.collections.ObservableList;
+import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
@@ -74,6 +78,40 @@ public class Gesture implements Playable{
     @Override
     public void stopMoving(MouseEvent event) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public Bounds getBounds() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public double getX() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public double getWidth() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public void schedule() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public List getNode() {
+        List nodeList = new ArrayList();
+        elements.forEach((element) -> {
+            if (element instanceof Note) {
+                nodeList.addAll(element.getNode());
+            }
+            else {
+                element.getNode();
+            }
+        });
+        return nodeList;
     }
     
     

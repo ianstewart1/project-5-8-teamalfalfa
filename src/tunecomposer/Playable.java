@@ -5,6 +5,9 @@
  */
 package tunecomposer;
 
+import java.util.List;
+import javafx.collections.ObservableList;
+import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -19,5 +22,12 @@ public interface Playable {
     void setMovingCoords(MouseEvent event);
     void move(MouseEvent event);
     void stopMoving(MouseEvent event);
+    
+    Bounds getBounds();
+    double getX();
+    double getWidth();
+    
+    void schedule();
+    List getNode();
     
 }
