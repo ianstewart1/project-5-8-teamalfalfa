@@ -101,14 +101,14 @@ public class Gesture implements Playable{
     }
     
     @Override
-    public List getNode() {
+    public List getNodeList() {
         List nodeList = new ArrayList();
         elements.forEach((element) -> {
             if (element instanceof Note) {
-                nodeList.addAll(element.getNode());
+                nodeList.addAll(element.getNodeList());
             }
             else {
-                element.getNode();
+                element.getNodeList();
             }
         });
         return nodeList;

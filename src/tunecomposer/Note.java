@@ -90,7 +90,8 @@ public class Note implements Playable {
         return noteRect;
     }
     
-    public List getNode() {
+    @Override
+    public List getNodeList() {
         List<Rectangle> listRect = new ArrayList();
         listRect.add(this.getRectangle());
         return listRect;

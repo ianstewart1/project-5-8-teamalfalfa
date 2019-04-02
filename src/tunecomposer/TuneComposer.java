@@ -44,7 +44,7 @@ public class TuneComposer extends Application {
     /**
      * The set of all notes, to be played later.
      */
-    private static Set<Playable> allNotes;
+    private static Set<Playable> allPlayables;
 
     /**
      * A line moves from left to right across the main pane. It crosses each
@@ -62,7 +62,7 @@ public class TuneComposer extends Application {
     /**
      * List of notes being selected by the selection area
      */
-    private Set<Playable> selectedNotes;
+    private static Set<Playable> selectedPlayables;
 
     /**
      * The background of the application.
@@ -109,8 +109,8 @@ public class TuneComposer extends Application {
      * Constructor initializes Note sets
      */
     public TuneComposer() {
-        allNotes = new HashSet();
-        selectedNotes = new HashSet();
+        allPlayables = new HashSet();
+        selectedPlayables = new HashSet();
     }
     
     public Set<Note> getSelected() {
@@ -126,7 +126,7 @@ public class TuneComposer extends Application {
      * @param note note added to composition
      */
     public static void addNote(Note note) {
-        allNotes.add(note);
+        allPlayables.add(note);
     }
     
     /**
@@ -136,7 +136,7 @@ public class TuneComposer extends Application {
     public double findLastNote() {
         //TODO !! Can this be combined with scheduling so we don't need to run through alNotes twice?
         double lastNote = 0;       
-        for(Playable note : allNotes){
+        for(Playable note : allPlayables){
            double noteEnd = note.getX() + note.getWidth();
             if(noteEnd > lastNote){
                 lastNote = noteEnd;
@@ -155,7 +155,7 @@ public class TuneComposer extends Application {
         for(int i=0; i<8; i++){
             PLAYER.addMidiEvent(ShortMessage.PROGRAM_CHANGE + i, timbreList[i], 0, 0, 0);
         }
-        allNotes.forEach((note) -> {
+        allPlayables.forEach((note) -> {
             note.schedule();
         });
 
@@ -264,7 +264,7 @@ public class TuneComposer extends Application {
         else if (isDragSelecting){
             isDragSelecting = false;
             selection.endRectangle();
-            selectedNotes.clear();
+            selectedPlayables.clear();
         }
         else if (clickInPane) {
             if (! event.isControlDown()) {
@@ -274,7 +274,7 @@ public class TuneComposer extends Application {
             Instrument instrument = getInstrument();
             Note note = new Note(event.getX(), event.getY(), instrument);
             
-            allNotes.add(note);
+            allPlayables.add(note);
             notePane.getChildren().add(note.getRectangle());
             
             note.getRectangle().setOnMousePressed((MouseEvent pressedEvent) -> {
@@ -321,7 +321,7 @@ public class TuneComposer extends Application {
      */
     private void handleNotePress(MouseEvent event, Note note) {
         changeDuration = note.inLastFive(event);
-        allNotes.forEach((n) -> {
+        allPlayables.forEach((n) -> {
             //dragging not yet implemented for gestures
             //THIS MIGHT BE WEIRD IDK YET
             if(n instanceof Note) {
@@ -343,7 +343,7 @@ public class TuneComposer extends Application {
      * @param event mouse drag
      */
     private void handleNoteDrag(MouseEvent event) {
-        allNotes.forEach((n) -> {
+        allPlayables.forEach((n) -> {
             if( n instanceof Note) {
                 Note assertNote = (Note) n;
                 if (assertNote.getSelected()) {
@@ -363,7 +363,7 @@ public class TuneComposer extends Application {
      */
     private void handleNoteStopDragging(MouseEvent event) {
         clickInPane = false;
-        allNotes.forEach((n) -> {
+        allPlayables.forEach((n) -> {
             if(n instanceof Note) {
                 Note assertNote = (Note) n;
                 if (assertNote.getSelected()) {
@@ -427,18 +427,18 @@ public class TuneComposer extends Application {
     private void handleSelectionContinueDrag(MouseEvent event) {
         selection.update(event.getX(), event.getY());
 
-        allNotes.forEach((note) -> {
+        allPlayables.forEach((note) -> {
             double horizontal = selectRect.getX() + selectRect.getWidth();
             double vertical = selectRect.getY() + selectRect.getHeight();
 
             // Thanks to Paul for suggesting the `intersects` method.
             if(selection.getRectangle().intersects(note.getBounds())) {
-                selectedNotes.add(note);
+                selectedPlayables.add(note);
                 note.setSelected(true);
             } else {
-                if(selectedNotes.contains(note)) {
+                if(selectedPlayables.contains(note)) {
                     note.setSelected(false);
-                    selectedNotes.remove(note); 
+                    selectedPlayables.remove(note); 
                 }
             }
         });
@@ -451,13 +451,13 @@ public class TuneComposer extends Application {
     @FXML
     void handleDelete(ActionEvent event) {
         Collection toDelete = new ArrayList();
-        allNotes.forEach((note) -> {
+        allPlayables.forEach((note) -> {
             if (note.getSelected()) {
                 toDelete.add(note);
-                notePane.getChildren().removeAll(note.getNode());
+                notePane.getChildren().removeAll(note.getNodeList());
             }
         });
-        allNotes.removeAll(toDelete);
+        allPlayables.removeAll(toDelete);
     }
     
     /**
@@ -474,7 +474,7 @@ public class TuneComposer extends Application {
      * @param selected true to select all
      */
     private void selectAll(boolean selected) {
-        allNotes.forEach((note) -> {
+        allPlayables.forEach((note) -> {
             note.setSelected(selected);
         });
     }

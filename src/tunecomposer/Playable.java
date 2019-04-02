@@ -6,7 +6,6 @@
 package tunecomposer;
 
 import java.util.List;
-import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
 
@@ -28,6 +27,6 @@ public interface Playable {
     double getWidth();
     
     void schedule();
-    List getNode();
+    List getNodeList();
     
 }
