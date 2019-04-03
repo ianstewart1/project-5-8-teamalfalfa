@@ -163,7 +163,6 @@ public class Gesture implements Playable{
     
     private Rectangle calculateBounds() {
         List<Rectangle> nodes = getNodeList();
-        System.out.println(nodes);
         double minX = Constants.WIDTH;
         double minY = Constants.HEIGHT;
         double maxX = 0;
