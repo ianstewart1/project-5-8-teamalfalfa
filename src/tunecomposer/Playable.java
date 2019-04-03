@@ -8,6 +8,7 @@ package tunecomposer;
 import java.util.List;
 import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 
 /**
  *
@@ -28,5 +29,6 @@ public interface Playable {
     
     void schedule();
     List getNodeList();
+    void removeFromPane(Pane notepane);
     
 }
