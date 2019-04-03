@@ -17,7 +17,7 @@
 
 .selected {
     -fx-stroke: #E81A0B;
-    -fx-stroke-width: 3px;
+    -fx-stroke-width: 2px;
 }
 
 .selectedGesture {

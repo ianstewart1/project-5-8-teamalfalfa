@@ -195,12 +195,10 @@ public class TuneComposer extends Application {
         Set<Playable> selected = selectedSet();
         if (selected.size() > 1) {
             Gesture gesture = new Gesture(selected);
-
             gesture.getBoundingRect().setOnMousePressed((MouseEvent pressedEvent) -> {
                 handlePlayableClick(pressedEvent, gesture);
                 handlePlayablePress(pressedEvent, gesture);
             });
-
             allPlayables.removeAll(selected);
             allPlayables.add(gesture);
             notePane.getChildren().add(gesture.getBoundingRect());
@@ -492,10 +490,10 @@ public class TuneComposer extends Application {
     @FXML
     void handleDelete(ActionEvent event) {
         Collection toDelete = new ArrayList();
-        allPlayables.forEach((note) -> {
-            if (note.getSelected()) {
-                toDelete.add(note);
-                notePane.getChildren().removeAll(note.getNodeList());
+        allPlayables.forEach((element) -> {
+            if (element.getSelected()) {
+                toDelete.add(element);
+                element.removeFromPane(notePane);
             }
         });
         allPlayables.removeAll(toDelete);
@@ -515,8 +513,8 @@ public class TuneComposer extends Application {
      * @param selected true to select all
      */
     private void selectAll(boolean selected) {
-        allPlayables.forEach((note) -> {
-            note.setSelected(selected);
+        allPlayables.forEach((element) -> {
+            element.setSelected(selected);
         });
     }
 
