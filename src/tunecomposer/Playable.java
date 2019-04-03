@@ -21,6 +21,8 @@ public interface Playable {
     
     void setMovingCoords(MouseEvent event);
     void move(MouseEvent event);
+    void moveX(MouseEvent event);
+    void moveY(MouseEvent event);
     void stopMoving(MouseEvent event);
     
     Bounds getBounds();
