@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
 
@@ -264,6 +265,12 @@ public class Note implements Playable {
         if (rectWidth < MARGIN) rectWidth = MARGIN;
         
         noteRect.setWidth(rectWidth);
+    }
+    
+    @Override
+    public void removeFromPane(Pane pane) {
+        pane.getChildren().remove(noteRect);
+
     }
     
 }

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Set;
 import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -133,6 +134,7 @@ public class Gesture implements Playable{
     /**
      * Adds all of the notes contained within the gesture and any nested
      * gestures to the midiplayer.
+     * @return 
      */
     public Rectangle getBoundingRect() {
         return boundingRect;
@@ -156,12 +158,7 @@ public class Gesture implements Playable{
     public List<Rectangle> getNodeList() {
         List<Rectangle> nodeList = new ArrayList();
         elements.forEach((element) -> {
-            if (element instanceof Note) {
                 nodeList.addAll(element.getNodeList());
-            }
-            else {
-                element.getNodeList();
-            }
         });
         return nodeList;
     }
@@ -179,6 +176,14 @@ public class Gesture implements Playable{
             if (r.getY() + r.getHeight() > maxY) maxY = r.getY() + r.getHeight();
         }
         return new Rectangle(minX, minY, maxX - minX, maxY - minY);
+    }
+    
+    @Override
+    public void removeFromPane(Pane pane) {
+        pane.getChildren().remove(boundingRect);
+        elements.forEach((element) -> {
+            element.removeFromPane(pane);
+        });
     }
     
     
