@@ -156,18 +156,14 @@ public class Gesture implements Playable{
     public List<Rectangle> getNodeList() {
         List<Rectangle> nodeList = new ArrayList();
         elements.forEach((element) -> {
-            if (element instanceof Note) {
                 nodeList.addAll(element.getNodeList());
-            }
-            else {
-                element.getNodeList();
-            }
         });
         return nodeList;
     }
     
     private Rectangle calculateBounds() {
         List<Rectangle> nodes = getNodeList();
+        System.out.println(nodes);
         double minX = Constants.WIDTH;
         double minY = Constants.HEIGHT;
         double maxX = 0;
