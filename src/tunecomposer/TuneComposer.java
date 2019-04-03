@@ -173,10 +173,16 @@ public class TuneComposer extends Application {
 
     }
     
+    /**
+     * Returns a list of all of the selected Playables in the composition screen
+     * @return a Set of Playables
+     */
     protected Set<Playable> selectedSet() {
         Set<Playable> selected = new HashSet();
         allPlayables.forEach((element) -> {
-            if (element.getSelected()) selected.add(element);
+            if (element.getSelected()){
+                selected.add(element);
+            }
         });
         return selected;
     }
@@ -359,21 +365,19 @@ public class TuneComposer extends Application {
      * @param note note Rectangle that was clicked
      */
     private void handlePlayablePress(MouseEvent event, Playable playable) {
-        if(playable instanceof Note){
+        if (playable instanceof Note){
             Note assertNote = (Note) playable;
             changeDuration = assertNote.inLastFive(event);
         } else {
             changeDuration = false;
         }
         
-        allPlayables.forEach((n) -> {
-            if (playable.getSelected()) {
-                if (changeDuration) {
-                    Note assertNote = (Note) playable;
-                    assertNote.setMovingDuration(event);
-                } else {
-                    playable.setMovingCoords(event);
-                }
+        selectedSet().forEach((element) -> {
+            if (changeDuration) {
+                Note assertNote = (Note) element;
+                assertNote.setMovingDuration(event);
+            } else {
+                element.setMovingCoords(event);
             }
         });
     }
