@@ -195,6 +195,10 @@ public class TuneComposer extends Application {
         Set<Playable> selected = selectedSet();
         if (selected.size() > 1) {
             Gesture gesture = new Gesture(selected);
+            gesture.getBoundingRect().setOnMousePressed((MouseEvent pressedEvent) -> {
+                handlePlayableClick(pressedEvent, gesture);
+                handlePlayablePress(pressedEvent, gesture);
+            });
             allPlayables.removeAll(selected);
             allPlayables.add(gesture);
             notePane.getChildren().add(gesture.getBoundingRect());
@@ -313,8 +317,8 @@ public class TuneComposer extends Application {
             notePane.getChildren().add(note.getRectangle());
             
             note.getRectangle().setOnMousePressed((MouseEvent pressedEvent) -> {
-                handleNoteClick(pressedEvent, note);
-                handleNotePress(pressedEvent, note);
+                handlePlayableClick(pressedEvent, note);
+                handlePlayablePress(pressedEvent, note);
             });
             
             note.getRectangle().setOnMouseDragged((MouseEvent dragEvent) -> {
@@ -332,19 +336,19 @@ public class TuneComposer extends Application {
      * When user presses on a note, set the notes to be selected or 
      * unselected accordingly.
      * @param event mouse click
-     * @param note note Rectangle that was clicked
+     * @param playable Playable that was clicked
      */
-    private void handleNoteClick(MouseEvent event, Note note) {
+    private void handlePlayableClick(MouseEvent event, Playable playable) {
         clickInPane = false;
         boolean control = event.isControlDown();
-        boolean selected = note.getSelected();
+        boolean selected = playable.getSelected();
         if (! control && ! selected) {
             selectAll(false);
-            note.setSelected(true);
+            playable.setSelected(true);
         } else if ( control && ! selected) {
-            note.setSelected(true);
+            playable.setSelected(true);
         } else if (control && selected) {
-            note.setSelected(false);
+            playable.setSelected(false);
         }
     }
     
@@ -354,19 +358,21 @@ public class TuneComposer extends Application {
      * @param event mouse click
      * @param note note Rectangle that was clicked
      */
-    private void handleNotePress(MouseEvent event, Note note) {
-        changeDuration = note.inLastFive(event);
+    private void handlePlayablePress(MouseEvent event, Playable playable) {
+        if(playable instanceof Note){
+            Note assertNote = (Note) playable;
+            changeDuration = assertNote.inLastFive(event);
+        } else {
+            changeDuration = false;
+        }
+        
         allPlayables.forEach((n) -> {
-            //dragging not yet implemented for gestures
-            //THIS MIGHT BE WEIRD IDK YET
-            if(n instanceof Note) {
-                Note assertNote = (Note) n;
-                if (assertNote.getSelected()) {
-                    if (changeDuration) {
-                        assertNote.setMovingDuration(event);
-                    } else {
-                        assertNote.setMovingCoords(event);
-                    }
+            if (playable.getSelected()) {
+                if (changeDuration) {
+                    Note assertNote = (Note) playable;
+                    assertNote.setMovingDuration(event);
+                } else {
+                    playable.setMovingCoords(event);
                 }
             }
         });
