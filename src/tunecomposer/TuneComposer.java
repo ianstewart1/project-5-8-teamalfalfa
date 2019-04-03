@@ -205,6 +205,14 @@ public class TuneComposer extends Application {
                 handlePlayableClick(pressedEvent, gesture);
                 handlePlayablePress(pressedEvent, gesture);
             });
+            
+            gesture.getBoundingRect().setOnMouseDragged((MouseEvent dragEvent) -> {
+                handlePlayableDrag(dragEvent);
+            });
+            
+            gesture.getBoundingRect().setOnMouseReleased((MouseEvent releaseEvent) -> { 
+                handlePlayableStopDragging(releaseEvent);
+            });
             allPlayables.removeAll(selected);
             allPlayables.add(gesture);
             notePane.getChildren().add(gesture.getBoundingRect());
@@ -328,11 +336,11 @@ public class TuneComposer extends Application {
             });
             
             note.getRectangle().setOnMouseDragged((MouseEvent dragEvent) -> {
-                handleNoteDrag(dragEvent);
+                handlePlayableDrag(dragEvent);
             });
             
             note.getRectangle().setOnMouseReleased((MouseEvent releaseEvent) -> {
-                handleNoteStopDragging(releaseEvent);
+                handlePlayableStopDragging(releaseEvent);
             });
         }
         clickInPane = true;
@@ -371,7 +379,7 @@ public class TuneComposer extends Application {
         } else {
             changeDuration = false;
         }
-        
+
         selectedSet().forEach((element) -> {
             if (changeDuration) {
                 Note assertNote = (Note) element;
@@ -387,16 +395,14 @@ public class TuneComposer extends Application {
      * notes
      * @param event mouse drag
      */
-    private void handleNoteDrag(MouseEvent event) {
-        allPlayables.forEach((n) -> {
-            if( n instanceof Note) {
-                Note assertNote = (Note) n;
-                if (assertNote.getSelected()) {
-                    if (changeDuration) {
-                        assertNote.moveDuration(event);
-                    } else {
-                        assertNote.move(event);
-                    }
+    private void handlePlayableDrag(MouseEvent event) {
+        allPlayables.forEach((p) -> {
+            if (p.getSelected()) {
+                if (changeDuration) {
+                    Note assertNote = (Note) p;
+                    assertNote.moveDuration(event);
+                } else {
+                    p.move(event);
                 }
             }
         });
@@ -406,17 +412,15 @@ public class TuneComposer extends Application {
      * When the user stops dragging the mouse, stop moving the selected notes
      * @param event mouse click
      */
-    private void handleNoteStopDragging(MouseEvent event) {
+    private void handlePlayableStopDragging(MouseEvent event) {
         clickInPane = false;
-        allPlayables.forEach((n) -> {
-            if(n instanceof Note) {
-                Note assertNote = (Note) n;
-                if (assertNote.getSelected()) {
-                    if (changeDuration) {
-                        assertNote.stopDuration(event);
-                    } else {
-                        assertNote.stopMoving(event);
-                    }
+        allPlayables.forEach((p) -> {
+            if (p.getSelected()) {
+                if (changeDuration) {
+                    Note assertNote = (Note) p;
+                    assertNote.stopDuration(event);
+                } else {
+                    p.stopMoving(event);
                 }
             }
         });

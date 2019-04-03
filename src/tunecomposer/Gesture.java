@@ -91,17 +91,57 @@ public class Gesture implements Playable{
         xOffset = event.getX() - x_coord;
         yOffset = event.getY() - y_coord;
         // need to add this for all of the elements
+        
+        elements.forEach((element) -> {
+            element.setMovingCoords(event);
+        });
     }
 
     @Override
     public void move(MouseEvent event) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        moveX(event);
+        moveY(event);
+    }
+
+    public void moveX(MouseEvent event) {
+        double moveX = event.getX() - xOffset;
+        
+        if(moveX > 0 && (moveX + boundingRect.getWidth()) < Constants.WIDTH){
+            boundingRect.setX(moveX);
+            
+            elements.forEach((element) -> {
+                element.moveX(event);
+            });
+        }
+    }
+
+    public void moveY(MouseEvent event) {
+        double moveY = event.getY() - yOffset;
+        
+        if(moveY > 0 && (moveY + boundingRect.getHeight()) < Constants.HEIGHT) {
+            boundingRect.setY(moveY);
+            
+            elements.forEach((element) -> {
+                element.moveY(event);
+            });
+        }
     }
 
     @Override
     public void stopMoving(MouseEvent event) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double x = boundingRect.getX();
+        double y = boundingRect.getY();
+        
+        x_coord = x;
+        y_coord = y - (y % Constants.LINE_SPACING);
+        
+        boundingRect.setY(y_coord);
+        
+        elements.forEach((element) -> {
+            element.stopMoving(event);
+        });
     }
+    
     
     /**
      * Returns the Bounds object for the gesture's bounding rectangle in the

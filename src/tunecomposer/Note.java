@@ -179,12 +179,20 @@ public class Note implements Playable {
      */
     @Override
     public void move(MouseEvent event) {
+        moveX(event);
+        moveY(event);
+    }
+
+    public void moveX(MouseEvent event) {
         double moveX = event.getX() - xOffset;
-        double moveY = event.getY() - yOffset;
         
         if(moveX > 0 && (moveX + rectWidth) < Constants.WIDTH){
             noteRect.setX(moveX);
         }
+    }
+
+    public void moveY(MouseEvent event) {
+        double moveY = event.getY() - yOffset;
         
         if(moveY > 0 && (moveY + Constants.LINE_SPACING) < Constants.HEIGHT){
             noteRect.setY(moveY);
@@ -198,30 +206,15 @@ public class Note implements Playable {
      */
     @Override
     public void stopMoving(MouseEvent event) {
-        double x = event.getX() - xOffset;
-        double y = event.getY() - yOffset;
+        double x = noteRect.getX();
+        double y = noteRect.getY();
 
-        if(x < 0){
-            x = 0;
-        } 
-        else if(x > Constants.WIDTH - rectWidth) {
-            x = Constants.WIDTH - rectWidth;
-        }
-        
-        if(y < 0){
-            y = 0;
-        } 
-        else if(y > Constants.HEIGHT - Constants.LINE_SPACING) {
-            y = Constants.HEIGHT - Constants.LINE_SPACING;
-        }
-        
         startTime = (int) x;
         pitch = MAX_PITCH - (int) y / RECTHEIGHT;
         
         x_coord = x;
         y_coord = y - (y % RECTHEIGHT);
         
-        noteRect.setX(x_coord);
         noteRect.setY(y_coord);
     }
     
