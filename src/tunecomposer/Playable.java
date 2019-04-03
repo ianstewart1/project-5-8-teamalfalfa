@@ -11,26 +11,26 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 /**
- *
+ * Interface for Gesture and Note to make polymorphism possible.
  * @author milloypr
  */
 public interface Playable {
     
     boolean getSelected();
-    void setSelected(boolean selected);
+    Bounds getBounds();
+    double getX();
+    double getWidth();
+    List getNodeList();
     
+    void setSelected(boolean selected);
     void setMovingCoords(MouseEvent event);
+    
     void move(MouseEvent event);
     void moveX(MouseEvent event);
     void moveY(MouseEvent event);
     void stopMoving(MouseEvent event);
     
-    Bounds getBounds();
-    double getX();
-    double getWidth();
-    
     void schedule();
-    List getNodeList();
     void removeFromPane(Pane notepane);
     
 }
