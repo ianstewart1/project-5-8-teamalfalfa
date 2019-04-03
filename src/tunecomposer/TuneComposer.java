@@ -193,10 +193,12 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleGroup(ActionEvent ignored) {
         Set<Playable> selected = selectedSet();
-        Gesture gesture = new Gesture(selected);
-        allPlayables.removeAll(selected);
-        allPlayables.add(gesture);
-        notePane.getChildren().add(gesture.getBoundingRect());
+        if (selected.size() > 1) {
+            Gesture gesture = new Gesture(selected);
+            allPlayables.removeAll(selected);
+            allPlayables.add(gesture);
+            notePane.getChildren().add(gesture.getBoundingRect());
+        }
     }
     
     /**
