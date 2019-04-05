@@ -106,10 +106,6 @@ public class TuneComposer extends Application {
     public TuneComposer() {
         allPlayables = new HashSet();
     }
-    
-    public int clamp(int low, int x, int high){
-        return max(low, min(x, high));
-    }
 
     /**
      * Add the given note to the set of all notes, to be played later.
