@@ -103,6 +103,7 @@ public class Gesture implements Playable{
         moveY(event);
     }
 
+    @Override
     public void moveX(MouseEvent event) {
         double moveX = event.getX() - xOffset;
         
@@ -115,6 +116,7 @@ public class Gesture implements Playable{
         }
     }
 
+    @Override
     public void moveY(MouseEvent event) {
         double moveY = event.getY() - yOffset;
         
@@ -226,6 +228,45 @@ public class Gesture implements Playable{
         });
     }
     
+    @Override
+    public boolean inLastFive(MouseEvent event) {
+        return (event.getX() > x_coord + boundingRect.getWidth() - Constants.MARGIN);
+    }
     
+    @Override
+    public void setMovingDuration(MouseEvent event) {
+        widthOffset = x_coord + boundingRect.getWidth() - event.getX();
+    }
     
+    @Override
+    public void moveDuration(MouseEvent event) {
+        double tempWidth = event.getX() - x_coord + widthOffset;
+        if (tempWidth < 5) tempWidth = 5;
+        double proportion = tempWidth / boundingRect.getWidth();
+        boundingRect.setWidth(tempWidth);
+        elements.forEach((element) -> {
+            element.setProportions(x_coord, proportion);
+        });
+    }
+    
+    @Override
+    public void setProportions(double gestureX, double proportion) {
+        double offset = (x_coord - gestureX) * proportion;
+        double newX = gestureX + offset;
+        double newWidth = boundingRect.getWidth() * proportion;
+        x_coord = newX;
+        boundingRect.setX(newX);
+        boundingRect.setWidth(newWidth);
+        elements.forEach((element) -> {
+            element.setProportions(gestureX, proportion);
+        });
+    }
+    
+    @Override
+    public void stopDuration(MouseEvent event) {
+        double width = event.getX() - x_coord + widthOffset;
+        if (width < Constants.MARGIN) width = Constants.MARGIN;
+        
+        boundingRect.setWidth(width);
+    }
 }

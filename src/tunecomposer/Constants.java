@@ -22,5 +22,7 @@ public class Constants {
      */
     public static final double WIDTH = DURATION * 20;
     public static final double HEIGHT = NUM_PITCHES * LINE_SPACING;
+    public static final int MARGIN = 5;
+
     
 }
