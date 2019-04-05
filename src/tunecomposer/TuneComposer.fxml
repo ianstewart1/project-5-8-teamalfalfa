@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -18,8 +19,8 @@
 <?import javafx.scene.shape.Rectangle?>
 
 <BorderPane id="root-pane" stylesheets="@tunecomposer.css" 
-            xmlns:fx="http://javafx.com/fxml/1" 
             xmlns="http://javafx.com/javafx/10.0.1" 
+            xmlns:fx="http://javafx.com/fxml/1" 
             fx:controller="tunecomposer.TuneComposer">
    <top>
       <MenuBar>
@@ -51,6 +52,7 @@
                                             shortcut="UP" />
                      </accelerator>
                   </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem onAction="#handleGroup" text="Group">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="G" control="DOWN" 

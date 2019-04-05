@@ -30,7 +30,6 @@ public class Note implements Playable {
      * Constants for Rectangle in composition panel
      */
     private static final int RECTHEIGHT = 10;
-    private static final int MARGIN = 5;
     
     
     /**
@@ -91,7 +90,7 @@ public class Note implements Playable {
     }
     
     @Override
-    public List getNodeList() {
+    public List<Rectangle> getNodeList() {
         List<Rectangle> listRect = new ArrayList();
         listRect.add(this.getRectangle());
         return listRect;
@@ -225,7 +224,7 @@ public class Note implements Playable {
      * @return true if mouse is within the last 5 pixels of the Rectangle
      */
     public boolean inLastFive(MouseEvent event) {
-        return (event.getX() > x_coord + rectWidth - MARGIN);
+        return (event.getX() > x_coord + rectWidth - Constants.MARGIN);
     }
     
     /**
@@ -234,6 +233,7 @@ public class Note implements Playable {
      * is in the Rectangle 
      * @param event mouse click
      */
+    @Override
     public void setMovingDuration(MouseEvent event) {
         widthOffset = x_coord + rectWidth - event.getX();
     }
@@ -242,10 +242,22 @@ public class Note implements Playable {
      * While the user is dragging the mouse, change the width of the Rectangle
      * @param event mouse drag
      */
+    @Override
     public void moveDuration(MouseEvent event) {
         double tempWidth = event.getX() - x_coord + widthOffset;
         if (tempWidth < 5) tempWidth = 5;
         noteRect.setWidth(tempWidth);
+    }
+    
+    @Override
+    public void setProportions(double gestureX, double proportion) {
+        double offset = (x_coord - gestureX) * proportion;
+        double newX = gestureX + offset;
+        double newWidth = rectWidth * proportion;
+        x_coord = newX;
+        rectWidth = newWidth;
+        noteRect.setX(newX);
+        noteRect.setWidth(newWidth);
     }
     
     /**
@@ -253,9 +265,10 @@ public class Note implements Playable {
      * to final width
      * @param event 
      */
+    @Override
     public void stopDuration(MouseEvent event) {
         rectWidth = event.getX() - x_coord + widthOffset;
-        if (rectWidth < MARGIN) rectWidth = MARGIN;
+        if (rectWidth < Constants.MARGIN) rectWidth = Constants.MARGIN;
         
         noteRect.setWidth(rectWidth);
     }

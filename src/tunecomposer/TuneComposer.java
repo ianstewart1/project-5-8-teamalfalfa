@@ -373,17 +373,10 @@ public class TuneComposer extends Application {
      * @param note note Rectangle that was clicked
      */
     private void handlePlayablePress(MouseEvent event, Playable playable) {
-        if (playable instanceof Note){
-            Note assertNote = (Note) playable;
-            changeDuration = assertNote.inLastFive(event);
-        } else {
-            changeDuration = false;
-        }
-
+        changeDuration = playable.inLastFive(event);
         selectedSet().forEach((element) -> {
             if (changeDuration) {
-                Note assertNote = (Note) element;
-                assertNote.setMovingDuration(event);
+                element.setMovingDuration(event);
             } else {
                 element.setMovingCoords(event);
             }
@@ -396,14 +389,11 @@ public class TuneComposer extends Application {
      * @param event mouse drag
      */
     private void handlePlayableDrag(MouseEvent event) {
-        allPlayables.forEach((p) -> {
-            if (p.getSelected()) {
-                if (changeDuration) {
-                    Note assertNote = (Note) p;
-                    assertNote.moveDuration(event);
-                } else {
-                    p.move(event);
-                }
+        selectedSet().forEach((element) -> {
+            if (changeDuration) {
+                element.moveDuration(event);
+            } else {
+                element.move(event);
             }
         });
     }
@@ -414,14 +404,11 @@ public class TuneComposer extends Application {
      */
     private void handlePlayableStopDragging(MouseEvent event) {
         clickInPane = false;
-        allPlayables.forEach((p) -> {
-            if (p.getSelected()) {
-                if (changeDuration) {
-                    Note assertNote = (Note) p;
-                    assertNote.stopDuration(event);
-                } else {
-                    p.stopMoving(event);
-                }
+        selectedSet().forEach((element) -> {
+            if (changeDuration) {
+                element.stopDuration(event);
+            } else {
+                element.stopMoving(event);
             }
         });
         changeDuration = false;
