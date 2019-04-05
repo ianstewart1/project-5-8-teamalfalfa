@@ -319,6 +319,7 @@ public class Gesture implements Playable{
         if (tempWidth < 5) tempWidth = 5;
         double proportion = tempWidth / width;
         boundingRect.setWidth(tempWidth);
+        width = tempWidth;
         elements.forEach((element) -> {
             element.setProportions(x_coord, proportion);
         });
