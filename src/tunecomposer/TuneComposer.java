@@ -106,6 +106,57 @@ public class TuneComposer extends Application {
     public TuneComposer() {
         allPlayables = new HashSet();
     }
+    
+    /**
+     * Initializes FXML. Called automatically.
+     * (1) adds 127 gray lines to background
+     * (2) initializes the playLine(set to invisible)
+     */
+    public void initialize() {
+        // Add gray lines to background
+        for (int i = 1; i < 128; i++) {
+            Line row = new Line(0, 10 * i, 2000, 10 * i);
+            row.getStyleClass().add("row-divider");
+            background.getChildren().add(row);
+        }
+
+        playLine = new PlayLine(movingLine);
+
+        // Let mouse events go through to notePane
+        playLinePane.setMouseTransparent(true);
+
+        selection = new SelectionArea(selectRect);
+    }
+    
+    /**
+     * Get the instrument currently selected in the sidebar.
+     * @return the selected instrument
+     */
+    private Instrument getInstrument() {
+        RadioButton selectedButton = (RadioButton)instrumentToggle.getSelectedToggle();
+        String instrument = selectedButton.getText();
+        switch(instrument) {
+            case "Piano":           return Instrument.PIANO;
+            case "Harpsichord":     return Instrument.HARPSICHORD;
+            case "Marimba":         return Instrument.MARIMBA;
+            case "Church Organ":    return Instrument.CHURCH_ORGAN;
+            case "Accordion":       return Instrument.ACCORDION;
+            case "Guitar":          return Instrument.GUITAR;
+            case "Violin":          return Instrument.VIOLIN;
+            case "French Horn":     return Instrument.FRENCH_HORN;
+            default:
+                throw new IllegalArgumentException("Unrecognized Instrument");
+        }
+    }
+    
+    /**
+     * This method is used to remove a gesture from the pane. 
+     * @param gesture is a Gesture
+     */
+    protected void removeGesture(Gesture gesture){
+        notePane.getChildren().remove(gesture.boundingRect);
+    }
+
 
     /**
      * Add the given note to the set of all notes, to be played later.
@@ -120,7 +171,6 @@ public class TuneComposer extends Application {
      * @return lastNote x_coordinate of the last note in the pane, where the red line should stop.
      */
     public double findLastNote() {
-        //TODO !! Can this be combined with scheduling so we don't need to run through alNotes twice?
         double lastNote = 0;       
         for(Playable note : allPlayables){
            double noteEnd = note.getX() + note.getWidth();
@@ -157,7 +207,7 @@ public class TuneComposer extends Application {
     public void handleStartPlaying(ActionEvent ignored) {
         startPlaying();
     }
-
+    
     /**
      * Stops playing composition.
      * Called when the Stop button is clicked. Does not remove notes from the
@@ -170,6 +220,15 @@ public class TuneComposer extends Application {
     }
     
     /**
+     * When the user selects "Stop" menu item, stop playing composition
+     * @param ignored not used
+     */
+    @FXML
+    protected void handleStopPlaying(ActionEvent ignored) {
+        stopPlaying();
+    }
+
+    /**
      * Returns a list of all of the selected Playables in the composition screen
      * @return a Set of Playables
      */
@@ -181,17 +240,14 @@ public class TuneComposer extends Application {
             }
         });
         return selected;
-    }
-
-    /**
-     * When the user selects "Stop" menu item, stop playing composition
-     * @param ignored not used
-     */
-    @FXML
-    protected void handleStopPlaying(ActionEvent ignored) {
-        stopPlaying();
-    }
+    }   
     
+    /**
+     * Groups all currently selected Playables into a Gesture. Removes the
+     * selected playables from AllPlayables and adds the new gesture to 
+     * allPlayables
+     * @param ignored 
+     */
     @FXML
     protected void handleGroup(ActionEvent ignored) {
         Set<Playable> selected = selectedSet();
@@ -244,65 +300,6 @@ public class TuneComposer extends Application {
         });
     }
     
-    /**
-     * This method is used to remove a gesture from the pane. 
-     * @param gesture is a Gesture
-     */
-    protected void removeGesture(Gesture gesture){
-        notePane.getChildren().remove(gesture.boundingRect);
-    }
-
-    /**
-     * When the user selects the "Exit" menu item, exit the program.
-     * @param event the menu selection event
-     */
-    @FXML
-    protected void handleExitMenuItemAction(ActionEvent event) {
-        System.exit(0);
-    }
-
-    /**
-     * Initializes FXML. Called automatically.
-     * (1) adds 127 gray lines to background
-     * (2) initializes the playLine(set to invisible)
-     */
-    public void initialize() {
-        // Add gray lines to background
-        for (int i = 1; i < 128; i++) {
-            Line row = new Line(0, 10 * i, 2000, 10 * i);
-            row.getStyleClass().add("row-divider");
-            background.getChildren().add(row);
-        }
-
-        playLine = new PlayLine(movingLine);
-
-        // Let mouse events go through to notePane
-        playLinePane.setMouseTransparent(true);
-
-        selection = new SelectionArea(selectRect);
-    }
-
-    /**
-     * Get the instrument currently selected in the sidebar.
-     * @return the selected instrument
-     */
-    private Instrument getInstrument() {
-        RadioButton selectedButton = (RadioButton)instrumentToggle.getSelectedToggle();
-        String instrument = selectedButton.getText();
-        switch(instrument) {
-            case "Piano":           return Instrument.PIANO;
-            case "Harpsichord":     return Instrument.HARPSICHORD;
-            case "Marimba":         return Instrument.MARIMBA;
-            case "Church Organ":    return Instrument.CHURCH_ORGAN;
-            case "Accordion":       return Instrument.ACCORDION;
-            case "Guitar":          return Instrument.GUITAR;
-            case "Violin":          return Instrument.VIOLIN;
-            case "French Horn":     return Instrument.FRENCH_HORN;
-            default:
-                throw new IllegalArgumentException("Unrecognized Instrument");
-        }
-    }
-
     /**
      * Construct a note from a click. Called via FXML.
      * @param event a mouse click
@@ -508,6 +505,15 @@ public class TuneComposer extends Application {
             element.setSelected(selected);
         });
     }
+    
+    /**
+     * When the user selects the "Exit" menu item, exit the program.
+     * @param event the menu selection event
+     */
+    @FXML
+    protected void handleExitMenuItemAction(ActionEvent event) {
+        System.exit(0);
+    }
 
     /**
      * Construct the scene and start the application.
@@ -527,7 +533,6 @@ public class TuneComposer extends Application {
         
         primaryStage.show();
     }
-
 
     /**
      * Launch the application.
