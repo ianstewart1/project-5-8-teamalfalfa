@@ -40,7 +40,6 @@ public class Note implements Playable {
     private double x_coord;
     private double y_coord;
     private double rectWidth;
-    private int startTime;
     private int pitch;
     private final Instrument instrument;
     
@@ -65,7 +64,6 @@ public class Note implements Playable {
      * @param inst instrument that the note should be played
      */
     public Note(double x, double y, Instrument inst) {
-        startTime = (int) x;
         pitch = MAX_PITCH - (int) y / RECTHEIGHT;
         
         x_coord = x;
@@ -128,7 +126,7 @@ public class Note implements Playable {
      */
     @Override
     public void schedule() {
-        TuneComposer.PLAYER.addNote(pitch, VOLUME, startTime, (int)rectWidth, 
+        TuneComposer.PLAYER.addNote(pitch, VOLUME, (int)x_coord, (int)rectWidth, 
                                     instrument.ordinal(), TRACK);
     }
     
@@ -208,7 +206,6 @@ public class Note implements Playable {
         double x = noteRect.getX();
         double y = noteRect.getY();
 
-        startTime = (int) x;
         pitch = MAX_PITCH - (int) y / RECTHEIGHT;
         
         x_coord = x;
