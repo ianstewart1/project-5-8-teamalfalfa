@@ -2,11 +2,13 @@
 
 #### Give a concise overview of your design for the new features. How did you divide the code into classes and methods? Make sure you address whether and how you refactored the code implementing earlier features.
 
-We created a new interface Playable, which both Note and Gesture implement. Playable mainly consisted of methods from Note
+In this new design, we created a new Playable interface implemented by the Note and Gesture classes. Playable mainly consists of methods from Note
 that would also need to be performed on Gestures. Gesture contains a Set of Playable objects, which can be Notes or other 
 Gestures. In TuneComposer, the Set of Notes was replaced with a Set of Playables. This allows it to contain both Notes and 
 Gestures. All methods of TuneComposer that previously operated on Notes or took Notes as parameters were modified to take 
 Playables instead.
+
+In addition to these major changes, we refactored some classes and methods, and added a new Constants class to contain some of our important global variables. 
 
 #### Explain what, if anything, is particularly elegant about your solution and why it is elegant. For full credit, apply concepts, guidelines, and/or principles you learned in class.
 
@@ -17,11 +19,10 @@ Notes and Gestures through dynamic method invocation without concern. This allow
 
 We realize that much of the code in the Note and Gesture classes is similar, or even identical, because some methods we included in the Playable interface did not requrie radically different implementations in the two implementing classes. This is inelegant because it makes our code longer and it reduces maintainability. If a method is changed in one class, it may need to be changed in the other class as well. 
 
-Another small inelegance is that Note has a method getNodeList() that will always return a List of one element. This was done
-because Set's removeAll method takes a List object as its parameter. This could be considered in violation of the Principle
+Another small inelegance is that Note's getNodeList() method returns a List of one element, because the Playable getNodeList() declares a List<Rectangle> return type. We thought this was the best solution since we could removeAll the nodes from any Playable in a Pane. However, this could be considered in violation of the Principle
 of Least Astonishment, since a List is typically understood to contain more than one object.
 
-In both of these cases, however, we decided that the usefulness of the Playable class in its current form outweighed these concerns.
+In both of these cases, we decided that the usefulness of the Playable class in its current form outweighed these concerns.
 
 #### Include an estimate of your velocity. How many story points did you estimate you would complete during this assignment? How many did you actually complete, how many person-hours did the team spend, and what is the ratio of points/person-hour? I want you to monitor your velocity to help you plan better ovehttps://classroom.github.com/g/3Hlr8BQmfr the final iterations. There are no "good" or "bad" numbers for velocity.
 
