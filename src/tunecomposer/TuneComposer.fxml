@@ -52,7 +52,7 @@
                                             shortcut="UP" />
                      </accelerator>
                   </MenuItem>
-                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <SeparatorMenuItem />
                   <MenuItem onAction="#handleGroup" text="Group">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="G" control="DOWN" 
