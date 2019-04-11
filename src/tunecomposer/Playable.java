@@ -54,7 +54,6 @@ public interface Playable {
      */
     void setMovingDuration(MouseEvent event);
     
-    
     /**
      * While the user is dragging the mouse, move the Playable's Rectangle with
      * it.
@@ -82,7 +81,7 @@ public interface Playable {
      * @param event mouse click
      */
     void stopMoving(MouseEvent event);
-    
+    void moveDuration(MouseEvent event);
     
     /**
     * Adds the Playable to the MidiPlayer.

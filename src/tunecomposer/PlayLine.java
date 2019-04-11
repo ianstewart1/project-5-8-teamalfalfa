@@ -5,11 +5,9 @@
  */
 package tunecomposer;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
@@ -24,7 +22,7 @@ public class PlayLine {
      * Fields for the PlayLine class
      */
     private final Line movingLine;
-    private Timeline timeline;
+    private TranslateTransition path;
     
     /**
      * Check if TuneComposer is currently playing
@@ -37,14 +35,20 @@ public class PlayLine {
      */
     public PlayLine(Line line) {
         
-        // initialize Timeline
-        timeline = new Timeline();
-        timeline.setCycleCount(1);
-        timeline.setAutoReverse(false);
-        
         // initialize the red line
         movingLine = line;
         movingLine.setVisible(false);
+        
+        // initialize TranslateTransition
+        path = new TranslateTransition(Duration.seconds(0), movingLine);
+        path.setInterpolator(Interpolator.LINEAR);
+        path.setOnFinished((ActionEvent e) -> { resetPlayLine(); });
+    }
+    
+    private void resetPlayLine() {
+        movingLine.setVisible(false);
+        movingLine.setTranslateX(-1);
+        playing = false;
     }
     
     /**
@@ -53,34 +57,18 @@ public class PlayLine {
      *                       the composition
      */
     public void play(double endXCoordinate) {
-        timeline.getKeyFrames().clear();
         movingLine.setEndX(0); // place playLine back at the beginning 
         movingLine.setStartX(0);
         movingLine.setVisible(true);
         
-        timeline = new Timeline();
-        timeline.setCycleCount(1);
-        timeline.setAutoReverse(false);
-        KeyValue keyValueXEnd = new KeyValue(movingLine.endXProperty(), 
-                                             endXCoordinate);
-        KeyValue keyValueXStart = new KeyValue(movingLine.startXProperty(), 
-                                               endXCoordinate);
-        
+        path.setToX(endXCoordinate);
         // duration calculated for constant speed of 100 pixels per second
-        Duration duration = Duration.millis(endXCoordinate*10); 
-        
-        // when finsihed, playLine will disappear
-        EventHandler onFinished = (EventHandler<ActionEvent>) (ActionEvent t) -> 
-        {
-            movingLine.setVisible(false);
-            playing = false;
-        };
+        Duration duration = Duration.seconds(endXCoordinate / 
+                                             Constants.DEFAULT_DURATION); 
+        path.setDuration(duration);
+        System.out.println(duration);
+        path.play();
  
-        KeyFrame keyFrameEnd = new KeyFrame(duration, onFinished, keyValueXEnd);
-        KeyFrame keyFrameStart = new KeyFrame(duration, onFinished, 
-                                              keyValueXStart);
-        timeline.getKeyFrames().addAll(keyFrameEnd, keyFrameStart);
-        timeline.play();
         playing = true;
     }
     
@@ -96,9 +84,8 @@ public class PlayLine {
      * Stop the red line and make it disappear
      */
     public void stop() {
-        timeline.stop();
-        movingLine.setVisible(false);
-        playing = false;
+        path.stop();
+        resetPlayLine();
     } 
     
 }

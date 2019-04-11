@@ -21,12 +21,18 @@ import javafx.scene.shape.Rectangle;
  */
 public class Gesture implements Playable{
     
-    private boolean isSelected;
+    /**
+     * Gesture rectangle values
+     */
     protected Rectangle boundingRect;
-    protected Set<Playable> elements;
     private double x_coord;
     private double y_coord;
+    private double width;
     
+    /**
+     * Selection boolean toggle
+     */
+    private boolean isSelected;
     
     /**
      * Offsets for dragging Rectangle
@@ -34,7 +40,16 @@ public class Gesture implements Playable{
     private double xOffset;
     private double yOffset;
     private double widthOffset;
+    
+    /**
+     * Set of elements within Gesture
+     */
+    protected Set<Playable> elements;
 
+    /**
+     * Create a Gesture containing Notes or other Gestures.
+     * @param selected Set of currently selected elements
+     */
     public Gesture(Set<Playable> selected){
         isSelected = true;
         elements = new HashSet();
@@ -42,15 +57,15 @@ public class Gesture implements Playable{
             elements.add(element);
         });
         boundingRect = calculateBounds();
-        boundingRect.getStyleClass().add("selectedGesture");
+        boundingRect.getStyleClass().addAll("gestureRect", "selected");
+        width = boundingRect.getWidth();
         x_coord = boundingRect.getX();
         y_coord = boundingRect.getY();
-        // CHECK IF ANYTHING EVEN IN THE GROUP BEFORE ALL THIS
     }
     
     /**
-     * Tells whether the gesture is selected or not.
-     * @return a boolean
+     * Get selection boolean.
+     * @return boolean if selected
      */
     @Override
     public boolean getSelected() {
@@ -58,57 +73,144 @@ public class Gesture implements Playable{
     }
     
     /**
-     * returns the elements grouped in the gesture
+     * Get a set of elements from a Gesture.
      * @return Set of playables that are in the gesture.
      */
     protected Set<Playable> getElements() {
         return elements;
     }
+    
+    /**
+     * Get a list of rectangles within the Gesture.
+     * elements. this includes notes within nested gestures.
+     * @return List of rectangles within the Gesture
+     */
+    @Override
+    public List<Rectangle> getNodeList() {
+        List<Rectangle> nodeList = new ArrayList();
+        elements.forEach((element) -> {
+                nodeList.addAll(element.getNodeList());
+        });
+        return nodeList;
+    }
+    
+    /**
+     * Get the bounds for the Gesture rectangle.
+     * @return the Bounds
+     */
+    @Override
+    public Bounds getBounds() {
+        return boundingRect.getLayoutBounds();
+    }
+    
+    /**
+     * Get the x coordinate.
+     * @return the x coordinate
+     */
+    @Override
+    public double getX() {
+        return x_coord;
+    }
+    
+    /**
+     * Get the width of the Gesture rectangle.
+     * @return the width of the gesture as a double
+     */
+    @Override
+    public double getWidth() {
+        return width;
+    }
+    
+    /**
+     * Get the Gesture rectangle.
+     * @return Gesture rectangle
+     */
+    public Rectangle getBoundingRect() {
+        return boundingRect;
+    }
 
     /**
-     * Updates a gesture's status to selected and updates the style.
+     * Updates a gesture's style to reflect selected status.
      * This function also updates the style of the elements within gesture
-     * to look selected
+     * to look selected.
      * @param selected a boolean representing if the gesture is selected or not
      */
     @Override
     public void setSelected(boolean selected) {
         isSelected = selected;
         if(selected){
-            boundingRect.getStyleClass().clear();
-            boundingRect.getStyleClass().add("selectedGesture");
+            boundingRect.getStyleClass().remove("unselected");
+            boundingRect.getStyleClass().add("selected");
         }
         else{
-            boundingRect.getStyleClass().clear();
-            boundingRect.getStyleClass().add("unselectedGesture");
+            boundingRect.getStyleClass().remove("selected");
+            boundingRect.getStyleClass().add("unselected");
         }
         elements.forEach((element) -> {
             element.setSelected(selected);
         });
     }
 
+    /**
+     * Set the coordinates of the Gesture rectangle while moving.
+     * @param event mouse click
+     */
     @Override
     public void setMovingCoords(MouseEvent event) {
         xOffset = event.getX() - x_coord;
-        yOffset = event.getY() - y_coord;
-        // need to add this for all of the elements
-        
+        yOffset = event.getY() - y_coord;        
         elements.forEach((element) -> {
             element.setMovingCoords(event);
         });
     }
+    
+    /**
+     * Set the proportion of change for Gesture's within elements.
+     * @param gestureX x coordinate of the parent Gesture
+     * @param proportion magnitude of change specified for the Gesture position
+     */
+    @Override
+    public void setProportions(double gestureX, double proportion) {
+        double offset = (x_coord - gestureX) * proportion;
+        double newX = gestureX + offset;
+        double newWidth = width * proportion;
+        x_coord = newX;
+        width = newWidth;
+        boundingRect.setX(newX);
+        boundingRect.setWidth(newWidth);
+        elements.forEach((element) -> {
+            element.setProportions(gestureX, proportion);
+        });
+    }
+    
+    /**
+     * Sets the mouse click offset during a duration change selection.
+     * @param event mouse click
+     */
+    @Override
+    public void setMovingDuration(MouseEvent event) {
+        widthOffset = x_coord + width - event.getX();
+    }
 
+    /**
+     * Move a Gesture's x and y coordinates.
+     * @param event mouse click
+     */
     @Override
     public void move(MouseEvent event) {
         moveX(event);
         moveY(event);
     }
 
+    /**
+     * Move x coordinate based on mouse position.
+     * @param event mouse click
+     */
     @Override
     public void moveX(MouseEvent event) {
         double moveX = event.getX() - xOffset;
         
-        if(moveX > 0 && (moveX + boundingRect.getWidth()) < Constants.WIDTH){
+        if(moveX > 0 && (moveX + width) < Constants.WIDTH){
             boundingRect.setX(moveX);
             
             elements.forEach((element) -> {
@@ -117,6 +219,10 @@ public class Gesture implements Playable{
         }
     }
 
+    /**
+     * Move y coordinate based on mouse position.
+     * @param event mouse click
+     */
     @Override
     public void moveY(MouseEvent event) {
         double moveY = event.getY() - yOffset;
@@ -130,6 +236,10 @@ public class Gesture implements Playable{
         }
     }
 
+    /**
+     * Set coordinates at the end of a mouse drag.
+     * @param event mouse click
+     */
     @Override
     public void stopMoving(MouseEvent event) {
         double x = boundingRect.getX();
@@ -144,68 +254,23 @@ public class Gesture implements Playable{
             element.stopMoving(event);
         });
     }
-    
-    
-    /**
-     * Returns the Bounds object for the gesture's bounding rectangle in the
-     * pane.
-     * @return the Bounds
-     */
-    @Override
-    public Bounds getBounds() {
-        return boundingRect.getLayoutBounds();
-    }
-    
-    /**
-     * Returns the x coordinate of the upper left corner of the gesture
-     * @return the x coordinate
-     */
-    @Override
-    public double getX() {
-        return x_coord;
-    }
-    
-    /**
-     * returns the width of the gesture's bounding rectangle
-     * @return the width of the gesture as a double
-     */
-    @Override
-    public double getWidth() {
-        return boundingRect.getWidth();
-    }
-    
+
     /**
      * Adds all of the notes contained within the gesture and any nested
-     * gestures to the midiplayer.
-     * @return 
+     * gestures to the midiplayer PLAYER.
      */
-    public Rectangle getBoundingRect() {
-        return boundingRect;
-    }
-    
     @Override
     public void schedule() {
         elements.forEach((element) -> {
-            element.schedule(); // Dynamic runtime invocation determines whether
-                                // Note's schedule or Gesture's schedule is used
-        
+            element.schedule(); 
         });
     }
     
     /**
-     * returns a list of all of the rectangles of each note in the gesture's
-     * elements. this includes notes within nested gestures.
-     * @return List of rectangles
+     * Calculate the bounds for the Gesture rectangle. Based on elements in the
+     * Gesture's set.
+     * @return Rectangle representing Gesture bounds
      */
-    @Override
-    public List<Rectangle> getNodeList() {
-        List<Rectangle> nodeList = new ArrayList();
-        elements.forEach((element) -> {
-                nodeList.addAll(element.getNodeList());
-        });
-        return nodeList;
-    }
-    
     private Rectangle calculateBounds() {
         List<Rectangle> nodes = getNodeList();
         double minX = Constants.WIDTH;
@@ -221,6 +286,10 @@ public class Gesture implements Playable{
         return new Rectangle(minX, minY, maxX - minX, maxY - minY);
     }
     
+    /**
+     * Remove Gesture and elements rectangles from the composition pane.
+     * @param pane Pane to be removed from
+     */
     @Override
     public void removeFromPane(Pane pane) {
         pane.getChildren().remove(boundingRect);
@@ -229,45 +298,44 @@ public class Gesture implements Playable{
         });
     }
     
+    /**
+     * Checks if the mouse click should be a duration change. True if within
+     * Constants.MARGIN.
+     * @param event mouse click
+     * @return if within the margin
+     */
     @Override
     public boolean inLastFive(MouseEvent event) {
-        return (event.getX() > x_coord + boundingRect.getWidth() - Constants.MARGIN);
+        return (event.getX() > x_coord + width - Constants.MARGIN);
     }
     
-    @Override
-    public void setMovingDuration(MouseEvent event) {
-        widthOffset = x_coord + boundingRect.getWidth() - event.getX();
-    }
-    
+    /**
+     * Change the Gesture rectangle duration, and calls for elements to be
+     * adjusted proportionately.
+     * @param event mouse drag
+     */
     @Override
     public void moveDuration(MouseEvent event) {
         double tempWidth = event.getX() - x_coord + widthOffset;
         if (tempWidth < 5) tempWidth = 5;
-        double proportion = tempWidth / boundingRect.getWidth();
+        double proportion = tempWidth / width;
         boundingRect.setWidth(tempWidth);
+        width = tempWidth;
         elements.forEach((element) -> {
             element.setProportions(x_coord, proportion);
         });
     }
     
-    @Override
-    public void setProportions(double gestureX, double proportion) {
-        double offset = (x_coord - gestureX) * proportion;
-        double newX = gestureX + offset;
-        double newWidth = boundingRect.getWidth() * proportion;
-        x_coord = newX;
-        boundingRect.setX(newX);
-        boundingRect.setWidth(newWidth);
-        elements.forEach((element) -> {
-            element.setProportions(gestureX, proportion);
-        });
-    }
-    
+    /**
+     * When the user stops dragging the mouse, set Rectangle width
+     * to final width.
+     * @param event mouse click
+     */
     @Override
     public void stopDuration(MouseEvent event) {
-        double width = event.getX() - x_coord + widthOffset;
-        if (width < Constants.MARGIN) width = Constants.MARGIN;
+        double newWidth = event.getX() - x_coord + widthOffset;
+        if (newWidth < Constants.MARGIN) newWidth = Constants.MARGIN;
         
-        boundingRect.setWidth(width);
+        boundingRect.setWidth(newWidth);
     }
 }

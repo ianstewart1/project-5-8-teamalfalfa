@@ -17,25 +17,10 @@ import javafx.scene.shape.Rectangle;
  * @author Ian Hawkins, Madi Crowley, Ian Stewart, Melissa Kohl
  */
 public class Note implements Playable {
-    
-    /**
-     * Constants for playing note in MidiPlayer
-     */
-    private static final int VOLUME = 127;
-    private static final int MAX_PITCH = 128;
-    private static final int DEFAULT_DURATION = 100;
-    private static final int TRACK = 0;
-    
-    /**
-     * Constants for Rectangle in composition panel
-     */
-    private static final int RECTHEIGHT = 10;
-    
-    
+  
     /**
      * Note fields for creating rectangle and playing note
      */
-
     private final Rectangle noteRect;
     private double x_coord;
     private double y_coord;
@@ -64,15 +49,15 @@ public class Note implements Playable {
      * @param inst instrument that the note should be played
      */
     public Note(double x, double y, Instrument inst) {
-        pitch = MAX_PITCH - (int) y / RECTHEIGHT;
+        pitch = Constants.MAX_PITCH - (int) y / Constants.RECTHEIGHT;
         
         x_coord = x;
-        y_coord = y - ( y % RECTHEIGHT);
+        y_coord = y - ( y % Constants.RECTHEIGHT);
         
         instrument = inst;
-        rectWidth = DEFAULT_DURATION;
+        rectWidth = Constants.DEFAULT_DURATION;
         
-        noteRect = new Rectangle(x_coord, y_coord, rectWidth, RECTHEIGHT);
+        noteRect = new Rectangle(x_coord, y_coord, rectWidth, Constants.RECTHEIGHT);
         noteRect.getStyleClass().addAll("selected", instrument.toString());
         noteRect.setMouseTransparent(false);
         
@@ -80,13 +65,17 @@ public class Note implements Playable {
     }
     
     /**
-     * Get this Note's Rectangle object
+     * Get this Note's Rectangle object.
      * @return this Note's Rectangle
      */
     public Rectangle getRectangle() {
         return noteRect;
     }
     
+    /**
+     * Get a list containing the currently selected Note rectangles.
+     * @return List of Note rectangles that are selected
+     */
     @Override
     public List<Rectangle> getNodeList() {
         List<Rectangle> listRect = new ArrayList();
@@ -95,7 +84,7 @@ public class Note implements Playable {
     }
     
     /**
-     * Get this Note's Bounds object of the rectangle in the pane
+     * Get this Note's Bounds object of the rectangle in the pane.
      * @return this Note's Bounds
      */
     @Override
@@ -104,7 +93,7 @@ public class Note implements Playable {
     }
     
     /**
-     * Get this Note's x coordinate
+     * Get this Note's x coordinate.
      * @return x_coord double this Note's x coordinate
      */
     @Override
@@ -113,7 +102,7 @@ public class Note implements Playable {
     }
     
     /**
-     * Get this Note's width
+     * Get this Note's width.
      * @return rectWidth double this Note's width
      */
     @Override
@@ -122,16 +111,7 @@ public class Note implements Playable {
     }
     
     /**
-     * Adds this Note to the MidiPlayer
-     */
-    @Override
-    public void schedule() {
-        TuneComposer.PLAYER.addNote(pitch, VOLUME, (int)x_coord, (int)rectWidth, 
-                                    instrument.ordinal(), TRACK);
-    }
-    
-    /**
-     * Checks if this note is selected
+     * Checks if this note is selected.
      * @return true if note is selected, false otherwise
      */
     @Override
@@ -141,27 +121,25 @@ public class Note implements Playable {
     
     /**
      * Set the note to be selected or unselected and updates the style class
-     * of the Rectangle
+     * of the Rectangle.
      * @param selected boolean to set selected to
      */
     @Override
     public void setSelected(boolean selected) {
         isSelected = selected;
         if (selected) {
-            noteRect.getStyleClass().clear();
-            noteRect.getStyleClass().addAll("selected", 
-                                            instrument.toString());
+            noteRect.getStyleClass().remove("unselected");
+            noteRect.getStyleClass().add("selected");
         } else {
-            noteRect.getStyleClass().clear();
-            noteRect.getStyleClass().addAll("unselected", 
-                                            instrument.toString());
+            noteRect.getStyleClass().remove("selected");
+            noteRect.getStyleClass().addAll("unselected");
         }
     }
     
     /**
      * When the user presses the mouse to start dragging, calculate the offset
      * between the upper-left corner of the Rectangle and where the mouse is
-     * in the Rectangle
+     * in the Rectangle.
      * @param event mouse click
      */
     @Override
@@ -171,63 +149,9 @@ public class Note implements Playable {
     }
     
     /**
-     * While the user is dragging the mouse, move the Rectangle with it
-     * @param event mouse drag
-     */
-    @Override
-    public void move(MouseEvent event) {
-        moveX(event);
-        moveY(event);
-    }
-
-    public void moveX(MouseEvent event) {
-        double moveX = event.getX() - xOffset;
-        
-        if(moveX > 0 && (moveX + rectWidth) < Constants.WIDTH){
-            noteRect.setX(moveX);
-        }
-    }
-
-    public void moveY(MouseEvent event) {
-        double moveY = event.getY() - yOffset;
-        
-        if(moveY > 0 && (moveY + Constants.LINE_SPACING) < Constants.HEIGHT){
-            noteRect.setY(moveY);
-        }
-    }
-    
-    /**
-     * When the user stops dragging the mouse, set Note fields to the
-     * Rectangle's current location
-     * @param event mouse click
-     */
-    @Override
-    public void stopMoving(MouseEvent event) {
-        double x = noteRect.getX();
-        double y = noteRect.getY();
-
-        pitch = MAX_PITCH - (int) y / RECTHEIGHT;
-        
-        x_coord = x;
-        y_coord = y - (y % RECTHEIGHT);
-        
-        noteRect.setY(y_coord);
-    }
-    
-    /**
-     * Check whether the user has clicked within the last 5 pixels
-     * of the Rectangle
-     * @param event mouse click
-     * @return true if mouse is within the last 5 pixels of the Rectangle
-     */
-    public boolean inLastFive(MouseEvent event) {
-        return (event.getX() > x_coord + rectWidth - Constants.MARGIN);
-    }
-    
-    /**
      * When the user clicks near the right end of the Rectangle, calculate 
      * the offset between the right edge of the Rectangle and where the mouse 
-     * is in the Rectangle 
+     * is in the Rectangle.
      * @param event mouse click
      */
     @Override
@@ -236,16 +160,11 @@ public class Note implements Playable {
     }
     
     /**
-     * While the user is dragging the mouse, change the width of the Rectangle
-     * @param event mouse drag
+     * Set the new size and position of the Note based on the Gesture it is
+     * in and the proportional change specified.
+     * @param gestureX x coordinate of the parent Gesture
+     * @param proportion magnitude of change specified for the Note position
      */
-    @Override
-    public void moveDuration(MouseEvent event) {
-        double tempWidth = event.getX() - x_coord + widthOffset;
-        if (tempWidth < 5) tempWidth = 5;
-        noteRect.setWidth(tempWidth);
-    }
-    
     @Override
     public void setProportions(double gestureX, double proportion) {
         double offset = (x_coord - gestureX) * proportion;
@@ -258,9 +177,95 @@ public class Note implements Playable {
     }
     
     /**
+     * Adds Note to the midiplayer PLAYER
+     */
+    @Override
+    public void schedule() {
+        TuneComposer.PLAYER.addNote(pitch, Constants.VOLUME, (int)x_coord, 
+                                    (int)rectWidth, instrument.ordinal(), 
+                                    Constants.TRACK);
+    }
+    
+    /**
+     * Move both the x and y coordinates of the Note.
+     * @param event mouse drag
+     */
+    @Override
+    public void move(MouseEvent event) {
+        moveX(event);
+        moveY(event);
+    }
+
+    /**
+     * Move the x coordinate of the Note based on the mouse click.
+     * @param event mouse click
+     */
+    @Override
+    public void moveX(MouseEvent event) {
+        double moveX = event.getX() - xOffset;
+        
+        if(moveX > 0 && (moveX + rectWidth) < Constants.WIDTH){
+            noteRect.setX(moveX);
+        }
+    }
+
+    /**
+     * Move the y coordinate of the Note based on the mouse click.
+     * @param event mouse click
+     */
+    @Override
+    public void moveY(MouseEvent event) {
+        double moveY = event.getY() - yOffset;
+        
+        if(moveY > 0 && (moveY + Constants.LINE_SPACING) < Constants.HEIGHT){
+            noteRect.setY(moveY);
+        }
+    }
+    
+    /**
+     * When the user stops dragging the mouse, set Note fields to the
+     * Rectangle's current location.
+     * @param event mouse click
+     */
+    @Override
+    public void stopMoving(MouseEvent event) {
+        double x = noteRect.getX();
+        double y = noteRect.getY();
+
+        pitch = Constants.MAX_PITCH - (int) y / Constants.RECTHEIGHT;
+        
+        x_coord = x;
+        y_coord = y - (y % Constants.RECTHEIGHT);
+        
+        noteRect.setY(y_coord);
+    }
+    
+    /**
+     * Check whether the user has clicked within the last 5 pixels
+     * of the Rectangle.
+     * @param event mouse click
+     * @return true if mouse is within the last 5 pixels of the Rectangle
+     */
+    @Override
+    public boolean inLastFive(MouseEvent event) {
+        return (event.getX() > x_coord + rectWidth - Constants.MARGIN);
+    }
+    
+    /**
+     * While the user is dragging the mouse, change the width of the Rectangle.
+     * @param event mouse drag
+     */
+    @Override
+    public void moveDuration(MouseEvent event) {
+        double tempWidth = event.getX() - x_coord + widthOffset;
+        if (tempWidth < 5) tempWidth = 5;
+        noteRect.setWidth(tempWidth);
+    }
+    
+    /**
      * When the user stops dragging the mouse, set Rectangle width
-     * to final width
-     * @param event 
+     * to final width.
+     * @param event mouse click
      */
     @Override
     public void stopDuration(MouseEvent event) {
@@ -270,6 +275,10 @@ public class Note implements Playable {
         noteRect.setWidth(rectWidth);
     }
     
+    /**
+     * Remove a Note rectangle from the composition pane.
+     * @param pane pane to be removed from.
+     */
     @Override
     public void removeFromPane(Pane pane) {
         pane.getChildren().remove(noteRect);
