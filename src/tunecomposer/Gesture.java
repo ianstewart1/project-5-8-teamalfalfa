@@ -15,7 +15,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
 /**
- *
+ * A collection of Playable objects that groups them together in the composition
+ * pane.
  * @author jamesbgd
  */
 public class Gesture implements Playable{
