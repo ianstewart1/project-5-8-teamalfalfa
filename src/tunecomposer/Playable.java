@@ -81,7 +81,6 @@ public interface Playable {
      * @param event mouse click
      */
     void stopMoving(MouseEvent event);
-    void moveDuration(MouseEvent event);
     
     /**
     * Adds the Playable to the MidiPlayer.
