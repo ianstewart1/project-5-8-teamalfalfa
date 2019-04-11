@@ -231,7 +231,7 @@ public class TuneComposer extends Application {
      * @return a Set of Playables
      */
     protected Set<Playable> selectedSet() {
-        Set<Playable> selected = new HashSet();
+        Set<Playable> selected = new HashSet<>();
         allPlayables.forEach((element) -> {
             if (element.getSelected()){
                 selected.add(element);
@@ -475,7 +475,7 @@ public class TuneComposer extends Application {
      */
     @FXML
     void handleDelete(ActionEvent event) {
-        Collection toDelete = new ArrayList();
+        Collection toDelete = new ArrayList<Playable>();
         allPlayables.forEach((element) -> {
             if (element.getSelected()) {
                 toDelete.add(element);

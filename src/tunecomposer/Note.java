@@ -78,7 +78,7 @@ public class Note implements Playable {
      */
     @Override
     public List<Rectangle> getNodeList() {
-        List<Rectangle> listRect = new ArrayList();
+        List<Rectangle> listRect = new ArrayList<Rectangle>();
         listRect.add(this.getRectangle());
         return listRect;
     }
