@@ -56,7 +56,7 @@ public class Gesture implements Playable{
             elements.add(element);
         });
         boundingRect = calculateBounds();
-        boundingRect.getStyleClass().add("selectedGesture");
+        boundingRect.getStyleClass().addAll("gestureRect", "selected");
         width = boundingRect.getWidth();
         x_coord = boundingRect.getX();
         y_coord = boundingRect.getY();
@@ -138,12 +138,12 @@ public class Gesture implements Playable{
     public void setSelected(boolean selected) {
         isSelected = selected;
         if(selected){
-            boundingRect.getStyleClass().clear();
-            boundingRect.getStyleClass().add("selectedGesture");
+            boundingRect.getStyleClass().remove("unselected");
+            boundingRect.getStyleClass().add("selected");
         }
         else{
-            boundingRect.getStyleClass().clear();
-            boundingRect.getStyleClass().add("unselectedGesture");
+            boundingRect.getStyleClass().remove("selected");
+            boundingRect.getStyleClass().add("unselected");
         }
         elements.forEach((element) -> {
             element.setSelected(selected);

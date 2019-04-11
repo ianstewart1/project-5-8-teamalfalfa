@@ -15,22 +15,14 @@
     -fx-stroke: #E81A0B;
 }
 
+.gestureRect {
+    -fx-stroke-dash-array: 5; 
+    -fx-fill: transparent;
+    -fx-stroke-width: 2px;
+}
+
 .selected {
     -fx-stroke: #E81A0B;
-    -fx-stroke-width: 2px;
-}
-
-.selectedGesture {
-    -fx-stroke-dash-array: 5; 
-    -fx-stroke: #E81A0B; 
-    -fx-fill: transparent;
-    -fx-stroke-width: 2px;
-}
-
-.unselectedGesture {
-    -fx-stroke-dash-array: 5; 
-    -fx-stroke: #000000; 
-    -fx-fill: transparent;
     -fx-stroke-width: 2px;
 }
 
