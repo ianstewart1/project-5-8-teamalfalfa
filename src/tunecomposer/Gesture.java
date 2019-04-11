@@ -51,7 +51,7 @@ public class Gesture implements Playable{
      */
     public Gesture(Set<Playable> selected){
         isSelected = true;
-        elements = new HashSet();
+        elements = new HashSet<>();
         selected.forEach((element) -> {
             elements.add(element);
         });
@@ -86,7 +86,7 @@ public class Gesture implements Playable{
      */
     @Override
     public List<Rectangle> getNodeList() {
-        List<Rectangle> nodeList = new ArrayList();
+        List<Rectangle> nodeList = new ArrayList<>();
         elements.forEach((element) -> {
                 nodeList.addAll(element.getNodeList());
         });
