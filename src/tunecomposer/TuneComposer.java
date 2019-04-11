@@ -4,8 +4,6 @@
 package tunecomposer;
 
 import java.io.IOException;
-import static java.lang.Math.max;
-import static java.lang.Math.min;
 import java.util.*;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
