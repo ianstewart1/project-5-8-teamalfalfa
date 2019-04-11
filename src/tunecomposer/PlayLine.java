@@ -6,12 +6,8 @@
 package tunecomposer;
 
 import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
