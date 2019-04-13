@@ -5,6 +5,7 @@
  */
 package tunecomposer;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
@@ -13,17 +14,25 @@ import java.util.Stack;
  * @author milloypr
  */
 public class UndoRedo {
-    Stack undoStack = new Stack();
-    Stack redoStack = new Stack();
+    Stack<Set<Playable>> undoStack = new Stack<>();
+    Stack<Set<Playable>> redoStack = new Stack<>();
     
-    public void saveState(Set composition) {
-        
-        undoStack.push(composition);
+    public Set<Playable> saveState(Set<Playable> composition) {
+        Set<Playable> pushState = new HashSet();
+        composition.forEach((playable) -> {
+            pushState.add(playable.makeCopy());
+        });
+        return pushState;
     }
     
-    public Set undo(){
-        
-        return null;
+    public Set<Playable> undo(Set<Playable> composition){
+        redoStack.push(saveState(composition));
+        return undoStack.pop();
+    }
+    
+    public Set<Playable> redo(Set<Playable> composition){
+        undoStack.push(saveState(composition));
+        return redoStack.pop();
     }
     
 }
