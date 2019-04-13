@@ -13,15 +13,23 @@ import java.util.Stack;
  * @author milloypr
  */
 public class UndoRedo {
-    Stack undoStack = new Stack();
-    Stack redoStack = new Stack();
+    Stack<Set<Playable>> undoStack = new Stack<>();
+    Stack<Set<Playable>> redoStack = new Stack<>();
     
     public void saveState(Set composition) {
         
+        composition.forEach((element) -> {
+            
+        });
         undoStack.push(composition);
     }
     
-    public Set undo(){
+    public static Set<Playable> undo(){
+        
+        return null;
+    }
+    
+    public static Set<Playable> redo(){
         
         return null;
     }
