@@ -33,6 +33,7 @@ public class UndoRedo {
     public Set<Playable> redo(Set<Playable> composition){
         undoStack.push(saveState(composition));
         return redoStack.pop();
+
     }
     
 }
