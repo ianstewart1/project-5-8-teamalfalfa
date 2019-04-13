@@ -29,6 +29,7 @@ public interface Playable {
     */
     Bounds getBounds();
     double getX();
+    double getY();
     double getWidth();
     List<Rectangle> getNodeList();
     
@@ -126,4 +127,5 @@ public interface Playable {
      */
     void setProportions(double gestureX, double proportion);
     
+    Playable makeCopy();
 }

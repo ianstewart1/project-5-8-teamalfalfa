@@ -16,7 +16,7 @@ import javafx.scene.shape.Rectangle;
  * Note class creates a Rectangle representing the note to be played
  * @author Ian Hawkins, Madi Crowley, Ian Stewart, Melissa Kohl
  */
-public class Note implements Playable {
+public class Note implements Playable, Cloneable {
   
     /**
      * Note fields for creating rectangle and playing note
@@ -65,6 +65,30 @@ public class Note implements Playable {
     }
     
     /**
+     * Creates a copy of a given Note by initializing the fields of this Note
+     * to those of the given one.
+     * @param note The Note to be copied into this Note
+     */
+    private Note(Note note) {
+        noteRect = note.getRectangle();
+        x_coord = note.getX();
+        y_coord = note.getY();
+        rectWidth = note.getWidth();
+        pitch = note.getPitch();
+        instrument = note.getInstrument();
+        isSelected = note.getSelected();
+    }
+    
+    /**
+     * Uses the copy constructor to make and return a deep copy of a note.
+     * @return a copy of this
+     */
+    @Override
+    public Playable makeCopy() {
+        return new Note(this);
+    }
+    
+    /**
      * Get this Note's Rectangle object.
      * @return this Note's Rectangle
      */
@@ -102,6 +126,14 @@ public class Note implements Playable {
     }
     
     /**
+     * Get this Note's y coordinate.
+     * @return y_coord double this Note's y coordinate
+     */
+    public double getY() {
+        return y_coord;
+    }
+    
+    /**
      * Get this Note's width.
      * @return rectWidth double this Note's width
      */
@@ -117,6 +149,24 @@ public class Note implements Playable {
     @Override
     public boolean getSelected() {
         return isSelected;
+    }
+    
+    
+    /**
+     * Get this Note's pitch
+     * @return pitch The pitch of the Note
+     */
+    public int getPitch(){
+        return pitch;
+    }
+    
+    
+    /**
+     * Get this Note's instrument.
+     * @return instrument The instrument of the note
+     */
+    public Instrument getInstrument(){
+        return instrument;
     }
     
     /**
@@ -284,5 +334,6 @@ public class Note implements Playable {
         pane.getChildren().remove(noteRect);
 
     }
+    
     
 }

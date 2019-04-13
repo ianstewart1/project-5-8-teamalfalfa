@@ -63,6 +63,24 @@ public class Gesture implements Playable{
         y_coord = boundingRect.getY();
     }
     
+    private Gesture(Gesture gest){
+        isSelected = gest.getSelected();
+        x_coord = gest.getX();
+        y_coord = gest.getY();
+        elements = gest.getElements();
+        boundingRect = gest.getBoundingRect();
+        //Do we need to add a style class?
+    }
+
+    /**
+     * Uses the copy constructor to make and return a deep copy of a gesture.
+     * @return a copy of this
+     */
+    @Override    
+    public Gesture makeCopy(){
+        return new Gesture(this);
+    }
+    
     /**
      * Get selection boolean.
      * @return boolean if selected
@@ -111,6 +129,15 @@ public class Gesture implements Playable{
     public double getX() {
         return x_coord;
     }
+    
+    /**
+     * Get the x coordinate.
+     * @return the x coordinate
+     */
+    @Override
+    public double getY() {
+        return y_coord;
+    }    
     
     /**
      * Get the width of the Gesture rectangle.
