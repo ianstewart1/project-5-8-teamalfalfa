@@ -178,11 +178,13 @@ public class Note implements Playable, Cloneable {
     public void setSelected(boolean selected) {
         isSelected = selected;
         if (selected) {
-            noteRect.getStyleClass().remove("unselected");
-            noteRect.getStyleClass().add("selected");
+            noteRect.getStyleClass().clear();
+            noteRect.getStyleClass().addAll("selected", 
+                                            instrument.toString());
         } else {
-            noteRect.getStyleClass().remove("selected");
-            noteRect.getStyleClass().addAll("unselected");
+            noteRect.getStyleClass().clear();
+            noteRect.getStyleClass().addAll("unselected", 
+                                            instrument.toString());
         }
     }
     
