@@ -218,6 +218,10 @@ public class TuneComposer extends Application {
 
     }
     
+    public void updateMenuClick() {
+        
+    }
+    
     /**
      * When the user selects "Stop" menu item, stop playing composition
      * @param ignored not used
@@ -293,7 +297,7 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleUndo(ActionEvent ignored) {
-        UndoRedo.undo();
+        allPlayables = UndoRedo.undo(allPlayables);
     }
     
     /**
@@ -302,7 +306,7 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleRedo(ActionEvent ignored) {
-        UndoRedo.redo();
+        allPlayables = UndoRedo.redo(allPlayables);
     }
     
     /**
