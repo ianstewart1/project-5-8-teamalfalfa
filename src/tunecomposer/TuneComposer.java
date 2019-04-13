@@ -271,7 +271,7 @@ public class TuneComposer extends Application {
     }
     
     /**
-     * Removes the selected gesture(s) from the pain and adds all of the
+     * Removes the selected gesture(s) from the pane and adds all of the
      * gesture's elements to the Set allPlayables.
      * This does not remove the gestures nested in the selected gestures.
      * @param ignored 
@@ -285,6 +285,24 @@ public class TuneComposer extends Application {
                 removeGesture(gesture);
             }
         });
+    }
+    
+    /**
+     * Undo the last user action on the set of Playables, allPlayables.
+     * @param ignored 
+     */
+    @FXML
+    protected void handleUndo(ActionEvent ignored) {
+        UndoRedo.undo();
+    }
+    
+    /**
+     * Redo the last user action on the set of Playables, allPlayables.
+     * @param ignored 
+     */
+    @FXML
+    protected void handleRedo(ActionEvent ignored) {
+        UndoRedo.redo();
     }
     
     /**
