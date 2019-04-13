@@ -14,10 +14,15 @@ import java.util.Stack;
  * @author milloypr
  */
 public class UndoRedo {
-    Stack<Set<Playable>> undoStack = new Stack<>();
-    Stack<Set<Playable>> redoStack = new Stack<>();
+    private static Stack<Set<Playable>> undoStack;
+    private static Stack<Set<Playable>> redoStack;
     
-    public Set<Playable> saveState(Set<Playable> composition) {
+    public UndoRedo() {
+        undoStack = new Stack<>();
+        redoStack = new Stack<>();
+    }
+    
+    public static Set<Playable> saveState(Set<Playable> composition) {
         Set<Playable> pushState = new HashSet();
         composition.forEach((playable) -> {
             pushState.add(playable.makeCopy());
@@ -25,15 +30,23 @@ public class UndoRedo {
         return pushState;
     }
     
-    public Set<Playable> undo(Set<Playable> composition){
+    public static Set<Playable> undo(Set<Playable> composition){
         redoStack.push(saveState(composition));
         return undoStack.pop();
     }
     
-    public Set<Playable> redo(Set<Playable> composition){
+    public static Set<Playable> redo(Set<Playable> composition){
         undoStack.push(saveState(composition));
         return redoStack.pop();
 
+    }
+    
+    public static boolean isUndoEmpty() {
+        return undoStack.isEmpty();
+    }
+    
+    public static boolean isRedoEmpty() {
+        return redoStack.isEmpty();
     }
     
 }
