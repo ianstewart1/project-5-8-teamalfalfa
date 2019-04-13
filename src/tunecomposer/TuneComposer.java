@@ -32,7 +32,8 @@ public class TuneComposer extends Application {
      /**
      * A MidiPlayer for all notes to use.
      */
-    public static final MidiPlayer PLAYER = new MidiPlayer(100,60);
+    public static final MidiPlayer PLAYER = 
+        new MidiPlayer(Constants.RESOLUTION, Constants.BEATS_PER_MINUTE);
 
     /**
      * A list of instrument values to associate with MidiPlayer channels

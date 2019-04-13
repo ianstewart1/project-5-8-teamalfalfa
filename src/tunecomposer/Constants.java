@@ -11,6 +11,9 @@ package tunecomposer;
  */
 public class Constants {
     
+    public static final int RESOLUTION = 100;
+    public static final int BEATS_PER_MINUTE = 60;
+    
     public static final int NUM_PITCHES = 128;
     public static final int VOLUME = 127;
     public static final int MAX_PITCH = 128;
