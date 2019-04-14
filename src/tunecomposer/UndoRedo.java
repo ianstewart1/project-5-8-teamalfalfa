@@ -10,7 +10,8 @@ import java.util.Set;
 import java.util.Stack;
 
 /**
- *
+ * Manages undo and redo functionality. Saves each composition each time a 
+ * change is made and allows for retrieval. 
  * @author milloypr
  */
 public class UndoRedo {
@@ -22,21 +23,36 @@ public class UndoRedo {
         redoStack = new Stack<>();
     }
     
-    public static Set<Playable> saveState(Set<Playable> composition) {
-        Set<Playable> pushState = new HashSet();
+    /**
+     * Returns a deep copy of the set of Playable objects.  
+     * @param composition a set of Playable objects
+     * @return copy, an identical set of Playable objects
+     */
+    public static Set<Playable> copyComposition(Set<Playable> composition) {
+        Set<Playable> copy = new HashSet();
         composition.forEach((playable) -> {
-            pushState.add(playable.makeCopy());
+            copy.add(playable.makeCopy());
         });
-        return pushState;
+        return copy;
+    }
+    
+    /**
+     * Each time an action is made, pushUndo pushes the new composition to the
+     * undoStack.
+     * @param composition a set of Playable objects.
+     */
+    public static void pushUndo(Set<Playable> composition) {
+        undoStack.push(copyComposition(composition));
+        redoStack.clear();
     }
     
     public static Set<Playable> undo(Set<Playable> composition){
-        redoStack.push(saveState(composition));
+        redoStack.push(copyComposition(composition));
         return undoStack.pop();
     }
     
     public static Set<Playable> redo(Set<Playable> composition){
-        undoStack.push(saveState(composition));
+        undoStack.push(copyComposition(composition));
         return redoStack.pop();
 
     }
