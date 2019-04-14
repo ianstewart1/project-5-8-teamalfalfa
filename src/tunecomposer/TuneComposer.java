@@ -292,7 +292,7 @@ public class TuneComposer extends Application {
     }
     
     /**
-     * Undo the last user action on the set of Playables, allPlayabl+es.
+     * Undo the last user action on the set of Playables, allPlayables.
      * @param ignored 
      */
     @FXML
