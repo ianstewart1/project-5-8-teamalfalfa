@@ -33,23 +33,23 @@
           </Menu>
             <Menu text="Action">
               <items>
-                <MenuItem onAction="#handleStartPlaying" text="Play">
+                <MenuItem fx:id="playButton" onAction="#handleStartPlaying" text="Play">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="P" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem onAction="#handleStopPlaying" text="Stop">
+                  <MenuItem fx:id="stopButton" onAction="#handleStopPlaying" text="Stop">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem />
-                  <MenuItem onAction="#handleGroup" text="Group">
+                  <MenuItem fx:id="groupButton" onAction="#handleGroup" text="Group">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="G" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem onAction="#handleUngroup" text="Ungroup">
+                  <MenuItem fx:id="ungroupButton" onAction="#handleUngroup" text="Ungroup">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="U" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
@@ -58,23 +58,23 @@
            </Menu>
            <Menu text="Edit">
               <items>
-                  <MenuItem onAction="#handleSelectAll" text="Select All">
+                  <MenuItem fx:id="selectAllButton" onAction="#handleSelectAll" text="Select All">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="A" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
                   </MenuItem>
-                <MenuItem onAction="#handleDelete" text="Delete">
+                <MenuItem fx:id="deleteButton" onAction="#handleDelete" text="Delete">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="BACK_SPACE" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
                   </MenuItem>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleUndo" text="Undo">
+                  <MenuItem fx:id="undoButton" mnemonicParsing="false" onAction="#handleUndo" text="Undo">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Z" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
                   </MenuItem>
-                  <MenuItem mnemonicParsing="false" onAction="#handleRedo" text="Redo">
+                  <MenuItem fx:id="redoButton" mnemonicParsing="false" onAction="#handleRedo" text="Redo">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Z" control="UP" meta="UP" shift="DOWN" shortcut="DOWN" />
                      </accelerator>

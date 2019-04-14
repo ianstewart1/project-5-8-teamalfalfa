@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.shape.Line;
@@ -98,6 +99,13 @@ public class TuneComposer extends Application {
      */
     @FXML
     private ToggleGroup instrumentToggle;
+    
+    /**
+     * All of the menu buttons that need to be disabled on occasion.
+     */
+    @FXML
+    private MenuItem playButton, stopButton, groupButton, ungroupButton, 
+                     selectAllButton, deleteButton, undoButton, redoButton;
 
     /**
      * Constructor initializes Note sets
@@ -219,7 +227,17 @@ public class TuneComposer extends Application {
     }
     
     public void updateMenuClick() {
-        
+        boolean ifNotes = allPlayables.size() > 0;
+        Set<Playable> selected = selectedSet();
+        int numSelected = selected.size();
+        playButton.setDisable(ifNotes);
+        stopButton.setDisable(!playLine.isPlaying());
+        groupButton.setDisable(numSelected < 2);
+        ungroupButton.setDisable(isGesture(selected));
+        selectAllButton.setDisable(ifNotes);
+        deleteButton.setDisable(numSelected > 0);
+        undoButton.setDisable(UndoRedo.isUndoEmpty());
+        redoButton.setDisable(UndoRedo.isRedoEmpty());
     }
     
     /**
@@ -243,7 +261,14 @@ public class TuneComposer extends Application {
             }
         });
         return selected;
-    }   
+    }
+    
+    private boolean isGesture(Set<Playable> selected) {
+        for (Playable element: selected) {
+            if (element instanceof Gesture) return true;
+        }
+        return false;
+    }
     
     /**
      * Groups all currently selected Playables into a Gesture. Removes the
