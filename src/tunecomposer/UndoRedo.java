@@ -46,21 +46,42 @@ public class UndoRedo {
         redoStack.clear();
     }
     
+    /**
+     * Adds the current state to the redoStack and returns the top of the 
+     * undoStack. Called by handleUndo.
+     * @param composition a set of Playable objects
+     * @return a set of Playable objects, the top of the undoStack
+     */
     public static Set<Playable> undo(Set<Playable> composition){
         redoStack.push(copyComposition(composition));
         return undoStack.pop();
     }
     
+    /**
+     * Adds the current state to the undoStack and returns the top of the
+     * redoStack. Called by handleRedo.
+     * Precondition: redoStack must not be empty //is this guaranteed??
+     * @param composition a set of Playable objects
+     * @return a set of Playable objects, the top of the redoStack
+     */
     public static Set<Playable> redo(Set<Playable> composition){
         undoStack.push(copyComposition(composition));
         return redoStack.pop();
 
     }
     
+    /**
+     * Is the undoStack empty? Important for disabling undo button.
+     * @return boolean
+     */
     public static boolean isUndoEmpty() {
         return undoStack.isEmpty();
     }
     
+    /**
+     * Is the redoStack empty? Important for disabling redo button.
+     * @return boolean
+     */
     public static boolean isRedoEmpty() {
         return redoStack.isEmpty();
     }
