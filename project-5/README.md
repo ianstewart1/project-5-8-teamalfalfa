@@ -24,6 +24,8 @@ of Least Astonishment, since a List is typically understood to contain more than
 
 In both of these cases, we decided that the usefulness of the Playable class in its current form outweighed these concerns.
 
+_In discussion with team members, I agreed these were reasonable choices._
+
 #### Include an estimate of your velocity. How many story points did you estimate you would complete during this assignment? How many did you actually complete, how many person-hours did the team spend, and what is the ratio of points/person-hour? I want you to monitor your velocity to help you plan better ovehttps://classroom.github.com/g/3Hlr8BQmfr the final iterations. There are no "good" or "bad" numbers for velocity.
 
 We did not compute an initial estimate of story points, but we did exceed our expectations by completing the assignment
@@ -36,3 +38,5 @@ We paired-programmed each time our group met, swapping partners during each sess
 Each team member was a developer and designer. On this project, we were easily able to schedule times to meet as we went, but on future projects we may want to block off a regular coding session each week so that we have to coordinate less. 
 Overall, paired-programming worked incredibly well to write quality code quickly. We also all realized the value in spending a signficant amount of time designing before coding--we knew better where we were going from the beginning. Nevertheless, there were some times when the two pair-programming teams did not commuicate effecitvely and ended up with small conflicts that we had to resolve after the fact. We will hold more frequent chek-ins between pairs about each pair's responsibilities,
 in particular after a pair commits their code.
+
+_This is a common problem in agile software development! You might consider instituting a regular [Stand up meeting](https://en.wikipedia.org/wiki/Stand-up_meeting)._
