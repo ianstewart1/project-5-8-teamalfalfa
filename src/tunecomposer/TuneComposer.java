@@ -133,6 +133,8 @@ public class TuneComposer extends Application {
         playLinePane.setMouseTransparent(true);
 
         selection = new SelectionArea(selectRect);
+        
+        updateMenuClick();
     }
     
     /**
@@ -232,7 +234,7 @@ public class TuneComposer extends Application {
         Set<Playable> selected = selectedSet();
         int numSelected = selected.size();
         playButton.setDisable(noNotes);
-        stopButton.setDisable(playLine.isPlaying());
+        stopButton.setDisable(!playLine.isPlaying());
         groupButton.setDisable(numSelected < 2);
         ungroupButton.setDisable(!isGesture(selected));
         selectAllButton.setDisable(noNotes);
@@ -424,7 +426,7 @@ public class TuneComposer extends Application {
      * @param event mouse click
      * @param playable Playable that was clicked
      */
-    private void handlePlayableClick(MouseEvent event, Playable playable) {
+    private void handlePlayableClick(MouseEvent event, Playable playable) {     
         UndoRedo.pushUndo(allPlayables);
         
         clickInPane = false;
@@ -448,8 +450,6 @@ public class TuneComposer extends Application {
      * @param note note Rectangle that was clicked
      */
     private void handlePlayablePress(MouseEvent event, Playable playable) {
-        UndoRedo.pushUndo(allPlayables);
-        
         changeDuration = playable.inLastFive(event);
         selectedSet().forEach((element) -> {
             if (changeDuration) {
