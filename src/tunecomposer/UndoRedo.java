@@ -15,13 +15,13 @@ import java.util.Stack;
  * @author milloypr
  */
 public class UndoRedo {
-    private static Stack<Set<Playable>> undoStack;
-    private static Stack<Set<Playable>> redoStack;
-    
-    public UndoRedo() {
-        undoStack = new Stack<>();
-        redoStack = new Stack<>();
-    }
+    private static Stack<Set<Playable>> undoStack = new Stack<>();
+    private static Stack<Set<Playable>> redoStack = new Stack<>();
+//    
+//    public UndoRedo() {
+//        undoStack = new Stack<>();
+//        redoStack = new Stack<>();
+//    }
     
     /**
      * Returns a deep copy of the set of Playable objects.  
