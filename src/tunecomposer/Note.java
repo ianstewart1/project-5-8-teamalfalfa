@@ -92,6 +92,7 @@ public class Note implements Playable, Cloneable {
      * Get this Note's Rectangle object.
      * @return this Note's Rectangle
      */
+    @Override
     public Rectangle getRectangle() {
         return noteRect;
     }

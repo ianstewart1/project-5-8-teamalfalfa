@@ -165,7 +165,8 @@ public class Gesture implements Playable{
      * Get the Gesture rectangle.
      * @return Gesture rectangle
      */
-    public Rectangle getBoundingRect() {
+    @Override
+    public Rectangle getRectangle() {
         return boundingRect;
     }
 
