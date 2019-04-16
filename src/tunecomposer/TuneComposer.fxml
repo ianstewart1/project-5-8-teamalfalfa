@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -103,53 +101,9 @@
       </ScrollPane>
    </center>
    <left>
-      <VBox prefHeight="1254.0" prefWidth="161.0" BorderPane.alignment="CENTER">
-         <children>
-            <RadioButton selected="true" text="Piano">
-               <toggleGroup>
-                  <ToggleGroup fx:id="instrumentToggle" />
-               </toggleGroup>
-               <styleClass>
-                  <String fx:value="piano" />
-                  <String fx:value="spacing" />
-               </styleClass>
-            </RadioButton>
-            <RadioButton text="Harpsichord" toggleGroup="$instrumentToggle">
-               <styleClass>
-                  <String fx:value="harpsichord" />
-                  <String fx:value="spacing" />
-               </styleClass></RadioButton>
-            <RadioButton text="Marimba" toggleGroup="$instrumentToggle">
-               <styleClass>
-                  <String fx:value="marimba" />
-                  <String fx:value="spacing" />
-               </styleClass></RadioButton>
-            <RadioButton text="Church Organ" toggleGroup="$instrumentToggle">
-               <styleClass>
-                  <String fx:value="church-organ" />
-                  <String fx:value="spacing" />
-               </styleClass></RadioButton>
-            <RadioButton text="Accordion" toggleGroup="$instrumentToggle">
-               <styleClass>
-                  <String fx:value="accordion" />
-                  <String fx:value="spacing" />
-               </styleClass></RadioButton>
-            <RadioButton text="Guitar" toggleGroup="$instrumentToggle">
-               <styleClass>
-                  <String fx:value="guitar" />
-                  <String fx:value="spacing" />
-               </styleClass></RadioButton>
-            <RadioButton text="Violin" toggleGroup="$instrumentToggle">
-               <styleClass>
-                  <String fx:value="violin" />
-                  <String fx:value="spacing" />
-               </styleClass></RadioButton>
-            <RadioButton text="French Horn" toggleGroup="$instrumentToggle">
-               <styleClass>
-                  <String fx:value="french-horn" />
-                  <String fx:value="spacing" />
-               </styleClass></RadioButton>
-         </children>
-      </VBox>
+      <VBox fx:id="instrumentPane" prefHeight="1254.0" prefWidth="161.0" BorderPane.alignment="CENTER" />
+        <fx:define>
+            <ToggleGroup fx:id="instrumentToggle" />
+        </fx:define>
    </left>
 </BorderPane>

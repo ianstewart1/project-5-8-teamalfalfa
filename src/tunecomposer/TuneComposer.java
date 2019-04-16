@@ -20,6 +20,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javax.sound.midi.ShortMessage;
@@ -35,11 +36,6 @@ public class TuneComposer extends Application {
      */
     public static final MidiPlayer PLAYER = 
         new MidiPlayer(Constants.RESOLUTION, Constants.BEATS_PER_MINUTE);
-
-    /**
-     * A list of instrument values to associate with MidiPlayer channels
-     */
-    private final int[] timbreList = new int[] {0, 6, 12, 19, 21, 24, 40, 60};
 
     /**
      * The set of all notes, to be played later.
@@ -93,6 +89,12 @@ public class TuneComposer extends Application {
      */
     @FXML
     private Rectangle selectRect;
+    
+    /**
+     * 
+     */
+    @FXML
+    private VBox instrumentPane;
 
     /**
      * A group of sidebar radio buttons for selecting an instrument.
@@ -133,6 +135,25 @@ public class TuneComposer extends Application {
         playLinePane.setMouseTransparent(true);
 
         selection = new SelectionArea(selectRect);
+        
+        setupInstruments();
+    }
+    
+    private void setupInstruments() {
+        boolean first = true;
+        for (Instrument inst : Instrument.values()) {
+            RadioButton rb = new RadioButton();
+            rb.setText(inst.getDisplayName());
+            rb.getStyleClass().add(inst.getStyleClassName());
+            rb.setUserData(inst);
+            rb.setToggleGroup(instrumentToggle);
+            rb.setMinWidth(instrumentPane.getPrefWidth()); //Magic number
+            instrumentPane.getChildren().add(rb);
+            if (first) {
+                instrumentToggle.selectToggle(rb);
+                first = false;
+            }
+        }
     }
     
     /**
@@ -142,19 +163,19 @@ public class TuneComposer extends Application {
     private Instrument getInstrument() {
         RadioButton selectedButton = (RadioButton)instrumentToggle.getSelectedToggle();
         String instrument = selectedButton.getText();
-        switch(instrument) {
-            case "Piano":           return Instrument.PIANO;
-            case "Harpsichord":     return Instrument.HARPSICHORD;
-            case "Marimba":         return Instrument.MARIMBA;
-            case "Church Organ":    return Instrument.CHURCH_ORGAN;
-            case "Accordion":       return Instrument.ACCORDION;
-            case "Guitar":          return Instrument.GUITAR;
-            case "Violin":          return Instrument.VIOLIN;
-            case "French Horn":     return Instrument.FRENCH_HORN;
-            default:
-                throw new IllegalArgumentException("Unrecognized Instrument");
+        return (Instrument) selectedButton.getUserData();
+//        switch(instrument) {
+//            case "Piano":           return Instrument.PIANO;
+//            case "Harpsichord":     return Instrument.HARPSICHORD;
+//            case "Marimba":         return Instrument.MARIMBA;
+//            case "Church Organ":    return Instrument.CHURCH_ORGAN;
+//            case "Accordion":       return Instrument.ACCORDION;
+//            case "Guitar":          return Instrument.GUITAR;
+//            case "Violin":          return Instrument.VIOLIN;
+//            case "French Horn":     return Instrument.FRENCH_HORN;
+//            default:
+//                throw new IllegalArgumentException("Unrecognized Instrument");
         }
-    }
     
     /**
      * This method is used to remove a gesture from the pane. 
@@ -195,9 +216,7 @@ public class TuneComposer extends Application {
     public void startPlaying() {
         PLAYER.stop();
         PLAYER.clear();
-        for(int i=0; i<8; i++){
-            PLAYER.addMidiEvent(ShortMessage.PROGRAM_CHANGE + i, timbreList[i], 0, 0, 0);
-        }
+        Instrument.addAll(PLAYER);
         allPlayables.forEach((note) -> {
             note.schedule();
         });
@@ -386,6 +405,7 @@ public class TuneComposer extends Application {
             allPlayables.add(note);
             notePane.getChildren().add(note.getRectangle());
             
+            // Should these go in the note constructor?
             note.getRectangle().setOnMousePressed((MouseEvent pressedEvent) -> {
                 handlePlayableClick(pressedEvent, note);
                 handlePlayablePress(pressedEvent, note);

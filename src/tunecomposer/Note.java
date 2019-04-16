@@ -58,7 +58,8 @@ public class Note implements Playable, Cloneable {
         rectWidth = Constants.DEFAULT_DURATION;
         
         noteRect = new Rectangle(x_coord, y_coord, rectWidth, Constants.RECTHEIGHT);
-        noteRect.getStyleClass().addAll("selected", instrument.toString());
+        System.out.println(instrument.getStyleClassName());
+        noteRect.getStyleClass().addAll("selected", instrument.getStyleClassName());
         noteRect.setMouseTransparent(false);
         
         isSelected = true;
@@ -180,11 +181,11 @@ public class Note implements Playable, Cloneable {
         if (selected) {
             noteRect.getStyleClass().clear();
             noteRect.getStyleClass().addAll("selected", 
-                                            instrument.toString());
+                                            instrument.getStyleClassName());
         } else {
             noteRect.getStyleClass().clear();
             noteRect.getStyleClass().addAll("unselected", 
-                                            instrument.toString());
+                                            instrument.getStyleClassName());
         }
     }
     
