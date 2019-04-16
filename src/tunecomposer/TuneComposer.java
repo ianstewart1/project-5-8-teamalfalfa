@@ -45,7 +45,7 @@ public class TuneComposer extends Application {
      * The set of all notes, to be played later.
      */
     private static Set<Playable> allPlayables;
-
+    
     /**
      * A line moves from left to right across the main pane. It crosses each
      * note as that note is played.
@@ -227,15 +227,15 @@ public class TuneComposer extends Application {
     }
     
     public void updateMenuClick() {
-        boolean ifNotes = allPlayables.size() > 0;
+        boolean noNotes = allPlayables.isEmpty();
         Set<Playable> selected = selectedSet();
         int numSelected = selected.size();
-        playButton.setDisable(ifNotes);
-        stopButton.setDisable(!playLine.isPlaying());
+        playButton.setDisable(noNotes);
+        stopButton.setDisable(playLine.isPlaying());
         groupButton.setDisable(numSelected < 2);
-        ungroupButton.setDisable(isGesture(selected));
-        selectAllButton.setDisable(ifNotes);
-        deleteButton.setDisable(numSelected > 0);
+        ungroupButton.setDisable(!isGesture(selected));
+        selectAllButton.setDisable(noNotes);
+        deleteButton.setDisable(numSelected == 0);
         undoButton.setDisable(UndoRedo.isUndoEmpty());
         redoButton.setDisable(UndoRedo.isRedoEmpty());
     }
@@ -323,6 +323,7 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleUndo(ActionEvent ignored) {
         allPlayables = UndoRedo.undo(allPlayables);
+        updateCompositionPane(allPlayables);
     }
     
     /**
@@ -332,6 +333,19 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleRedo(ActionEvent ignored) {
         allPlayables = UndoRedo.redo(allPlayables);
+        updateCompositionPane(allPlayables);
+    }
+    
+    /**
+     * Clear the composition pane and draw all of the rectangles in
+     * the input set.
+     * @param set Set to be added to the composition pane.
+     */
+    protected void updateCompositionPane(Set<Playable> set) {
+        notePane.getChildren().clear();
+        for (Playable element: set) {
+            notePane.getChildren().addAll(element.getNodeList());
+        }
     }
     
     /**
@@ -351,6 +365,9 @@ public class TuneComposer extends Application {
      * @param event a mouse click
      */
     public void handleClick(MouseEvent event) {
+
+        UndoRedo.pushUndo(allPlayables);
+        
         if (playLine.isPlaying()) {
             stopPlaying();
         }
@@ -382,7 +399,9 @@ public class TuneComposer extends Application {
                 handlePlayableStopDragging(releaseEvent);
             });
         }
-        clickInPane = true;
+        clickInPane = true;  
+        
+        updateMenuClick();
     }
     
     /**

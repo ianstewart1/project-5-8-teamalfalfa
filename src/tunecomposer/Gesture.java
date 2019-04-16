@@ -28,6 +28,7 @@ public class Gesture implements Playable{
     private double x_coord;
     private double y_coord;
     private double width;
+    private double height;
     
     /**
      * Selection boolean toggle
@@ -44,7 +45,7 @@ public class Gesture implements Playable{
     /**
      * Set of elements within Gesture
      */
-    protected Set<Playable> elements;
+    protected Set<Playable> elements = new HashSet<>();
 
     /**
      * Create a Gesture containing Notes or other Gestures.
@@ -52,24 +53,28 @@ public class Gesture implements Playable{
      */
     public Gesture(Set<Playable> selected){
         isSelected = true;
-        elements = new HashSet<>();
         selected.forEach((element) -> {
             elements.add(element);
         });
         boundingRect = calculateBounds();
         boundingRect.getStyleClass().addAll("gestureRect", "selected");
         width = boundingRect.getWidth();
+        height = boundingRect.getHeight();
         x_coord = boundingRect.getX();
         y_coord = boundingRect.getY();
     }
     
     private Gesture(Gesture gest){
-        isSelected = gest.getSelected();
         x_coord = gest.getX();
         y_coord = gest.getY();
-        elements = gest.getElements();
-        boundingRect = gest.getBoundingRect();
-        //Do we need to add a style class?
+        width = gest.getWidth();
+        height = gest.getHeight();
+        boundingRect = new Rectangle(x_coord, y_coord, width, height);
+        for (Playable element : gest.getElements()) {
+            elements.add(element.makeCopy());
+        }
+        setSelected(gest.getSelected());
+
     }
 
     /**
@@ -149,6 +154,14 @@ public class Gesture implements Playable{
     }
     
     /**
+     * Get the height of the Gesture rectangle.
+     * @return the height of the gesture as a double
+     */
+    public double getHeight() {
+        return height;
+    }
+    
+    /**
      * Get the Gesture rectangle.
      * @return Gesture rectangle
      */
@@ -165,13 +178,12 @@ public class Gesture implements Playable{
     @Override
     public void setSelected(boolean selected) {
         isSelected = selected;
-        if(selected){
-            boundingRect.getStyleClass().remove("unselected");
-            boundingRect.getStyleClass().add("selected");
-        }
-        else{
-            boundingRect.getStyleClass().remove("selected");
-            boundingRect.getStyleClass().add("unselected");
+        if (selected) {
+            boundingRect.getStyleClass().clear();
+            boundingRect.getStyleClass().addAll("selected", "gestureRect");
+        } else {
+            boundingRect.getStyleClass().clear();
+            boundingRect.getStyleClass().addAll("unselected", "gestureRect");
         }
         elements.forEach((element) -> {
             element.setSelected(selected);

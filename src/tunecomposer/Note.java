@@ -70,13 +70,13 @@ public class Note implements Playable, Cloneable {
      * @param note The Note to be copied into this Note
      */
     private Note(Note note) {
-        noteRect = note.getRectangle();
         x_coord = note.getX();
         y_coord = note.getY();
         rectWidth = note.getWidth();
+        noteRect = new Rectangle(x_coord, y_coord, rectWidth, Constants.RECTHEIGHT);
         pitch = note.getPitch();
         instrument = note.getInstrument();
-        isSelected = note.getSelected();
+        setSelected(note.getSelected());
     }
     
     /**
