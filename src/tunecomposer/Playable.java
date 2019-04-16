@@ -25,13 +25,14 @@ public interface Playable {
     boolean getSelected();
     
     /*
-    * Return 
+    * Return rectangle fields from Playable objects.
     */
     Bounds getBounds();
     double getX();
     double getY();
     double getWidth();
     List<Rectangle> getNodeList();
+    Rectangle getRectangle();
     
     /**
      * Updates a Playables's status to selected and updates the style.

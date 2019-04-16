@@ -137,6 +137,7 @@ public class TuneComposer extends Application {
         selection = new SelectionArea(selectRect);
         
         setupInstruments();
+        updateMenuClick();
     }
     
     private void setupInstruments() {
@@ -164,18 +165,7 @@ public class TuneComposer extends Application {
         RadioButton selectedButton = (RadioButton)instrumentToggle.getSelectedToggle();
         String instrument = selectedButton.getText();
         return (Instrument) selectedButton.getUserData();
-//        switch(instrument) {
-//            case "Piano":           return Instrument.PIANO;
-//            case "Harpsichord":     return Instrument.HARPSICHORD;
-//            case "Marimba":         return Instrument.MARIMBA;
-//            case "Church Organ":    return Instrument.CHURCH_ORGAN;
-//            case "Accordion":       return Instrument.ACCORDION;
-//            case "Guitar":          return Instrument.GUITAR;
-//            case "Violin":          return Instrument.VIOLIN;
-//            case "French Horn":     return Instrument.FRENCH_HORN;
-//            default:
-//                throw new IllegalArgumentException("Unrecognized Instrument");
-        }
+    }
     
     /**
      * This method is used to remove a gesture from the pane. 
@@ -232,6 +222,7 @@ public class TuneComposer extends Application {
     @FXML
     public void handleStartPlaying(ActionEvent ignored) {
         startPlaying();
+        updateMenuClick();
     }
     
     /**
@@ -250,7 +241,7 @@ public class TuneComposer extends Application {
         Set<Playable> selected = selectedSet();
         int numSelected = selected.size();
         playButton.setDisable(noNotes);
-        stopButton.setDisable(playLine.isPlaying());
+        stopButton.setDisable(!playLine.isPlaying());
         groupButton.setDisable(numSelected < 2);
         ungroupButton.setDisable(!isGesture(selected));
         selectAllButton.setDisable(noNotes);
@@ -266,6 +257,7 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleStopPlaying(ActionEvent ignored) {
         stopPlaying();
+        updateMenuClick();
     }
 
     /**
@@ -298,24 +290,29 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleGroup(ActionEvent ignored) {
         Set<Playable> selected = selectedSet();
+        // TODO: Get rid of this shit because setDisable on the menuItem
+        //       prevents it from happening.
         if (selected.size() > 1) {
+            UndoRedo.pushUndo(allPlayables);
+            
             Gesture gesture = new Gesture(selected);
-            gesture.getBoundingRect().setOnMousePressed((MouseEvent pressedEvent) -> {
+            gesture.getRectangle().setOnMousePressed((MouseEvent pressedEvent) -> {
                 handlePlayableClick(pressedEvent, gesture);
                 handlePlayablePress(pressedEvent, gesture);
             });
             
-            gesture.getBoundingRect().setOnMouseDragged((MouseEvent dragEvent) -> {
+            gesture.getRectangle().setOnMouseDragged((MouseEvent dragEvent) -> {
                 handlePlayableDrag(dragEvent);
             });
             
-            gesture.getBoundingRect().setOnMouseReleased((MouseEvent releaseEvent) -> { 
+            gesture.getRectangle().setOnMouseReleased((MouseEvent releaseEvent) -> { 
                 handlePlayableStopDragging(releaseEvent);
             });
             allPlayables.removeAll(selected);
             allPlayables.add(gesture);
-            notePane.getChildren().add(gesture.getBoundingRect());
+            notePane.getChildren().add(gesture.getRectangle());
         }
+        updateMenuClick();
     }
     
     /**
@@ -326,13 +323,15 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleUngroup(ActionEvent ignored) {
-            selectedSet().forEach((selectedPlayable) -> {
-            if (selectedPlayable instanceof Gesture){
+        UndoRedo.pushUndo(allPlayables);
+        selectedSet().forEach((selectedPlayable) -> {
+            if (selectedPlayable instanceof Gesture) {
                 Gesture gesture = (Gesture) selectedPlayable;
                 ungroupSingleGesture(gesture);
                 removeGesture(gesture);
             }
         });
+        updateMenuClick();
     }
     
     /**
@@ -343,6 +342,7 @@ public class TuneComposer extends Application {
     protected void handleUndo(ActionEvent ignored) {
         allPlayables = UndoRedo.undo(allPlayables);
         updateCompositionPane(allPlayables);
+        updateMenuClick();
     }
     
     /**
@@ -353,6 +353,7 @@ public class TuneComposer extends Application {
     protected void handleRedo(ActionEvent ignored) {
         allPlayables = UndoRedo.redo(allPlayables);
         updateCompositionPane(allPlayables);
+        updateMenuClick();
     }
     
     /**
@@ -363,6 +364,9 @@ public class TuneComposer extends Application {
     protected void updateCompositionPane(Set<Playable> set) {
         notePane.getChildren().clear();
         for (Playable element: set) {
+            if (element instanceof Gesture) {
+                notePane.getChildren().add(element.getRectangle());
+            }
             notePane.getChildren().addAll(element.getNodeList());
         }
     }
@@ -384,8 +388,6 @@ public class TuneComposer extends Application {
      * @param event a mouse click
      */
     public void handleClick(MouseEvent event) {
-
-        UndoRedo.pushUndo(allPlayables);
         
         if (playLine.isPlaying()) {
             stopPlaying();
@@ -395,6 +397,8 @@ public class TuneComposer extends Application {
             selection.endRectangle();
         }
         else if (clickInPane) {
+            UndoRedo.pushUndo(allPlayables);
+            
             if (! event.isControlDown()) {
                 selectAll(false);
             }
@@ -430,7 +434,9 @@ public class TuneComposer extends Application {
      * @param event mouse click
      * @param playable Playable that was clicked
      */
-    private void handlePlayableClick(MouseEvent event, Playable playable) {
+    private void handlePlayableClick(MouseEvent event, Playable playable) {     
+        UndoRedo.pushUndo(allPlayables);
+        
         clickInPane = false;
         boolean control = event.isControlDown();
         boolean selected = playable.getSelected();
@@ -442,6 +448,7 @@ public class TuneComposer extends Application {
         } else if (control && selected) {
             playable.setSelected(false);
         }
+        updateMenuClick();
     }
     
     /**
@@ -490,6 +497,8 @@ public class TuneComposer extends Application {
             }
         });
         changeDuration = false;
+        
+        updateMenuClick();
     }
 
     /**
@@ -525,6 +534,8 @@ public class TuneComposer extends Application {
      * @param event mouse drag
      */
     private void handleSelectionStartDrag(MouseEvent event) {
+        UndoRedo.pushUndo(allPlayables);
+        
         isDragSelecting = true;
         
         selection.startRectangle(event.getX(), event.getY());
@@ -554,6 +565,7 @@ public class TuneComposer extends Application {
                 }
             }
         });
+        updateMenuClick();
     }
 
     /**
@@ -562,6 +574,8 @@ public class TuneComposer extends Application {
      */
     @FXML
     void handleDelete(ActionEvent event) {
+        UndoRedo.pushUndo(allPlayables);
+        
         Collection toDelete = new ArrayList<Playable>();
         allPlayables.forEach((element) -> {
             if (element.getSelected()) {
@@ -570,6 +584,8 @@ public class TuneComposer extends Application {
             }
         });
         allPlayables.removeAll(toDelete);
+        
+        updateMenuClick();
     }
     
     /**
@@ -578,7 +594,9 @@ public class TuneComposer extends Application {
      */
     @FXML
     void handleSelectAll(ActionEvent event) {
+        UndoRedo.pushUndo(allPlayables);
         selectAll(true);
+        updateMenuClick();
     }
     
     /**
