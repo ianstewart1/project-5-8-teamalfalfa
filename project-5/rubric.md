@@ -25,7 +25,7 @@ Earned|Possible|Requirement | Comments
 ------|--------|------------|----------
 2|0| When the right edge of a gesture is grabbed and stretched left or right, the duration and offset of everything in the gesture should stretch proportionally. 
 
-### No regressions - 3.5/4 points
+### No regressions - 1.5/2 points
 
 Earned|Possible|Requirement | Comments
 ------|--------|------------|----------
@@ -51,7 +51,7 @@ Earned|Possible|Requirement | Comments
 1|1| Collaboration statement
 1|1| Team retrospective
 
-## Elegance - 16/16 points
+## Elegance - 12/12 points
 
 I looked at your UML diagram to assess the elegance of your class design.  You will get a grade for class design starting with Project 6.
 I spot-checked a new class (Gesture) and a modified class (TuneComposer) to assess method-level design and self-explanatory code.
@@ -60,4 +60,4 @@ Earned|Possible|Requirement | Comments
 ------|--------|------------|----------
 0|0| Class design | _Reconsider the contents of the Playable interface with an eye towards the SOLID principles. It's also surprising that an interface named Playable has no method play()!_ _See also GitHub Issues._
 8|8| Method design | _Looks good. Most of my concerns were at the class design level, not the method design level._
-8|8| Self-explanatory code | _I asked for Javadoc on the ```Playable``` interface, but that is not one of the two classes I listed above._
+4|4| Self-explanatory code | _I asked for Javadoc on the ```Playable``` interface, but that is not one of the two classes I listed above._
