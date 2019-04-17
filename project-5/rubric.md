@@ -1,6 +1,8 @@
-# GRADE: 64/64 
+# GRADE: 63/64 
 
-## Functional and implementation requirements: 36/36 points total
+_Well done!_
+
+## Functional and implementation requirements: 34/36 points total
 
 Earned|Possible|Requirement | Comments
 ------|--------|------------|----------
@@ -9,7 +11,7 @@ Earned|Possible|Requirement | Comments
 2|2| Selecting any note in a gesture causes the same thing to happen to all the others in the gesture.
 2|2| Unselecting any note in a gesture with control-click causes the same thing to happen to all the others in the gesture.
 2|2| Drag-selecting over a gesture consistently selects or unselects all the notes in the gesture.
-4|4| Dragging note bars in a gesture moves or stretches all notes in the gesture.
+2|4| Dragging note bars in a gesture moves or stretches all notes in the gesture. |_I'm unable to stretch notes within a gesture, but I gave you points for the "stretch goal" below._
 3|3| Gestures are indicated visually by a thin black dotted line around the group of note bars. 
 1|1| A selected gesture is indicated using a style similar to that of a selected note bar.
 4|4| Gestures can include note bars or other gestures (that is, gestures can be nested).
@@ -17,17 +19,17 @@ Earned|Possible|Requirement | Comments
 1|1| After selecting the Group menu item, the new gesture becomes the only selected item. 
 2|2| After choosing Ungroup, all the inner notebars and gestures of the ungrouped gesture are selected.
 
-### "Stretch goal"
+### "Stretch goal" - 2 points
 
 Earned|Possible|Requirement | Comments
 ------|--------|------------|----------
-0|0| When the right edge of a gesture is grabbed and stretched left or right, the duration and offset of everything in the gesture should stretch proportionally.
+2|0| When the right edge of a gesture is grabbed and stretched left or right, the duration and offset of everything in the gesture should stretch proportionally. 
 
-### No regressions - 4/4 points
+### No regressions - 3.5/4 points
 
 Earned|Possible|Requirement | Comments
 ------|--------|------------|----------
-4|4| All prior requirements are met, unless they have been superseded by new requirements.
+3.5|4| All prior requirements are met, unless they have been superseded by new requirements. | _Platform independent keyboard shortcuts_
 
 ### Release tag - 2/2 points
 
@@ -35,7 +37,7 @@ Earned|Possible|Requirement | Comments
 ------|--------|------------|----------
 2|2| The release is tagged as project-5-release.
 
-## Reflection - 12/12 points
+## Reflection - 11.5/12 points
 
 For project 5 and beyond, I will expect your discussion of design and elegance to refer explicitly to design principles we have discussed in class.
 
@@ -45,17 +47,17 @@ Earned|Possible|Requirement | Comments
 2|2| Design overview
 2|2| What is elegant?
 2|2| What is not elegant?
-1|1| Velocity
+0.5|1| Velocity |_Not computed but you reflect on it
 1|1| Collaboration statement
 1|1| Team retrospective
 
 ## Elegance - 16/16 points
 
 I looked at your UML diagram to assess the elegance of your class design.  You will get a grade for class design starting with Project 6.
-I spot-checked a new class () and a modified class () to assess method-level design and self-explanatory code.
+I spot-checked a new class (Gesture) and a modified class (TuneComposer) to assess method-level design and self-explanatory code.
 
 Earned|Possible|Requirement | Comments
 ------|--------|------------|----------
-0|0| Class design 
-8|8| Method design
-8|8| Self-explanatory code
+0|0| Class design | _Reconsider the contents of the Playable interface with an eye towards the SOLID principles. It's also surprising that an interface named Playable has no method play()!_ _See also GitHub Issues._
+8|8| Method design | _Looks good. Most of my concerns were at the class design level, not the method design level._
+8|8| Self-explanatory code | _I asked for Javadoc on the ```Playable``` interface, but that is not one of the two classes I listed above._
