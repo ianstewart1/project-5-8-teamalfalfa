@@ -66,7 +66,6 @@ public class PlayLine {
         Duration duration = Duration.seconds(endXCoordinate / 
                                              Constants.DEFAULT_DURATION); 
         path.setDuration(duration);
-        System.out.println(duration);
         path.play();
  
         playing = true;

@@ -163,7 +163,7 @@ public class TuneComposer extends Application {
      */
     private Instrument getInstrument() {
         RadioButton selectedButton = (RadioButton)instrumentToggle.getSelectedToggle();
-        String instrument = selectedButton.getText();
+        String instrument = selectedButton.getText(); // ADD do we need this?
         return (Instrument) selectedButton.getUserData();
     }
     
@@ -204,14 +204,13 @@ public class TuneComposer extends Application {
      * Called when the Play button is clicked.
      */
     public void startPlaying() {
-        PLAYER.stop();
-        PLAYER.clear();
+        stopPlaying(); // ADD
         Instrument.addAll(PLAYER);
         allPlayables.forEach((note) -> {
             note.schedule();
         });
 
-        PLAYER.play();
+        PLAYER.play(); // WE NEVER RESET THIS, oops
         playLine.play(this.findLastNote());
     }
 
@@ -232,6 +231,7 @@ public class TuneComposer extends Application {
      */
     public void stopPlaying() {
         PLAYER.stop();
+        PLAYER.clear(); // ADD
         playLine.stop();
 
     }
@@ -296,18 +296,8 @@ public class TuneComposer extends Application {
             UndoRedo.pushUndo(allPlayables);
             
             Gesture gesture = new Gesture(selected);
-            gesture.getRectangle().setOnMousePressed((MouseEvent pressedEvent) -> {
-                handlePlayableClick(pressedEvent, gesture);
-                handlePlayablePress(pressedEvent, gesture);
-            });
+            addHandlers(gesture); // ADD
             
-            gesture.getRectangle().setOnMouseDragged((MouseEvent dragEvent) -> {
-                handlePlayableDrag(dragEvent);
-            });
-            
-            gesture.getRectangle().setOnMouseReleased((MouseEvent releaseEvent) -> { 
-                handlePlayableStopDragging(releaseEvent);
-            });
             allPlayables.removeAll(selected);
             allPlayables.add(gesture);
             notePane.getChildren().add(gesture.getRectangle());
@@ -367,6 +357,7 @@ public class TuneComposer extends Application {
             if (element instanceof Gesture) {
                 notePane.getChildren().add(element.getRectangle());
             }
+            addHandlers(element); // ADD
             notePane.getChildren().addAll(element.getNodeList());
         }
     }
@@ -409,23 +400,26 @@ public class TuneComposer extends Application {
             allPlayables.add(note);
             notePane.getChildren().add(note.getRectangle());
             
-            // Should these go in the note constructor?
-            note.getRectangle().setOnMousePressed((MouseEvent pressedEvent) -> {
-                handlePlayableClick(pressedEvent, note);
-                handlePlayablePress(pressedEvent, note);
-            });
-            
-            note.getRectangle().setOnMouseDragged((MouseEvent dragEvent) -> {
-                handlePlayableDrag(dragEvent);
-            });
-            
-            note.getRectangle().setOnMouseReleased((MouseEvent releaseEvent) -> {
-                handlePlayableStopDragging(releaseEvent);
-            });
+            addHandlers(note); // ADD
         }
         clickInPane = true;  
         
         updateMenuClick();
+    }
+    
+    private void addHandlers(Playable play) { // ADD
+        play.getRectangle().setOnMousePressed((MouseEvent pressedEvent) -> {
+            handlePlayableClick(pressedEvent, play);
+            handlePlayablePress(pressedEvent, play);
+        });
+
+        play.getRectangle().setOnMouseDragged((MouseEvent dragEvent) -> {
+            handlePlayableDrag(dragEvent);
+        });
+
+        play.getRectangle().setOnMouseReleased((MouseEvent releaseEvent) -> {
+            handlePlayableStopDragging(releaseEvent);
+        });
     }
     
     /**
