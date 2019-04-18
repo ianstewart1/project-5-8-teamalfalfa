@@ -1,9 +1,5 @@
-Project 6: Undo and Redo
+Project 6: Team Reflection
 ========================
-
-### Team reflection
-
-Include a team reflection as a [MarkDown](https://daringfireball.net/projects/markdown/) file. Address the following points:
 
 *   Give a concise overview of your design. What strategy did you use to implement undo/redo? How did you divide the code into classes and methods? How does your design for Project 6 differ from your design to Project 5? How did you respond to feedback? (If I get it to you in time.)
 
@@ -19,11 +15,3 @@ In terms of our existing code, we've made several improvements and have plans fo
 *   Include a short summary of your team retrospective. What went well that your team will keep doing during the next project assignment? What will you improve? How?
 
 
-### Code reviews
-
-For Projects 5-8, team members will take turns walking me through the code and explaining their contributions. Each student should expect to make at least two such presentations. I will provide information about scheduling closer to the deadline.
-
-Acknowledgments
----------------
-
-This assignment is adapted from one by Dale Skrien.
