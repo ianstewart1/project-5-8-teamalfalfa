@@ -1,21 +1,13 @@
 Project 6: Team Reflection
 ========================
 
-*   Give a concise overview of your design. What strategy did you use to implement undo/redo? How did you divide the code into classes and methods? How does your design for Project 6 differ from your design to Project 5? How did you respond to feedback? (If I get it to you in time.)
-
+OVERVIEW
+======
 We implemented our Undo/Redo functionality with a "Memento" design. Each time a change is made in the composition pane, the current state is "saved" by pushing it to an undoStack. If the user chooses to undo, the state is retrieved and the new current state is pushed to the redoStack. The user can continue to undo or redo as long as there are states to retrieve from the undoStack or redoStack. If the user makes a change in the composition pane, the redoStack is cleared. 
 
 We chose this design in part because we thought that it worked particularly well with our current code. We realized that to save a state, we only needed to save the set of allPlayables. We wrote a new UndoRedo class, which holds the undoStack and redoStack and manages saving the current state or passing back a state from either stack. 
 
 In terms of our existing code, we've made several improvements and have plans for further refactoring, all based on previous feedback. We rewrote our red playLine to use a TranslateTransition. In addition, we pulled out instrument information from the TuneComposer using Professor Davis' sample Project 4 code as a guide. Both of these make our code more readable and elegant. We are planning to tackle TuneComposer during this next project by extracting MenuHandler and CompositionHandler classes and condensing the remaining code. When we enter our next design cycle, we intend to prioritize our issues on GitHub and determine what we can do before or concurrently with our next project requirements. 
-
-INELEGANCE
-======
-One inelegant aspect of our solution is that menu items are all updated in a single place in TuneComposer which increases the responsibilities of TuneComposer in violation of the principle of single responsibility. To abide by that principle, these menu updates should be handled in a separate class that displays them to the composition pane. We chose to keep this because moving them to a separate class would involve learning to have multiple FXML files that communicate on the same objects, which felt like to large a project to take on when we were also still figuring out how and when the menu items should be grayed out. Now that we have solved this first part of the problem, and since all the updates are already grouped together, we are set up well to implement the more elegant solution in the future. Another inelegance was that our handlers for mouse events on notes/gestures are still in TuneComposer. Again, this is a violation of the principle of single responsibility, as it would make more sense for the notes/gestures themselves to apply these handlers. This would allow for less coupling between TuneComposer and notes/gestures, where TuneComposer creates the composition pane area and notes/gestures handle how they can be interacted with in that area. We did not implement this because we found it was more efficient to add handlers within TuneComposer as handlers are only added to the set of notes/gestures that are interactable in the pane. Handlers applied to notes/gestures not in the pane would remain even if those notes/gestures were removed as they would be stored in the Undo/Redo stacks, creating the potential for access to handlers that are supposed to be inaccessible.
-
-VELOCITY
-======
-Using an interval of 1 day, we completed 0.6 story points per day of work. We estimated we would complete 7 story points this project. We ended up completing 8, since we completed the additional story of putting all Instrument related information inside of the Instrument class. We spent around 32 person-hours on this project, meaning we had a ratio of 0.25 story points per person-hour. This is equal to our rough estimate of velocity from last project, however, since we also completed a strech goal from last project, our velocity for this project should be considered to be somewhat slower than before. Given that we still were able to complete the functional requirements for this project, we consider this velocity to be a comfortable rate of progress even if it leaves some room for improvement. 
 
 ELEGANCE
 ======
@@ -37,6 +29,14 @@ class conforms to the code to interfaces roll. Rather than working on just
 notes or gestures, it works for playables. However, in retrospect, we think it
 may have been better to implement UndoRedo to work for any set, not just a set
 of playables.
+
+INELEGANCE
+======
+One inelegant aspect of our solution is that menu items are all updated in a single place in TuneComposer which increases the responsibilities of TuneComposer in violation of the principle of single responsibility. To abide by that principle, these menu updates should be handled in a separate class that displays them to the composition pane. We chose to keep this because moving them to a separate class would involve learning to have multiple FXML files that communicate on the same objects, which felt like to large a project to take on when we were also still figuring out how and when the menu items should be grayed out. Now that we have solved this first part of the problem, and since all the updates are already grouped together, we are set up well to implement the more elegant solution in the future. Another inelegance was that our handlers for mouse events on notes/gestures are still in TuneComposer. Again, this is a violation of the principle of single responsibility, as it would make more sense for the notes/gestures themselves to apply these handlers. This would allow for less coupling between TuneComposer and notes/gestures, where TuneComposer creates the composition pane area and notes/gestures handle how they can be interacted with in that area. We did not implement this because we found it was more efficient to add handlers within TuneComposer as handlers are only added to the set of notes/gestures that are interactable in the pane. Handlers applied to notes/gestures not in the pane would remain even if those notes/gestures were removed as they would be stored in the Undo/Redo stacks, creating the potential for access to handlers that are supposed to be inaccessible.
+
+VELOCITY
+======
+Using an interval of 1 day, we completed 0.6 story points per day of work. We estimated we would complete 7 story points this project. We ended up completing 8, since we completed the additional story of putting all Instrument related information inside of the Instrument class. We spent around 32 person-hours on this project, meaning we had a ratio of 0.25 story points per person-hour. This is equal to our rough estimate of velocity from last project, however, since we also completed a strech goal from last project, our velocity for this project should be considered to be somewhat slower than before. Given that we still were able to complete the functional requirements for this project, we consider this velocity to be a comfortable rate of progress even if it leaves some room for improvement. 
 
 TEAMWORK
 ======
