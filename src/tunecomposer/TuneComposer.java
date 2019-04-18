@@ -23,11 +23,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javax.sound.midi.ShortMessage;
 
 /**
  * This JavaFX app lets the user play scales.
- * @author Ian Stewart, Ian Hawkins, Angie Mead, Melissa Kohl
+ * @author Ian Stewart, Gavin James/Beckham, Nathaniel Larson, Paul Milloy
  */
 public class TuneComposer extends Application {
 
@@ -49,7 +48,7 @@ public class TuneComposer extends Application {
     private static PlayLine playLine;
     
     /**
-     * Boolean flags to control flow when user clicks in composition panel
+     * Boolean flags to control flow when user clicks in composition panel.
      */
     private boolean clickInPane = true;
     private boolean changeDuration = false;
@@ -85,13 +84,13 @@ public class TuneComposer extends Application {
     private SelectionArea selection;
 
     /**
-     * Rectangle used in click-and-drag note selection
+     * Rectangle used in click-and-drag note selection.
      */
     @FXML
     private Rectangle selectRect;
     
     /**
-     * 
+     * VBox used to hold the ToggleGroup of instruments.
      */
     @FXML
     private VBox instrumentPane;
@@ -110,7 +109,7 @@ public class TuneComposer extends Application {
                      selectAllButton, deleteButton, undoButton, redoButton;
 
     /**
-     * Constructor initializes Note sets
+     * Constructor initializes Note sets.
      */
     public TuneComposer() {
         allPlayables = new HashSet();
@@ -148,7 +147,7 @@ public class TuneComposer extends Application {
             rb.getStyleClass().add(inst.getStyleClassName());
             rb.setUserData(inst);
             rb.setToggleGroup(instrumentToggle);
-            rb.setMinWidth(instrumentPane.getPrefWidth()); //Magic number
+            rb.setMinWidth(instrumentPane.getPrefWidth());
             instrumentPane.getChildren().add(rb);
             if (first) {
                 instrumentToggle.selectToggle(rb);
@@ -163,7 +162,6 @@ public class TuneComposer extends Application {
      */
     private Instrument getInstrument() {
         RadioButton selectedButton = (RadioButton)instrumentToggle.getSelectedToggle();
-        String instrument = selectedButton.getText(); // ADD do we need this?
         return (Instrument) selectedButton.getUserData();
     }
     
@@ -186,7 +184,8 @@ public class TuneComposer extends Application {
     
     /**
      * Find the last note so we know when to stop the player and red line.
-     * @return lastNote x_coordinate of the last note in the pane, where the red line should stop.
+     * @return lastNote x_coordinate of the last note in the pane, where 
+     *                  the red line should stop.
      */
     public double findLastNote() {
         double lastNote = 0;       
@@ -204,13 +203,12 @@ public class TuneComposer extends Application {
      * Called when the Play button is clicked.
      */
     public void startPlaying() {
-        stopPlaying(); // ADD
+        stopPlaying();
         Instrument.addAll(PLAYER);
         allPlayables.forEach((note) -> {
             note.schedule();
         });
-
-        PLAYER.play(); // WE NEVER RESET THIS, oops
+        PLAYER.play();
         playLine.play(this.findLastNote());
     }
 
@@ -227,15 +225,19 @@ public class TuneComposer extends Application {
     /**
      * Stops playing composition.
      * Called when the Stop button is clicked. Does not remove notes from the
-     * screen or from allNotes.
+     * screen or from allPlayables.
      */
     public void stopPlaying() {
         PLAYER.stop();
-        PLAYER.clear(); // ADD
+        PLAYER.clear();
         playLine.stop();
 
     }
     
+    /**
+     * Toggles the disabling of MenuItems based on if their actions are 
+     * feasible.
+     */
     public void updateMenuClick() {
         boolean noNotes = allPlayables.isEmpty();
         Set<Playable> selected = selectedSet();
@@ -290,18 +292,15 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleGroup(ActionEvent ignored) {
         Set<Playable> selected = selectedSet();
-        // TODO: Get rid of this shit because setDisable on the menuItem
-        //       prevents it from happening.
-        if (selected.size() > 1) {
-            UndoRedo.pushUndo(allPlayables);
-            
-            Gesture gesture = new Gesture(selected);
-            addHandlers(gesture); // ADD
-            
-            allPlayables.removeAll(selected);
-            allPlayables.add(gesture);
-            notePane.getChildren().add(gesture.getRectangle());
-        }
+        UndoRedo.pushUndo(allPlayables);
+
+        Gesture gesture = new Gesture(selected);
+        addHandlers(gesture);
+
+        allPlayables.removeAll(selected);
+        allPlayables.add(gesture);
+        notePane.getChildren().add(gesture.getRectangle());
+        
         updateMenuClick();
     }
     
@@ -357,7 +356,7 @@ public class TuneComposer extends Application {
             if (element instanceof Gesture) {
                 notePane.getChildren().add(element.getRectangle());
             }
-            addHandlers(element); // ADD
+            addHandlers(element);
             notePane.getChildren().addAll(element.getNodeList());
         }
     }
@@ -400,14 +399,18 @@ public class TuneComposer extends Application {
             allPlayables.add(note);
             notePane.getChildren().add(note.getRectangle());
             
-            addHandlers(note); // ADD
+            addHandlers(note);
         }
         clickInPane = true;  
         
         updateMenuClick();
     }
     
-    private void addHandlers(Playable play) { // ADD
+    /**
+     * Add handlers to the rectangles associated with Gestures and Notes.
+     * @param play Playable to have handlers added to.
+     */
+    private void addHandlers(Playable play) {
         play.getRectangle().setOnMousePressed((MouseEvent pressedEvent) -> {
             handlePlayableClick(pressedEvent, play);
             handlePlayablePress(pressedEvent, play);

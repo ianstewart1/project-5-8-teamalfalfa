@@ -24,6 +24,7 @@ public class Constants {
     public static final int LINE_THICKNESS = 1;
     
     public static final int RECTHEIGHT = 10;
+    
     /**
      * Size of Composition pane
      */

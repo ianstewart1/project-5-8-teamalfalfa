@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tunecomposer;
 
 import javafx.scene.paint.Color;
@@ -10,7 +6,7 @@ import javax.sound.midi.ShortMessage;
 
 /**
  * Enumerates the instruments playable in the TuneComposer application
- * @author Ian Hawkins, Ian Stewart, Melissa Kohl, Angie Mead
+ * @author Ian Stewart, Gavin James/Beckham, Nathaniel Larson, Paul Milloy
  */
 public enum Instrument {
         PIANO         (1,  0, "Piano",       "piano",        Color.CRIMSON),
@@ -28,6 +24,14 @@ public enum Instrument {
         private final String styleClassName;
         private final Color displayColor;
         
+        /**
+         * Create an Instrument enumeration.
+         * @param midiProgram Midi Instrument value
+         * @param channel Channel to be added to based on Instrument
+         * @param displayName Name of Instrument
+         * @param styleClassName Lower case with '-' to apply styleclass
+         * @param displayColor Not currently working
+         */
         Instrument(int midiProgram, int channel, String displayName,
                      String styleClassName, Color displayColor){
             this.midiProgram = midiProgram;
@@ -37,26 +41,49 @@ public enum Instrument {
             this.displayColor = displayColor;
         }
         
+        /**
+         * Returns midiProgram value.
+         * @return midiProgram
+         */
         public int getMidiProgram() {
             return midiProgram;
         }
-
+        
+        /**
+         * Returns channel value.
+         * @return channel
+         */
         public int getChannel() {
             return channel;
         }
-
+        
+        /**
+         * Returns display name value.
+         * @return displayName
+         */
         public String getDisplayName() {
             return displayName;
         }
         
+        /**
+         * Returns style class name value.
+         * @return styleClassName
+         */
         public String getStyleClassName() {
             return styleClassName;
         }       
-
+        
+        /**
+         * Returns display color value.
+         * @return displayColor
+         */
         public Color getDisplayColor() {
             return displayColor;
         }
         
+        /**
+         * Adds all of the instrument tracks to the MidiPlayer.
+         */
         public static void addAll(MidiPlayer player) {
             for (Instrument inst : Instrument.values()) {
                 player.addMidiEvent(ShortMessage.PROGRAM_CHANGE + inst.getChannel(), 
@@ -65,22 +92,4 @@ public enum Instrument {
             }
         }
 
-//        /**
-//         * Override the built-in method from the Enum class
-//         * @return Lower case string of instrument name with dashes as spaces
-//         */
-//        @Override
-//        public String toString() {
-//            switch(this) {
-//                case PIANO:         return "piano";
-//                case HARPSICHORD:   return "harpsichord";
-//                case MARIMBA:       return "marimba";
-//                case CHURCH_ORGAN:  return "church-organ";
-//                case ACCORDION:     return "accordion";
-//                case GUITAR:        return "guitar";
-//                case VIOLIN:        return "violin";
-//                case FRENCH_HORN:   return "french-horn";
-//                default: throw new IllegalArgumentException();
-//            }
-//        }
     }
