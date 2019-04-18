@@ -16,7 +16,7 @@ import javafx.scene.shape.Rectangle;
  * Note class creates a Rectangle representing the note to be played
  * @author Ian Hawkins, Madi Crowley, Ian Stewart, Melissa Kohl
  */
-public class Note implements Playable, Cloneable {
+public class Note implements Playable {
   
     /**
      * Note fields for creating rectangle and playing note
@@ -58,7 +58,6 @@ public class Note implements Playable, Cloneable {
         rectWidth = Constants.DEFAULT_DURATION;
         
         noteRect = new Rectangle(x_coord, y_coord, rectWidth, Constants.RECTHEIGHT);
-        System.out.println(instrument.getStyleClassName());
         noteRect.getStyleClass().addAll("selected", instrument.getStyleClassName());
         noteRect.setMouseTransparent(false);
         
