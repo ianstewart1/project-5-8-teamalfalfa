@@ -14,4 +14,8 @@ In terms of our existing code, we've made several improvements and have plans fo
 *   Include an estimate of your velocity. How many story points did you estimate you would complete during this project? How many did you actually complete, how many person-hours did the team spend, and what is the ratio of points/person-hour? How does this compare to your velocity for the previous project assignment?
 *   Include a short summary of your team retrospective. What went well that your team will keep doing during the next project assignment? What will you improve? How?
 
+Our team worked well on this project. We decided to have a planning session at the beginning of our process since that was successful last time. That worked well again this time. Next time, we might need to spend a good portion of time simply discussing how to dismantle TuneComposer. It is likely that small things could break, and approaching this process as methodically as possible will be important. To that end, when we hit roadbloacks, which happened a couple of times during this assignment, we may try to step back and discuss possible solutions before experimenting too much. When dealing with how to assign new handlers to notes and gestures from undo and redo, it took a little thinking to get the solution, which ended up being fairly simple. 
+
+We think that planning ahead for when we will work is good. This Friday, we may try to plan out several work sessions so that we have to discuss less. 
+
 
