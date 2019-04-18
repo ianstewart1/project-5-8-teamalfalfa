@@ -64,6 +64,10 @@ public class Gesture implements Playable{
         y_coord = boundingRect.getY();
     }
     
+    /**
+     * Create a Gesture clone based on an input Gesture.
+     * @param gest Gesture to be deep cloned.
+     */
     private Gesture(Gesture gest){
         x_coord = gest.getX();
         y_coord = gest.getY();

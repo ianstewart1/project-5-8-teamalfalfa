@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tunecomposer;
+
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Bounds;
@@ -230,7 +227,7 @@ public class Note implements Playable {
     }
     
     /**
-     * Adds Note to the midiplayer PLAYER
+     * Add a note to the MidiPlayer.
      */
     @Override
     public void schedule() {

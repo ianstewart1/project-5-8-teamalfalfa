@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tunecomposer;
 
 import java.util.HashSet;
@@ -17,12 +13,7 @@ import java.util.Stack;
 public class UndoRedo {
     private static Stack<Set<Playable>> undoStack = new Stack<>();
     private static Stack<Set<Playable>> redoStack = new Stack<>();
-//    
-//    public UndoRedo() {
-//        undoStack = new Stack<>();
-//        redoStack = new Stack<>();
-//    }
-    
+
     /**
      * Returns a deep copy of the set of Playable objects.  
      * @param composition a set of Playable objects
