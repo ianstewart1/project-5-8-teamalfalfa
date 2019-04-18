@@ -17,7 +17,9 @@ VELOCITY
 ======
 Using an interval of 1 day, we completed 0.6 story points per day of work. We estimated we would complete 7 story points this project. We ended up completing 8, since we completed the additional story of putting all Instrument related information inside of the Instrument class. We spent around 32 person-hours on this project, meaning we had a ratio of 0.25 story points per person-hour. This is equal to our rough estimate of velocity from last project, however, since we also completed a strech goal from last project, our velocity for this project should be considered to be somewhat slower than before. Given that we still were able to complete the functional requirements for this project, we consider this velocity to be a comfortable rate of progress even if it leaves some room for improvement. 
 
-*   We think our way of implementing undo/redo was elegant because it was the
+ELEGANCE
+======
+We think our way of implementing undo/redo was elegant because it was the
 simplest way to do it and still include all of the necessary features. We were
 able to create UndoRedo.java as a very cohesive class. Its one purpose is to
 handle state changes. It might seem like undoing and redoing are two seperate
@@ -34,8 +36,10 @@ having to go through the redo method. Basically out of necessity, our UndoRedo
 class conforms to the code to interfaces roll. Rather than working on just
 notes or gestures, it works for playables. However, in retrospect, we think it
 may have been better to implement UndoRedo to work for any set, not just a set
-of playables. *
+of playables.
 
+TEAMWORK
+======
 Our team worked well on this project. We decided to have a planning session at the beginning of our process since that was successful last time. That worked well again this time. Next time, we might need to spend a good portion of time simply discussing how to dismantle TuneComposer. It is likely that small things could break, and approaching this process as methodically as possible will be important. To that end, when we hit roadbloacks, which happened a couple of times during this assignment, we may try to step back and discuss possible solutions before experimenting too much. When dealing with how to assign new handlers to notes and gestures from undo and redo, it took a little thinking to get the solution, which ended up being fairly simple. 
 
 We think that planning ahead for when we will work is good. This Friday, we may try to plan out several work sessions so that we have to discuss less. 
