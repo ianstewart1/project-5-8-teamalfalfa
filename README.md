@@ -15,7 +15,24 @@ One inelegant aspect of our solution is that menu items are all updated in a sin
 VELOCITY
 Using an interval of 1 day, we completed 0.6 story points per day of work. We estimated we would complete 7 story points this project. We ended up completing 8, since we completed the additional story of putting all Instrument related information inside of the Instrument class. We spent around 32 person-hours on this project, meaning we had a ratio of 0.25 story points per person-hour. This is equal to our rough estimate of velocity from last project, however, since we also completed a strech goal from last project, our velocity for this project should be considered to be somewhat slower than before. Given that we still were able to complete the functional requirements for this project, we consider this velocity to be a comfortable rate of progress even if it leaves some room for improvement. 
 
-*   Explain why your way was the elegant way to do it. Address any improvements you made. *For full credit, apply concepts, guidelines, and/or principles you learned in class.*
+*   We think our way of implementing undo/redo was elegant because it was the
+simplest way to do it and still include all of the necessary features. We were
+able to create UndoRedo.java as a very cohesive class. Its one purpose is to
+handle state changes. It might seem like undoing and redoing are two seperate
+jobs, but having separate classes for each would violate the Expert Pattern
+(and be annoying to deal with). The way we implemented it, one class conatins
+all of the necessary data for changing the state through undo. It also makes
+sense to group these actions into one class becaue redoing is something that
+can only be done after undo, so it is part of an undo chain and not a seperate
+thing. UndoRedo.java has a consistent interface. All of the methods are given
+intentional-meaningful names and there are corresponding methods for undoing
+and redoing when it makes sense. We did not right a pushRedo method to mirror
+pushUndo, because no one should be able to push to the redo stack without
+having to go through the redo method. Basically out of necessity, our UndoRedo
+class conforms to the code to interfaces roll. Rather than working on just
+notes or gestures, it works for playables. However, in retrospect, we think it
+may have been better to implement UndoRedo to work for any set, not just a set
+of playables. *
 *   Explain what, if anything, in your solution is inelegant and why you didn't make it elegant (for example, maybe you didn't have time or the knowledge to fix it). *For full credit, apply concepts, guidelines, and/or principles you learned in class.*
 *   Include an estimate of your velocity. How many story points did you estimate you would complete during this project? How many did you actually complete, how many person-hours did the team spend, and what is the ratio of points/person-hour? How does this compare to your velocity for the previous project assignment?
 *   Include a short summary of your team retrospective. What went well that your team will keep doing during the next project assignment? What will you improve? How?
