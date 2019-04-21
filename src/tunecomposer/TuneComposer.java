@@ -641,6 +641,51 @@ public class TuneComposer extends Application {
     }
     
     /**
+     * Control for user click on the 'About' MenuItem.
+     * @param ignored ignored
+     */
+    @FXML
+    protected void handleAbout(ActionEvent ignored) {
+        
+    }
+    
+    /**
+     * Control for user click on the 'New' MenuItem.
+     * @param ignored ignored
+     */
+    @FXML
+    protected void handleNew(ActionEvent ignored) {
+        
+    }
+    
+    /**
+     * Control for user click on the 'Open' MenuItem.
+     * @param ignored ignored
+     */
+    @FXML
+    protected void handleOpen(ActionEvent ignored) {
+        
+    }
+    
+    /**
+     * Control for user click on the 'Save' MenuItem.
+     * @param ignored ignored
+     */
+    @FXML
+    protected void handleSave(ActionEvent ignored) {
+        
+    }
+    
+    /**
+     * Control for user click on the 'Save As' MenuItem.
+     * @param ignored ignored
+     */
+    @FXML
+    protected void handleSaveAs(ActionEvent ignored) {
+        
+    }
+    
+    /**
      * When the user selects the "Exit" menu item, exit the program.
      * @param event the menu selection event
      */
