@@ -106,7 +106,8 @@ public class TuneComposer extends Application {
      */
     @FXML
     private MenuItem playButton, stopButton, groupButton, ungroupButton, 
-                     selectAllButton, deleteButton, undoButton, redoButton;
+                     selectAllButton, deleteButton, undoButton, redoButton,
+                     copyButton, cutButton, pasteButton;
 
     /**
      * Constructor initializes Note sets.
@@ -250,6 +251,9 @@ public class TuneComposer extends Application {
         deleteButton.setDisable(numSelected == 0);
         undoButton.setDisable(UndoRedo.isUndoEmpty());
         redoButton.setDisable(UndoRedo.isRedoEmpty());
+        copyButton.setDisable(numSelected < 1);
+        cutButton.setDisable(numSelected < 1);
+        pasteButton.setDisable(true); //TODO: check if clipboard is playables
     }
     
     /**
@@ -324,13 +328,42 @@ public class TuneComposer extends Application {
     }
     
     /**
+     * Copy the selected playables to the system clipboard.
+     * @param ignored
+     */
+    @FXML
+    protected void handleCopy(ActionEvent ignored){
+        System.out.println("Copy");
+        //TODO
+    }
+    
+    /**
+     * Copy the selected playables to the system clipboard and 
+     * remove those playables from the composition pane.
+     * @param ignored 
+     */
+    @FXML
+    protected void handleCut(ActionEvent ignored){
+        System.out.println("Cut");
+        //TODO
+    }
+    
+    /**
+     * Pastes the system clipboard (if it is a set of playables) to the pane.
+     * @param ignored 
+     */
+    @FXML
+    protected void handlePaste(ActionEvent ignored){
+        //TODO
+    }
+    
+    /**
      * Undo the last user action on the set of Playables, allPlayables.
      * @param ignored 
      */
     @FXML
     protected void handleUndo(ActionEvent ignored) {
         allPlayables = UndoRedo.undo(allPlayables);
-        clearPane(notePane);
         updateCompositionPane(allPlayables);
         updateMenuClick();
     }
@@ -342,17 +375,8 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleRedo(ActionEvent ignored) {
         allPlayables = UndoRedo.redo(allPlayables);
-        clearPane(notePane);
         updateCompositionPane(allPlayables);
         updateMenuClick();
-    }
-    
-    /**
-     * Clears the given Pane of any children populating it.
-     * @param pane Pane to be cleared.
-     */
-    protected void clearPane(Pane pane) {
-        pane.getChildren().clear();
     }
     
     /**
@@ -361,6 +385,7 @@ public class TuneComposer extends Application {
      * @param set Set to be added to the composition pane.
      */
     protected void updateCompositionPane(Set<Playable> set) {
+        notePane.getChildren().clear();
         for (Playable element: set) {
             if (element instanceof Gesture) {
                 notePane.getChildren().add(element.getRectangle());
