@@ -107,7 +107,7 @@ public class TuneComposer extends Application {
     @FXML
     private MenuItem playButton, stopButton, groupButton, ungroupButton, 
                      selectAllButton, deleteButton, undoButton, redoButton,
-                     copyButton, cutButton, pasteButton;
+                     copyButton, cutButton, pasteButton, saveButton;
 
     /**
      * Constructor initializes Note sets.
@@ -254,6 +254,7 @@ public class TuneComposer extends Application {
         copyButton.setDisable(numSelected < 1);
         cutButton.setDisable(numSelected < 1);
         pasteButton.setDisable(true); //TODO: check if clipboard is playables
+        saveButton.setDisable(true); //TODO: check if changes have been made
     }
     
     /**
