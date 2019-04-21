@@ -330,6 +330,7 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleUndo(ActionEvent ignored) {
         allPlayables = UndoRedo.undo(allPlayables);
+        clearPane(notePane);
         updateCompositionPane(allPlayables);
         updateMenuClick();
     }
@@ -341,8 +342,17 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleRedo(ActionEvent ignored) {
         allPlayables = UndoRedo.redo(allPlayables);
+        clearPane(notePane);
         updateCompositionPane(allPlayables);
         updateMenuClick();
+    }
+    
+    /**
+     * Clears the given Pane of any children populating it.
+     * @param pane Pane to be cleared.
+     */
+    protected void clearPane(Pane pane) {
+        pane.getChildren().clear();
     }
     
     /**
@@ -351,7 +361,6 @@ public class TuneComposer extends Application {
      * @param set Set to be added to the composition pane.
      */
     protected void updateCompositionPane(Set<Playable> set) {
-        notePane.getChildren().clear();
         for (Playable element: set) {
             if (element instanceof Gesture) {
                 notePane.getChildren().add(element.getRectangle());
