@@ -7,6 +7,8 @@ import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -165,6 +167,20 @@ public class Note implements Playable {
      */
     public Instrument getInstrument(){
         return instrument;
+    }
+    
+    @Override
+    public Element generateXML(Document document) {
+        Element note = document.createElement("note");
+        
+        note.setAttribute("pitch", Integer.toString(getPitch()));
+        note.setAttribute("delay", Integer.toString((int) getX()));
+        note.setAttribute("duration", Integer.toString((int) getWidth()));
+        note.setAttribute("channel", 
+                          Integer.toString(getInstrument().getChannel()));
+        note.setAttribute("track", "0");
+        
+        return note;
     }
     
     /**

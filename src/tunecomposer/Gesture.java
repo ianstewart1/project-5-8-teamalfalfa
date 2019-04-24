@@ -13,6 +13,8 @@ import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * A collection of Playable objects that groups them together in the composition
@@ -174,6 +176,20 @@ public class Gesture implements Playable{
     @Override
     public Rectangle getRectangle() {
         return boundingRect;
+    }
+    
+    @Override
+    public Element generateXML(Document document) {
+        Element gesture = document.createElement("gesture");
+        
+        gesture.setAttribute("duration", Integer.toString((int) getWidth()));
+        gesture.setAttribute("delay", Integer.toString((int) getX()));
+        //Why would a gesture have a pitch or a volume?
+        elements.forEach((note) -> {
+            gesture.appendChild(note.generateXML(document));
+        });
+        
+        return gesture;
     }
 
     /**
