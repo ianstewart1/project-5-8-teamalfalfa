@@ -389,9 +389,9 @@ public class TuneComposer extends Application {
         notePane.getChildren().clear();
         for (Playable element: set) {            
             notePane.getChildren().addAll(element.getNodeList());
-            if (element instanceof Gesture) {
-                notePane.getChildren().add(element.getRectangle());
-            }
+//            if (element instanceof Gesture) {
+//                notePane.getChildren().add(element.getRectangle());
+//            }
             addHandlers(element);
         }
     }
