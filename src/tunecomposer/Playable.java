@@ -6,6 +6,8 @@ import javafx.geometry.Bounds;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * Interface for an object that can be added to the composition pane and played
@@ -129,4 +131,6 @@ public interface Playable {
      * @return Playable deep copy.
      */
     Playable makeCopy();
+    
+    Element generateXML(Document document);
 }
