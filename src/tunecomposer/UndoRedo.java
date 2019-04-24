@@ -28,8 +28,7 @@ public class UndoRedo {
     }
     
     /**
-     * Each time an action is made, pushUndo pushes the new composition to the
-     * undoStack.
+     * pushUndo pushes the new composition to the undoStack.
      * @param composition a set of Playable objects.
      */
     public static void pushUndo(Set<Playable> composition) {
