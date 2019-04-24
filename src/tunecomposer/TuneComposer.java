@@ -379,6 +379,7 @@ public class TuneComposer extends Application {
         updateMenuClick();
     }
     
+    
     /**
      * Clear the composition pane and draw all of the rectangles in
      * the input set.
@@ -386,12 +387,12 @@ public class TuneComposer extends Application {
      */
     protected void updateCompositionPane(Set<Playable> set) {
         notePane.getChildren().clear();
-        for (Playable element: set) {
+        for (Playable element: set) {            
+            notePane.getChildren().addAll(element.getNodeList());
             if (element instanceof Gesture) {
                 notePane.getChildren().add(element.getRectangle());
             }
             addHandlers(element);
-            notePane.getChildren().addAll(element.getNodeList());
         }
     }
     
