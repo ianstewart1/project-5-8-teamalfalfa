@@ -109,7 +109,8 @@ public class Gesture implements Playable{
     
     /**
      * Get a list of rectangles within the Gesture.
-     * elements. this includes notes within nested gestures.
+     * elements. this includes notes within nested gesture and the bounding rect
+     * of all gestures including the parent.
      * @return List of rectangles within the Gesture
      */
     @Override
@@ -118,6 +119,7 @@ public class Gesture implements Playable{
         elements.forEach((element) -> {
                 nodeList.addAll(element.getNodeList());
         });
+        nodeList.add(boundingRect);
         return nodeList;
     }
     
@@ -316,12 +318,12 @@ public class Gesture implements Playable{
      * @return Rectangle representing Gesture bounds
      */
     private Rectangle calculateBounds() {
-        List<Rectangle> nodes = getNodeList();
         double minX = Constants.WIDTH;
         double minY = Constants.HEIGHT;
         double maxX = 0;
         double maxY = 0;
-        for (Rectangle r : nodes) {
+        for (Playable element : elements) {
+            Rectangle r = element.getRectangle();
             if (r.getX() < minX) minX = r.getX();
             if (r.getY() < minY) minY = r.getY();
             if (r.getX() + r.getWidth() > maxX) maxX = r.getX() + r.getWidth();
