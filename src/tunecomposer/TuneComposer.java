@@ -23,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.xml.sax.SAXException;
 
 /**
  * This JavaFX app lets the user play scales.
@@ -623,10 +624,12 @@ public class TuneComposer extends Application {
      * @param event unused
      */
     @FXML
-    void handleSelectAll(ActionEvent event) {
+    void handleSelectAll(ActionEvent event) throws SAXException, IOException {
         UndoRedo.pushUndo(allPlayables);
         selectAll(true);
         updateMenuClick();
+        
+        CompositionParser.run();
     }
     
     /**
