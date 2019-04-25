@@ -92,12 +92,12 @@ public class CompositionParser {
         return null;
     }
     
-    public static void printToOutput(Document document, OutputStream stream) {
+    public static void printToOutput(Document document, File file) {
         try {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(document);
-            StreamResult streamResult = new StreamResult(stream);
+            StreamResult streamResult = new StreamResult(file);
             
             transformer.transform(domSource, streamResult);
         } catch (TransformerException tfe) {
