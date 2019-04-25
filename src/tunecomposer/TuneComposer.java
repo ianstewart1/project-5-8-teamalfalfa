@@ -60,6 +60,12 @@ public class TuneComposer extends Application {
     private static CompositionFileChooser fileChooser;
     
     /**
+     * File currently being saved to by the TuneComposer.
+     */
+    private static File currentFile = null;
+    //TODO reset this to null when NEW called
+    
+    /**
      * Boolean flags to control flow when user clicks in composition panel.
      */
     private boolean clickInPane = true;
@@ -688,8 +694,10 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleSave(ActionEvent ignored) {
-        File file = fileChooser.saveFile();
-        CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), file);
+       if (currentFile == null) {
+           handleSaveAs(ignored);
+       }
+       CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), currentFile);
     }
     
     /**
@@ -698,7 +706,9 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleSaveAs(ActionEvent ignored) {
-        
+        File file = fileChooser.saveFile();
+        currentFile = file;
+        CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), currentFile);
     }
     
     /**
