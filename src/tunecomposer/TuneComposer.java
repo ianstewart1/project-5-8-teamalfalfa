@@ -63,6 +63,7 @@ public class TuneComposer extends Application {
      * File currently being saved to by the TuneComposer.
      */
     private static File currentFile = null;
+    //TODO reset this to null when NEW called
     
     /**
      * Boolean flags to control flow when user clicks in composition panel.
