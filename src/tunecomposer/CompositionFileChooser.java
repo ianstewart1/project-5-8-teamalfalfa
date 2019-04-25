@@ -31,7 +31,21 @@ public class CompositionFileChooser {
     }
     
     protected File saveFile() {
-        return filechooser.showSaveDialog(windowStage);
+        return formatName(filechooser.showSaveDialog(windowStage));
+    }
+    
+    protected File formatName(File file) {
+        return new File(cleanFileName(file) + ".xml");
+    }
+    
+    protected String cleanFileName(File file) {
+        String oldName = file.getAbsolutePath();
+        String cleanName = "";
+        for (char ch : oldName.toCharArray()) {
+            if (ch == '.') break;
+            cleanName += ch;
+        }
+        return cleanName;
     }
     
 }
