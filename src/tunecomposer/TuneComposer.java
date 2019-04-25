@@ -31,9 +31,6 @@ import javafx.stage.WindowEvent;
  * @author Ian Stewart, Gavin James/Beckham, Nathaniel Larson, Paul Milloy
  */
 public class TuneComposer extends Application {
-    
-    private static Stage windowStage;
-    private static CompositionFileChooser fileChooser;
 
      /**
      * A MidiPlayer for all notes to use.
@@ -51,6 +48,16 @@ public class TuneComposer extends Application {
      * note as that note is played.
      */
     private static PlayLine playLine;
+    
+    /**
+     * Copy of the stage created in the start method.
+     */
+    private static Stage windowStage;
+    
+    /**
+     * A pop-up window to prompt the user for files.
+     */
+    private static CompositionFileChooser fileChooser;
     
     /**
      * Boolean flags to control flow when user clicks in composition panel.

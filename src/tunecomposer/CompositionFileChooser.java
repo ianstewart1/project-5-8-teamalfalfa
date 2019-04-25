@@ -21,7 +21,7 @@ public class CompositionFileChooser {
     protected CompositionFileChooser(Stage window) {
         windowStage = window;
         filechooser = new FileChooser();
-        filechooser.setTitle("Hell World");
+//        filechooser.setTitle("");
 //        filechooser.setInitialDirectory(File );
         filechooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML", "*.xml*"));
     }
