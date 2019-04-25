@@ -687,9 +687,8 @@ public class TuneComposer extends Application {
      * @param ignored ignored
      */
     @FXML
-    protected void handleSave(ActionEvent ignored) throws IOException {
-        File file = new File("stuff.xml");
-        file.createNewFile();
+    protected void handleSave(ActionEvent ignored) {
+        File file = fileChooser.saveFile();
         CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), file);
     }
     
