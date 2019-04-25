@@ -17,6 +17,7 @@ public class CompositionFileChooser {
     
     private FileChooser filechooser;
     private Stage windowStage;
+    private File currentFile = null;
     
     protected CompositionFileChooser(Stage window) {
         windowStage = window;
