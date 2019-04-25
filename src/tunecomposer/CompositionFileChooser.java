@@ -22,8 +22,8 @@ public class CompositionFileChooser {
     protected CompositionFileChooser(Stage window) {
         windowStage = window;
         filechooser = new FileChooser();
-//        filechooser.setTitle("");
-//        filechooser.setInitialDirectory(File );
+        filechooser.setTitle("File Browser");
+//        filechooser.setInitialDirectory(new File(File.separator + "Compositions/") );
         filechooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML", "*.xml*"));
     }
     
