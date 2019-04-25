@@ -3,6 +3,7 @@
  */
 package tunecomposer;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import javafx.application.Application;
@@ -21,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -46,6 +48,16 @@ public class TuneComposer extends Application {
      * note as that note is played.
      */
     private static PlayLine playLine;
+    
+    /**
+     * Copy of the stage created in the start method.
+     */
+    private static Stage windowStage;
+    
+    /**
+     * A pop-up window to prompt the user for files.
+     */
+    private static CompositionFileChooser fileChooser;
     
     /**
      * Boolean flags to control flow when user clicks in composition panel.
@@ -135,6 +147,8 @@ public class TuneComposer extends Application {
         playLinePane.setMouseTransparent(true);
 
         selection = new SelectionArea(selectRect);
+        
+        fileChooser = new CompositionFileChooser(windowStage);
         
         setupInstruments();
         updateMenuClick();
@@ -253,8 +267,8 @@ public class TuneComposer extends Application {
         redoButton.setDisable(UndoRedo.isRedoEmpty());
         copyButton.setDisable(numSelected < 1);
         cutButton.setDisable(numSelected < 1);
-        pasteButton.setDisable(true); //TODO: check if clipboard is playables
-        saveButton.setDisable(true); //TODO: check if changes have been made
+        pasteButton.setDisable(false); //TODO: check if clipboard is playables
+        saveButton.setDisable(false); //TODO: check if changes have been made
     }
     
     /**
@@ -663,7 +677,9 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleOpen(ActionEvent ignored) {
-        
+        File file = fileChooser.openFile();
+        if (file != null) System.out.println(file.getName());
+        //TODO add stuff to actually open the File...
     }
     
     /**
@@ -671,8 +687,10 @@ public class TuneComposer extends Application {
      * @param ignored ignored
      */
     @FXML
-    protected void handleSave(ActionEvent ignored) {
-        
+    protected void handleSave(ActionEvent ignored) throws IOException {
+        File file = new File("stuff.xml");
+        file.createNewFile();
+        CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), file);
     }
     
     /**
@@ -702,6 +720,8 @@ public class TuneComposer extends Application {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("TuneComposer.fxml"));
         Scene scene = new Scene(root);
+        
+        windowStage = primaryStage;
 
         primaryStage.setTitle("Scale Player");
         primaryStage.setScene(scene);
