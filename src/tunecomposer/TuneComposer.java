@@ -22,7 +22,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.xml.sax.SAXException;
@@ -59,6 +58,12 @@ public class TuneComposer extends Application {
      * A pop-up window to prompt the user for files.
      */
     private static CompositionFileChooser fileChooser;
+    
+    /**
+     * File currently being saved to by the TuneComposer.
+     */
+    private static File currentFile = null;
+    //TODO reset this to null when NEW called
     
     /**
      * Boolean flags to control flow when user clicks in composition panel.
@@ -679,7 +684,6 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleOpen(ActionEvent ignored) {
         File file = fileChooser.openFile();
-        if (file != null) System.out.println(file.getName());
         //TODO add stuff to actually open the File...
     }
     
@@ -688,10 +692,14 @@ public class TuneComposer extends Application {
      * @param ignored ignored
      */
     @FXML
-    protected void handleSave(ActionEvent ignored) throws IOException {
-        File file = new File("stuff.xml");
-        file.createNewFile();
-        CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), file);
+    protected void handleSave(ActionEvent ignored) {
+       if (currentFile == null) {
+           File file = fileChooser.saveFile();
+           currentFile = file;
+       }
+       if (currentFile != null) {
+            CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), currentFile);
+       }
     }
     
     /**
@@ -700,7 +708,11 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleSaveAs(ActionEvent ignored) {
-        
+        File file = fileChooser.saveFile();
+        currentFile = file;
+        if (currentFile != null) {
+            CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), currentFile);
+        }
     }
     
     /**
