@@ -64,6 +64,29 @@ public class Note implements Playable {
     }
     
     /**
+     * Alternate constructor for a note, which allows for control of duration
+     * @param x
+     * @param y
+     * @param duration
+     * @param inst
+     */
+    public Note(double x, double y, double duration, Instrument inst) {
+        pitch = Constants.MAX_PITCH - (int) y / Constants.RECTHEIGHT;
+        
+        x_coord = x;
+        y_coord = y - ( y % Constants.RECTHEIGHT);
+        
+        instrument = inst;
+        rectWidth = duration;
+        
+        noteRect = new Rectangle(x_coord, y_coord, rectWidth, Constants.RECTHEIGHT);
+        noteRect.getStyleClass().addAll("selected", instrument.getStyleClassName());
+        noteRect.setMouseTransparent(false);
+        
+        isSelected = true;
+    }  
+    
+    /**
      * Creates a copy of a given Note by initializing the fields of this Note
      * to those of the given one.
      * @param note The Note to be copied into this Note

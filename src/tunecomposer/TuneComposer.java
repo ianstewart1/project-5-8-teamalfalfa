@@ -3,6 +3,7 @@
  */
 package tunecomposer;
 
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -24,6 +25,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.xml.sax.SAXException;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import org.w3c.dom.Document;
 
 /**
  * This JavaFX app lets the user play scales.
@@ -359,7 +364,14 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleCopy(ActionEvent ignored){
         System.out.println("Copy");
-        //TODO
+        Document doc = CompositionParser.compositionToXML(allPlayables);
+        String str = CompositionParser.printToString(doc);
+        System.out.println("Copy1");
+        Toolkit toolkit = Toolkit.getDefaultToolkit(); //throws exception
+        System.out.println("Copy2");
+        Clipboard clipboard = toolkit.getSystemClipboard();
+        StringSelection strSel = new StringSelection(str);
+        clipboard.setContents(strSel, null);
     }
     
     /**
@@ -651,6 +663,7 @@ public class TuneComposer extends Application {
         UndoRedo.pushUndo(allPlayables);
         selectAll(true);
         updateMenuClick();        
+
     }
     
     /**
@@ -703,8 +716,11 @@ public class TuneComposer extends Application {
      * @param ignored ignored
      */
     @FXML
-    protected void handleOpen(ActionEvent ignored) {
+    protected void handleOpen(ActionEvent ignored) throws SAXException, IOException {
         File file = fileChooser.openFile();
+        allPlayables = CompositionParser.xmlToComposition(file);
+        updateCompositionPane(allPlayables);
+        updateMenuClick();
         //TODO add stuff to actually open the File...
         //TODO clear undoRedoStacks
         currentFile = file;
@@ -720,8 +736,9 @@ public class TuneComposer extends Application {
            currentFile = fileChooser.saveFile();
        }
        if (currentFile != null) {
-            CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), currentFile);
-            ifChanged = false;
+           Document xml = CompositionParser.compositionToXML(allPlayables);
+           CompositionParser.printToFile(xml, currentFile);
+           ifChanged = false;
        }
     }
     
@@ -733,8 +750,9 @@ public class TuneComposer extends Application {
     protected void handleSaveAs(ActionEvent ignored) {
         currentFile = fileChooser.saveFile();
         if (currentFile != null) {
-            CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), currentFile);
-            ifChanged = false;
+           Document xml = CompositionParser.compositionToXML(allPlayables);
+           CompositionParser.printToFile(xml, currentFile);
+           ifChanged = false;
         }
     }
     
