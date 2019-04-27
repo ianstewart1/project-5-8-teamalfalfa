@@ -456,6 +456,7 @@ public class TuneComposer extends Application {
             selection.endRectangle();
         }
         else if (clickInPane) {
+            ifChanged = true;
             UndoRedo.pushUndo(allPlayables);
             
             if (! event.isControlDown()) {
@@ -563,6 +564,7 @@ public class TuneComposer extends Application {
             }
         });
         changeDuration = false;
+        ifChanged = true;
         
         updateMenuClick();
     }
@@ -691,7 +693,7 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleNew(ActionEvent ignored) {
-        if (true) {
+        if (ifChanged) {
             // TODO maybe look at not returning an int
             int value = CompositionAlert.newAlert();
             switch (value) {
