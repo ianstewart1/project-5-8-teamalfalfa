@@ -642,8 +642,6 @@ public class TuneComposer extends Application {
         UndoRedo.pushUndo(allPlayables);
         selectAll(true);
         updateMenuClick();
-        
-        CompositionParser.run();
     }
     
     /**
