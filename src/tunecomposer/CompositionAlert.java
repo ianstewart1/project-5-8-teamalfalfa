@@ -29,8 +29,10 @@ public class CompositionAlert {
         alert.setAlertType(AlertType.INFORMATION);
         alert.setTitle("About");
         alert.setHeaderText("About our glorious TuneComposer");
-        alert.setContentText("Authored by Gavin James-Beckham, "
-                + "Ian Stewart, \nNathaniel Larson and Paul Miloy");
+        alert.setContentText("This here application is intended for only \n"
+                + "the most keen of composer to craft their fine symphonies. \n"
+                + "Authored by Gavin J-B, Ian S, "
+                + "Nathaniel L and Paul M");
         alert.showAndWait();
     }
     

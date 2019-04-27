@@ -13,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -25,7 +24,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import org.xml.sax.SAXException;
 
 /**
  * This JavaFX app lets the user play scales.
@@ -72,6 +70,11 @@ public class TuneComposer extends Application {
     private boolean clickInPane = true;
     private boolean changeDuration = false;
     private boolean isDragSelecting = false;
+    
+    /**
+     * Boolean flag to check if changes have been made since last save.
+     */
+    private boolean ifChanged = false;
 
     /**
      * The background of the application.
@@ -644,12 +647,10 @@ public class TuneComposer extends Application {
      * @param event unused
      */
     @FXML
-    void handleSelectAll(ActionEvent event) throws SAXException, IOException {
+    void handleSelectAll(ActionEvent event) {
         UndoRedo.pushUndo(allPlayables);
         selectAll(true);
-        updateMenuClick();
-        
-        CompositionParser.run();
+        updateMenuClick();        
     }
     
     /**
@@ -692,8 +693,9 @@ public class TuneComposer extends Application {
         }
         notePane.getChildren().clear();
         allPlayables.clear();
-        //CLEAR UNDOREDO STACKS
-        //RESET SAVE FILE
+        UndoRedo.clearStacks();
+        currentFile = null;
+        ifChanged = false;
     }
     
     /**
@@ -719,6 +721,7 @@ public class TuneComposer extends Application {
        }
        if (currentFile != null) {
             CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), currentFile);
+            ifChanged = false;
        }
     }
     
@@ -731,6 +734,7 @@ public class TuneComposer extends Application {
         currentFile = fileChooser.saveFile();
         if (currentFile != null) {
             CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), currentFile);
+            ifChanged = false;
         }
     }
     
