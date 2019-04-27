@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -676,7 +677,7 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleAbout(ActionEvent ignored) {
-        
+        CompositionAlert.aboutAlert();
     }
     
     /**
@@ -685,7 +686,23 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleNew(ActionEvent ignored) {
-        
+        if (true) {
+            // TODO maybe look at not returning an int
+            int value = CompositionAlert.newAlert();
+            switch (value) {
+                case 0:
+                    handleSave(ignored);
+                    break;
+                case 1:
+                    break;
+                default:
+                    return;
+            }
+        }
+        notePane.getChildren().clear();
+        allPlayables.clear();
+        //CLEAR UNDOREDO STACKS
+        //RESET SAVE FILE
     }
     
     /**
@@ -698,6 +715,9 @@ public class TuneComposer extends Application {
         allPlayables = CompositionParser.xmlToComposition(file);
         updateCompositionPane(allPlayables);
         updateMenuClick();
+        //TODO add stuff to actually open the File...
+        //TODO clear undoRedoStacks
+        currentFile = file;
     }
     
     /**
@@ -707,8 +727,7 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleSave(ActionEvent ignored) {
        if (currentFile == null) {
-           File file = fileChooser.saveFile();
-           currentFile = file;
+           currentFile = fileChooser.saveFile();
        }
        if (currentFile != null) {
            Document xml = CompositionParser.compositionToXML(allPlayables);
@@ -722,8 +741,7 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleSaveAs(ActionEvent ignored) {
-        File file = fileChooser.saveFile();
-        currentFile = file;
+        currentFile = fileChooser.saveFile();
         if (currentFile != null) {
            Document xml = CompositionParser.compositionToXML(allPlayables);
            CompositionParser.printToFile(xml, currentFile);
