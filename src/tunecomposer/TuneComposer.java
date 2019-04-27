@@ -22,7 +22,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -684,7 +683,6 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleOpen(ActionEvent ignored) {
         File file = fileChooser.openFile();
-        if (file != null) System.out.println(file.getName());
         //TODO add stuff to actually open the File...
     }
     
@@ -695,9 +693,12 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleSave(ActionEvent ignored) {
        if (currentFile == null) {
-           handleSaveAs(ignored);
+           File file = fileChooser.saveFile();
+           currentFile = file;
        }
-       CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), currentFile);
+       if (currentFile != null) {
+            CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), currentFile);
+       }
     }
     
     /**
@@ -708,7 +709,9 @@ public class TuneComposer extends Application {
     protected void handleSaveAs(ActionEvent ignored) {
         File file = fileChooser.saveFile();
         currentFile = file;
-        CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), currentFile);
+        if (currentFile != null) {
+            CompositionParser.printToOutput(CompositionParser.compositionToXML(allPlayables), currentFile);
+        }
     }
     
     /**
