@@ -64,7 +64,7 @@ public class UndoRedo {
      * Empties both the undo and redo stack
      * 
      */
-    public void emptyStacks(){
+    public static void clearStacks(){
         undoStack.clear();
         redoStack.clear();
     }
