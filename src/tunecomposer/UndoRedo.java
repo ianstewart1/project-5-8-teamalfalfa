@@ -61,6 +61,15 @@ public class UndoRedo {
     }
     
     /**
+     * Empties both the undo and redo stack
+     * 
+     */
+    public void emptyStacks(){
+        undoStack.clear();
+        redoStack.clear();
+    }
+    
+    /**
      * Is the undoStack empty? Important for disabling undo button.
      * @return boolean
      */
