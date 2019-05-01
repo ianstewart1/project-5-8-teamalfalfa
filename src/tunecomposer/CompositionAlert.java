@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Region;
 
 /**
  *
@@ -31,8 +32,9 @@ public class CompositionAlert {
         alert.setHeaderText("About our glorious TuneComposer");
         alert.setContentText("This here application is intended for only \n"
                 + "the most keen of composer to craft their fine symphonies. \n"
-                + "Authored by Gavin J-B, Ian S, "
-                + "Nathaniel L and Paul M");
+                + "Authored by Gavin James-Beckham, Ian Stewart, "
+                + "Nathaniel L and Paul Miloy");
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
     }
     
