@@ -283,7 +283,7 @@ public class TuneComposer extends Application {
         copyButton.setDisable(numSelected < 1);
         cutButton.setDisable(numSelected < 1);
         pasteButton.setDisable(false); //TODO: check if clipboard is playables
-        saveButton.setDisable(false); //TODO: check if changes have been made
+        saveButton.setDisable(!ifChanged);
     }
     
     /**
@@ -695,7 +695,7 @@ public class TuneComposer extends Application {
     protected void handleNew(ActionEvent ignored) {
         if (ifChanged) {
             // TODO maybe look at not returning an int
-            int value = CompositionAlert.newAlert();
+            int value = CompositionAlert.saveAlert();
             switch (value) {
                 case 0:
                     handleSave(ignored);
@@ -711,6 +711,7 @@ public class TuneComposer extends Application {
         UndoRedo.clearStacks();
         currentFile = null;
         ifChanged = false;
+        updateMenuClick();
     }
     
     /**
@@ -719,13 +720,26 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleOpen(ActionEvent ignored) throws SAXException, IOException {
+        if (ifChanged) {
+            // TODO maybe look at not returning an int
+            int value = CompositionAlert.saveAlert();
+            switch (value) {
+                case 0:
+                    handleSave(ignored);
+                    break;
+                case 1:
+                    break;
+                default:
+                    return;
+            }
+        }
         File file = fileChooser.openFile();
         allPlayables = CompositionParser.xmlToComposition(file);
         updateCompositionPane(allPlayables);
-        updateMenuClick();
-        //TODO add stuff to actually open the File...
-        //TODO clear undoRedoStacks
+        UndoRedo.clearStacks();
         currentFile = file;
+        ifChanged = false;
+        updateMenuClick();
     }
     
     /**
@@ -736,12 +750,12 @@ public class TuneComposer extends Application {
     protected void handleSave(ActionEvent ignored) {
        if (currentFile == null) {
            currentFile = fileChooser.saveFile();
-       }
-       if (currentFile != null) {
+       } else {
            Document xml = CompositionParser.compositionToXML(allPlayables);
            CompositionParser.printToFile(xml, currentFile);
-           ifChanged = false;
        }
+       ifChanged = false;
+       updateMenuClick();
     }
     
     /**
@@ -756,6 +770,7 @@ public class TuneComposer extends Application {
            CompositionParser.printToFile(xml, currentFile);
            ifChanged = false;
         }
+        updateMenuClick();
     }
     
     /**
@@ -764,6 +779,19 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleExitMenuItemAction(ActionEvent event) {
+        if (ifChanged) {
+            // TODO maybe look at not returning an int
+            int value = CompositionAlert.saveAlert();
+            switch (value) {
+                case 0:
+                    handleSave(event);
+                    break;
+                case 1:
+                    break;
+                default:
+                    return;
+            }
+        }
         System.exit(0);
     }
 

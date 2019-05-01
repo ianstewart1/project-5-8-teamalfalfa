@@ -40,7 +40,7 @@ public class CompositionFileChooser {
     }
     
     protected String cleanFileName(File file) {
-        String oldName = file.getAbsolutePath();
+        String oldName = file.getName();
         String cleanName = "";
         for (char ch : oldName.toCharArray()) {
             if (ch == '.') break;
