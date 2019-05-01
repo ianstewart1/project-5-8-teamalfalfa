@@ -7,6 +7,7 @@ package tunecomposer;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.io.StringWriter;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,6 +25,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
 
 
 /**
@@ -32,11 +34,11 @@ import org.w3c.dom.Node;
  */
 public class CompositionParser {
     
-    public static Set<Playable> xmlToComposition(File file) throws org.xml.sax.SAXException, IOException {
+    public static Set<Playable> xmlToComposition(InputSource source) throws org.xml.sax.SAXException, IOException {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document document = dBuilder.parse(file);  
+            Document document = dBuilder.parse(source);  
             
             //Normalize the XML Structure; It's just too important !!
             document.getDocumentElement().normalize();
@@ -125,6 +127,7 @@ public class CompositionParser {
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(document);
             StreamResult streamResult = new StreamResult(file);
+            
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
             transformer.setOutputProperty(OutputKeys.METHOD, "xml");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
@@ -142,14 +145,14 @@ public class CompositionParser {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource domSource = new DOMSource(document);
-            StreamResult streamResult = new StreamResult(new String());
+            StreamResult streamResult = new StreamResult(sw);
+            
             transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
             transformer.setOutputProperty(OutputKeys.METHOD, "xml");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             
             transformer.transform(domSource, streamResult);
-            
             return sw.toString();
         } catch (TransformerException tfe) {
             tfe.printStackTrace();
