@@ -371,11 +371,8 @@ public class TuneComposer extends Application {
     protected void handleCopy(ActionEvent ignored){
         Document doc = CompositionParser.compositionToXML(allPlayables);
         String str = CompositionParser.printToString(doc);
-        System.out.println(str);
-        Toolkit toolkit = Toolkit.getDefaultToolkit(); 
-        Clipboard clipboard = toolkit.getSystemClipboard();
-        StringSelection strSel = new StringSelection(str);
-        clipboard.setContents(strSel, null);
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        clipboard.setContents(new StringSelection(str), null);
     }
     
     /**
@@ -385,8 +382,9 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleCut(ActionEvent ignored){
-        System.out.println("Cut");
-        //TODO
+        UndoRedo.pushUndo(allPlayables); //undoable
+        handleCopy(ignored);
+        handleDelete(ignored);
     }
     
     /**
@@ -395,13 +393,10 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handlePaste(ActionEvent ignored) throws UnsupportedFlavorException, IOException, SAXException{
-        //TO DO --- should be undoable.
-        Toolkit toolkit = Toolkit.getDefaultToolkit(); 
-        Clipboard clipboard = toolkit.getSystemClipboard();
-        DataFlavor flavor = DataFlavor.stringFlavor;
-        String xml = (String) clipboard.getData(flavor);
-        Reader reader = new StringReader(xml);
-        Set<Playable> composition = CompositionParser.xmlToComposition(new InputSource(reader));
+        UndoRedo.pushUndo(allPlayables); //undoable
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        InputSource xml = CompositionParser.clipboardToInputSource(clipboard);
+        Set<Playable> composition = CompositionParser.xmlToComposition(xml);
         allPlayables.addAll(composition);
         updateCompositionPane(allPlayables);
         updateMenuClick();
@@ -761,8 +756,8 @@ public class TuneComposer extends Application {
             }
         }
         File file = fileChooser.openFile();
-        Reader reader = new FileReader(file);
-        allPlayables = CompositionParser.xmlToComposition(new InputSource(reader));
+        InputSource xml = CompositionParser.fileToInputSource(file);
+        allPlayables = CompositionParser.xmlToComposition(xml);
         updateCompositionPane(allPlayables);
         UndoRedo.clearStacks();
         currentFile = file;
