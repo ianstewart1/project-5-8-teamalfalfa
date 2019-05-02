@@ -4,10 +4,16 @@
  * and open the template in the editor.
  */
 package tunecomposer;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Reader;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,11 +35,20 @@ import org.xml.sax.InputSource;
 
 
 /**
- *
+ * Manages conversion between composition and XML. Used in implementation of
+ * copy, cut, and paste, as well as save. 
  * @author milloypr
  */
 public class CompositionParser {
     
+    /**
+     * Given an InputSource made from an XML String or File, builds the 
+     * corresponding composition of playables.
+     * @param source, InputSource of XML String or File
+     * @return composition, a set of playables
+     * @throws org.xml.sax.SAXException
+     * @throws IOException 
+     */
     public static Set<Playable> xmlToComposition(InputSource source) throws org.xml.sax.SAXException, IOException {
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -52,7 +67,13 @@ public class CompositionParser {
         } 
         return null;
     }
-
+    
+    /**
+     * Given a list of nodes in an XML InputSource, returns the corresponding
+     * set of playables. Helper function of xmlToComposition
+     * @param nodeList a list of nodes from the XML input
+     * @return composition, a set of playables
+     */
     private static Set<Playable> nodeListToComposition(NodeList nodeList) {
         Set<Playable> composition = new HashSet<Playable>();
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -76,6 +97,11 @@ public class CompositionParser {
         return composition;
     }
     
+    /**
+     * Given an XML Element, constructs and returns a Note object.
+     * @param elem an XML Element containing note information
+     * @return note, Note object corresponding to elem
+     */
     private static Note parseNote(Element elem) {
         int channel = Integer.parseInt(elem.getAttribute("channel"));
         double x_coord = Double.parseDouble(elem.getAttribute("delay"));
@@ -92,13 +118,48 @@ public class CompositionParser {
         return note;
     }
     
-    
+    /**
+     * Given an XML Element, recursively constructs and returns a Gesture object.
+     * @param elem an XML Element containing gesture information
+     * @return gesture, Gesture object corresponding to elem
+     */    
     private static Gesture parseGesture(Element elem) {
         NodeList children = elem.getChildNodes();
         Set<Playable> elements = nodeListToComposition(children);
         return new Gesture(elements);
     }
     
+    /**
+     * Converts a File to an InputSource
+     * @param file File
+     * @return InputSource
+     * @throws FileNotFoundException 
+     */
+    public static InputSource fileToInputSource(File file) throws FileNotFoundException {
+        Reader reader = new FileReader(file);
+        return new InputSource(reader);
+    }
+    
+    /**
+     * Converts the contents of a Clipboard to an InputSource
+     * @param clipboard Clipboard
+     * @return InputSource
+     * @throws UnsupportedFlavorException
+     * @throws IOException 
+     */
+    public static InputSource clipboardToInputSource(Clipboard clipboard) 
+            throws UnsupportedFlavorException, IOException {
+        DataFlavor flavor = DataFlavor.stringFlavor;
+        String xml = (String) clipboard.getData(flavor);
+        Reader reader = new StringReader(xml);
+        return new InputSource(reader);
+    }
+    
+    /**
+     * Given a set of Playables, writes an XML document.
+     * @param composition, a set of Playables
+     * @return document, a Document containing XML information for composition
+     */
     public static Document compositionToXML(Set<Playable> composition) {
         try{
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -121,6 +182,11 @@ public class CompositionParser {
         return null;
     }
     
+    /**
+     * Converts an XML Document to a File.
+     * @param document an XML Document
+     * @param file a File containing identical information to document
+     */
     public static void printToFile(Document document, File file) {
         try {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -139,6 +205,11 @@ public class CompositionParser {
         }
     }
     
+    /**
+     * Converts an XML Document to a String.
+     * @param document an XML Document
+     * @return a string containing identical information to document
+     */
     public static String printToString(Document document) {
         try {
             StringWriter sw = new StringWriter();
