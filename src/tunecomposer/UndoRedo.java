@@ -20,7 +20,7 @@ public class UndoRedo {
      * @return copy, an identical set of Playable objects
      */
     public static Set<Playable> copyComposition(Set<Playable> composition) {
-        Set<Playable> copy = new HashSet();
+        Set<Playable> copy = new HashSet<>();
         composition.forEach((playable) -> {
             copy.add(playable.makeCopy());
         });
