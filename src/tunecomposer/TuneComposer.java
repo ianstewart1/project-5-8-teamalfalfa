@@ -27,12 +27,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.xml.sax.SAXException;
 import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import java.io.FileReader;
-import java.io.Reader;
-import java.io.StringReader;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
