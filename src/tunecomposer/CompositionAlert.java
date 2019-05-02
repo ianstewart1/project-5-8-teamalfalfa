@@ -18,14 +18,14 @@ import javafx.scene.layout.Region;
  */
 public class CompositionAlert {
     
+    /**
+     * Alert object to be modified.
+     */
     private static Alert alert = new Alert(AlertType.NONE);
     
-//    private static CompositionAlert instance = new CompositionAlert();
-    
-//    public static CompositionAlert instance(){
-//        return instance;
-//    }
-    
+    /**
+     * Configures alert object to display about information.
+     */
     protected static void aboutAlert() {
         alert.setAlertType(AlertType.INFORMATION);
         alert.setTitle("About");
@@ -33,11 +33,15 @@ public class CompositionAlert {
         alert.setContentText("This here application is intended for only \n"
                 + "the most keen of composer to craft their fine symphonies. \n"
                 + "Authored by Gavin James-Beckham, Ian Stewart, "
-                + "Nathaniel L and Paul Miloy");
+                + "Nathaniel Larson and Paul Milloy");
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
     }
     
+    /**
+     * Configures alert object to display a prompt about saving.
+     * @return int value representing user choice
+     */
     protected static int saveAlert() {
         alert.setAlertType(AlertType.CONFIRMATION);
         alert.setTitle("Save?");
