@@ -13,6 +13,9 @@ nbdist/
 # Compiled class file
 *.class
 
+# XML compositions
+*.xml
+
 # Log file
 *.log
 

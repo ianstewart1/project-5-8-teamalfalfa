@@ -32,7 +32,11 @@ public class CompositionFileChooser {
     }
     
     protected File saveFile() {
-        return formatName(filechooser.showSaveDialog(windowStage));
+        File file = filechooser.showSaveDialog(windowStage);
+        if (file != null) {
+            file = formatName(filechooser.showSaveDialog(windowStage));
+        }
+        return file;
     }
     
     protected File formatName(File file) {
@@ -40,7 +44,7 @@ public class CompositionFileChooser {
     }
     
     protected String cleanFileName(File file) {
-        String oldName = file.getAbsolutePath();
+        String oldName = file.getName();
         String cleanName = "";
         for (char ch : oldName.toCharArray()) {
             if (ch == '.') break;
