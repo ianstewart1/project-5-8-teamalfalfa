@@ -27,8 +27,14 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.xml.sax.SAXException;
 import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.FileReader;
+import java.io.Reader;
+import java.io.StringReader;
 import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
 /**
  * This JavaFX app lets the user play scales.
@@ -363,12 +369,10 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleCopy(ActionEvent ignored){
-        System.out.println("Copy");
         Document doc = CompositionParser.compositionToXML(allPlayables);
         String str = CompositionParser.printToString(doc);
-        System.out.println("Copy1");
-        Toolkit toolkit = Toolkit.getDefaultToolkit(); //throws exception
-        System.out.println("Copy2");
+        System.out.println(str);
+        Toolkit toolkit = Toolkit.getDefaultToolkit(); 
         Clipboard clipboard = toolkit.getSystemClipboard();
         StringSelection strSel = new StringSelection(str);
         clipboard.setContents(strSel, null);
@@ -390,8 +394,17 @@ public class TuneComposer extends Application {
      * @param ignored 
      */
     @FXML
-    protected void handlePaste(ActionEvent ignored){
-        //TODO
+    protected void handlePaste(ActionEvent ignored) throws UnsupportedFlavorException, IOException, SAXException{
+        //TO DO --- should be undoable.
+        Toolkit toolkit = Toolkit.getDefaultToolkit(); 
+        Clipboard clipboard = toolkit.getSystemClipboard();
+        DataFlavor flavor = DataFlavor.stringFlavor;
+        String xml = (String) clipboard.getData(flavor);
+        Reader reader = new StringReader(xml);
+        Set<Playable> composition = CompositionParser.xmlToComposition(new InputSource(reader));
+        allPlayables.addAll(composition);
+        updateCompositionPane(allPlayables);
+        updateMenuClick();
     }
     
     /**
@@ -720,7 +733,8 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleOpen(ActionEvent ignored) throws SAXException, IOException {
         File file = fileChooser.openFile();
-        allPlayables = CompositionParser.xmlToComposition(file);
+        Reader reader = new FileReader(file);
+        allPlayables = CompositionParser.xmlToComposition(new InputSource(reader));
         updateCompositionPane(allPlayables);
         updateMenuClick();
         //TODO add stuff to actually open the File...
