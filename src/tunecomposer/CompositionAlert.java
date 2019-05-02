@@ -38,9 +38,9 @@ public class CompositionAlert {
         alert.showAndWait();
     }
     
-    protected static int newAlert() {
+    protected static int saveAlert() {
         alert.setAlertType(AlertType.CONFIRMATION);
-        alert.setTitle("New");
+        alert.setTitle("Save?");
         alert.setHeaderText("Changes have been made since last save");
         alert.setContentText("Do you want to save changes?");
         
