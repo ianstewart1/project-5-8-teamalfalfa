@@ -34,7 +34,7 @@ public class CompositionFileChooser {
     protected File saveFile() {
         File file = filechooser.showSaveDialog(windowStage);
         if (file != null) {
-            file = formatName(filechooser.showSaveDialog(windowStage));
+            file = formatName(file);
         }
         return file;
     }
