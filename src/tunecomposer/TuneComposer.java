@@ -79,7 +79,7 @@ public class TuneComposer extends Application {
     /**
      * Boolean flag to check if changes have been made since last save.
      */
-    private boolean ifChanged = false;
+    private static boolean ifChanged = false;
 
     /**
      * The background of the application.
@@ -679,6 +679,20 @@ public class TuneComposer extends Application {
     }
     
     /**
+     * Saves composition to File. Prompts if file has not yet been saved.
+     */
+    private void promptSave() {
+        if (currentFile == null) {
+            currentFile = fileChooser.saveFile();
+        } else {
+            Document xml = CompositionParser.compositionToXML(allPlayables);
+            CompositionParser.printToFile(xml, currentFile);
+        }
+        ifChanged = false;
+        updateMenuClick();
+    }
+    
+    /**
      * Control for user click on the 'About' MenuItem.
      * @param ignored ignored
      */
@@ -698,7 +712,7 @@ public class TuneComposer extends Application {
             int value = CompositionAlert.saveAlert();
             switch (value) {
                 case 0:
-                    handleSave(ignored);
+                    promptSave();
                     break;
                 case 1:
                     break;
@@ -725,7 +739,7 @@ public class TuneComposer extends Application {
             int value = CompositionAlert.saveAlert();
             switch (value) {
                 case 0:
-                    handleSave(ignored);
+                    promptSave();
                     break;
                 case 1:
                     break;
@@ -748,14 +762,7 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleSave(ActionEvent ignored) {
-       if (currentFile == null) {
-           currentFile = fileChooser.saveFile();
-       } else {
-           Document xml = CompositionParser.compositionToXML(allPlayables);
-           CompositionParser.printToFile(xml, currentFile);
-       }
-       ifChanged = false;
-       updateMenuClick();
+        promptSave();
     }
     
     /**
@@ -784,7 +791,7 @@ public class TuneComposer extends Application {
             int value = CompositionAlert.saveAlert();
             switch (value) {
                 case 0:
-                    handleSave(event);
+                    promptSave();
                     break;
                 case 1:
                     break;

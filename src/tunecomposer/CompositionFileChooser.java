@@ -32,7 +32,11 @@ public class CompositionFileChooser {
     }
     
     protected File saveFile() {
-        return formatName(filechooser.showSaveDialog(windowStage));
+        File file = filechooser.showSaveDialog(windowStage);
+        if (file != null) {
+            file = formatName(filechooser.showSaveDialog(windowStage));
+        }
+        return file;
     }
     
     protected File formatName(File file) {
