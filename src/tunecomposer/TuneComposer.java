@@ -29,6 +29,7 @@ import org.xml.sax.SAXException;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import javafx.scene.control.ButtonType;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -81,7 +82,12 @@ public class TuneComposer extends Application {
      * Boolean flag to check if changes have been made since last save.
      */
     private static boolean ifChanged = false;
-
+    
+    /**
+     * Boolean flag to check if an element has been cut or copied.
+     */
+    private static boolean ifCutCopy = false;
+    
     /**
      * The background of the application.
      */
@@ -286,7 +292,7 @@ public class TuneComposer extends Application {
         redoButton.setDisable(UndoRedo.isRedoEmpty());
         copyButton.setDisable(numSelected < 1);
         cutButton.setDisable(numSelected < 1);
-        pasteButton.setDisable(false); //TODO: check if clipboard is playables
+        pasteButton.setDisable(!ifCutCopy);
         saveButton.setDisable(!ifChanged);
     }
     
@@ -376,6 +382,8 @@ public class TuneComposer extends Application {
         String str = CompositionParser.printToString(doc);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(new StringSelection(str), null);
+        ifCutCopy = true;
+        updateMenuClick();
     }
     
     /**
@@ -388,6 +396,8 @@ public class TuneComposer extends Application {
         UndoRedo.pushUndo(allPlayables); //undoable
         handleCopy(ignored);
         handleDelete(ignored);
+        ifCutCopy = true;
+        updateMenuClick();
     }
     
     /**
@@ -719,16 +729,12 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleNew(ActionEvent ignored) {
         if (ifChanged) {
-            // TODO maybe look at not returning an int
-            int value = CompositionAlert.saveAlert();
-            switch (value) {
-                case 0:
-                    promptSave();
-                    break;
-                case 1:
-                    break;
-                default:
-                    return;
+            CompositionAlert.Result value= CompositionAlert.saveAlert();
+            if (value == CompositionAlert.Result.YES) {
+                promptSave();
+            } 
+            else if (value == CompositionAlert.Result.CANCEL) {
+                return;
             }
         }
         notePane.getChildren().clear();
@@ -746,16 +752,12 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleOpen(ActionEvent ignored) throws SAXException, IOException {
         if (ifChanged) {
-            // TODO maybe look at not returning an int
-            int value = CompositionAlert.saveAlert();
-            switch (value) {
-                case 0:
-                    promptSave();
-                    break;
-                case 1:
-                    break;
-                default:
-                    return;
+            CompositionAlert.Result value= CompositionAlert.saveAlert();
+            if (value == CompositionAlert.Result.YES) {
+                promptSave();
+            } 
+            else if (value == CompositionAlert.Result.CANCEL) {
+                return;
             }
         }
         File file = fileChooser.openFile();
@@ -799,16 +801,12 @@ public class TuneComposer extends Application {
     @FXML
     protected void handleExitMenuItemAction(ActionEvent event) {
         if (ifChanged) {
-            // TODO maybe look at not returning an int
-            int value = CompositionAlert.saveAlert();
-            switch (value) {
-                case 0:
-                    promptSave();
-                    break;
-                case 1:
-                    break;
-                default:
-                    return;
+            CompositionAlert.Result value= CompositionAlert.saveAlert();
+            if (value == CompositionAlert.Result.YES) {
+                promptSave();
+            } 
+            else if (value == CompositionAlert.Result.CANCEL) {
+                return;
             }
         }
         System.exit(0);
