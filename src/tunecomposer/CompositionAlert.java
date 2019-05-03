@@ -13,7 +13,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Region;
 
 /**
- *
+ * Creates and alert dialog to prompt the user about saving and about
+ * the TuneComposer.
  * @author stewarim
  */
 public class CompositionAlert {

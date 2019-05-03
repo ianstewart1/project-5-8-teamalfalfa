@@ -69,7 +69,6 @@ public class TuneComposer extends Application {
      * File currently being saved to by the TuneComposer.
      */
     private static File currentFile = null;
-    //TODO reset this to null when NEW called
     
     /**
      * Boolean flags to control flow when user clicks in composition panel.
@@ -171,6 +170,9 @@ public class TuneComposer extends Application {
         updateMenuClick();
     }
     
+    /**
+     * Interacts with radiobuttons to get the selected instrument.
+     */
     private void setupInstruments() {
         boolean first = true;
         for (Instrument inst : Instrument.values()) {
@@ -312,6 +314,11 @@ public class TuneComposer extends Application {
         return selected;
     }
     
+    /**
+     * Check if there is a Gesture in a set of playables.
+     * @param selected Set of Playables to be searched
+     * @return boolean if a gesture is present
+     */
     private boolean isGesture(Set<Playable> selected) {
         for (Playable element: selected) {
             if (element instanceof Gesture) return true;
