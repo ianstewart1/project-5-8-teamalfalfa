@@ -20,15 +20,22 @@ import javafx.scene.layout.Region;
 public class CompositionAlert {
     
     /**
+     * Enumeration for result from savePrompt.
+     */
+    public enum Result {
+        YES, NO, CANCEL;
+    }
+    
+    /**
      * Alert object to be modified.
      */
-    private static Alert alert = new Alert(AlertType.NONE);
+    private static Alert alert;
     
     /**
      * Configures alert object to display about information.
      */
     protected static void aboutAlert() {
-        alert.setAlertType(AlertType.INFORMATION);
+        alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("About");
         alert.setHeaderText("About our glorious TuneComposer");
         alert.setContentText("This here application is intended for only \n"
@@ -43,8 +50,8 @@ public class CompositionAlert {
      * Configures alert object to display a prompt about saving.
      * @return int value representing user choice
      */
-    protected static int saveAlert() {
-        alert.setAlertType(AlertType.CONFIRMATION);
+    protected static Result saveAlert() {
+        alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Save?");
         alert.setHeaderText("Changes have been made since last save");
         alert.setContentText("Do you want to save changes?");
@@ -57,11 +64,11 @@ public class CompositionAlert {
         
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == yes) {
-            return 0;
+            return Result.YES;
         } else if (result.get() == no) {
-            return 1;
+            return Result.NO;
         } else {
-            return 2;
+            return Result.CANCEL;
         }
     }
 }
