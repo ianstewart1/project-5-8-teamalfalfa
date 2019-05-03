@@ -146,7 +146,7 @@ public class TuneComposer extends Application {
      * Constructor initializes Note sets.
      */
     public TuneComposer() {
-        allPlayables = new HashSet();
+        allPlayables = new HashSet<>();
     }
     
     /**
@@ -652,7 +652,7 @@ public class TuneComposer extends Application {
     void handleDelete(ActionEvent event) {
         UndoRedo.pushUndo(allPlayables);
         
-        Collection toDelete = new ArrayList<Playable>();
+        Collection<Playable> toDelete = new ArrayList<>();
         allPlayables.forEach((element) -> {
             if (element.getSelected()) {
                 toDelete.add(element);
