@@ -18,17 +18,20 @@ We also considered taking a sledgehammer to our TuneComposer class. We discussed
 We struggled to find an elegant solution to returning a value from our save prompt, as there were three possible values that could be returned. After consulting Professor Davis we settled on an enumerator to make clear the meaning of the value returned (instead of simply 0, 1 or 2), but still feel that there could be a more elegant solution. In discussing solutions with Professor Davis the Command-Query and DRY principles came up in opposition to each other among solutions. We decided to go with the solution that catered more heavily to the Command Query principle, but violated the DRY principle. Another inelegant aspect is that the red X button on the TuneComposer does not prompt to save when clicked as the Exit menu item does. We were unable to figure out how to interrupt a lambda function in the case of cancel (as the handler for the X is assigned in start()), as we had done with the handler for the exit menu option.
 
 *   Include an estimate of your velocity. How many story points did you estimate you would complete during this project? How many did you actually complete, how many person-hours did the team spend, and what is the ratio of points/person-hour? How does this compare to your velocity for the previous project assignment?
+
+
 *   Include a short summary of your team retrospective. What went well that your team will keep doing during the next project assignment? What will you improve? How?
-
-### Code reviews
-
-For Projects 5-8, team members will take turns walking me through the code and explaining their contributions. Each student should expect to make at least two such presentations. I will provide information about scheduling closer to the deadline.
 
 We are pleased with how this project went. We were very efficient with splitting up the work to subgroups (after discussing design). We appreciated the extra time at the end of the project, when we had implemented all of the features, to thoroughly go over our design choices and refactor some of the code. Unfortunately, everyone's schedule was more busy than previous weeks, so not all group members were present during certain consequential decisions and implementations. As always, camaraderie and enthusiasm are at an all time high!  
 
 Next project, we plan on maintaining our dedication to thoroughly discussing design with the entire group as we have for all of the projects. We also want to keep the good division of labor that was relatively new to our workflow with Project 7.
 
 Next time, we want to spend more time planning at the begining to make sure that the things we choose to do are reasonable goals. We also hope that our schedules line up more nicely in the coming week.
+
+### Code reviews
+
+For Projects 5-8, team members will take turns walking me through the code and explaining their contributions. Each student should expect to make at least two such presentations. I will provide information about scheduling closer to the deadline.
+
 
 Acknowledgments
 ---------------
