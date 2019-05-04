@@ -24,6 +24,12 @@ We struggled to find an elegant solution to returning a value from our save prom
 
 For Projects 5-8, team members will take turns walking me through the code and explaining their contributions. Each student should expect to make at least two such presentations. I will provide information about scheduling closer to the deadline.
 
+We are pleased with how this project went. We were very efficient with splitting up the work to subgroups (after discussing design). We appreciated the extra time at the end of the project, when we had implemented all of the features, to thoroughly go over our design choices and refactor some of the code. Unfortunately, everyone's schedule was more busy than previous weeks, so not all group members were present during certain consequential decisions and implementations. As always, camaraderie and enthusiasm are at an all time high!  
+
+Next project, we plan on maintaining our dedication to thoroughly discussing design with the entire group as we have for all of the projects. We also want to keep the good division of labor that was relatively new to our workflow with Project 7.
+
+Next time, we want to spend more time planning at the begining to make sure that the things we choose to do are reasonable goals. We also hope that our schedules line up more nicely in the coming week.
+
 Acknowledgments
 ---------------
 
