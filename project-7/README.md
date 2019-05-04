@@ -19,6 +19,8 @@ We struggled to find an elegant solution to returning a value from our save prom
 
 *   Include an estimate of your velocity. How many story points did you estimate you would complete during this project? How many did you actually complete, how many person-hours did the team spend, and what is the ratio of points/person-hour? How does this compare to your velocity for the previous project assignment?
 
+We originally estimated we would complete 14 story points, which we tracked using GitHub issues. By the end of the project, we had completed 15. Roughly 40 person-hours were spent on the project, giving us a velocity of 0.375 points per person-hour. Our previous veloctiy was 0.25, which means we worked on this project significantly faster than the last. This increase in speed was likely due to our reuse of generating XML for copying and pasting, allowing us to work on both saving and copying/pasting concurrently.
+
 
 *   Include a short summary of your team retrospective. What went well that your team will keep doing during the next project assignment? What will you improve? How?
 
