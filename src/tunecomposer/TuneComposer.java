@@ -29,6 +29,8 @@ import org.xml.sax.SAXException;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -837,18 +839,15 @@ public class TuneComposer extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("TuneComposer.fxml"));
-        Scene scene = new Scene(root);
+        Stage stage = FXMLLoader.load(getClass().getResource("TuneComposer.fxml"));
         
         windowStage = primaryStage;
 
-        primaryStage.setTitle("Scale Player");
-        primaryStage.setScene(scene);
-        primaryStage.setOnCloseRequest((WindowEvent we) -> {
+        stage.setOnCloseRequest((WindowEvent we) -> {
             System.exit(0);
         });
         
-        primaryStage.show();
+        stage.show();
     }
 
     /**
