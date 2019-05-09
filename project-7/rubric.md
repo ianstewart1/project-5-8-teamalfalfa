@@ -25,10 +25,10 @@
 
 | Pts Earned | Pts Possible | Requirement | Comments
 |-----------:|-------------:|-------------|---------
-| 1 | 1 | When **Copy** is chosen, all currently selected note rectangles and gesture rectangles are copied.
+| 0 | 1 | When **Copy** is chosen, all currently selected note rectangles and gesture rectangles are copied. | _See ()_
 | 1 | 1 | When **Cut** is chosen, all currently selected note rectangles and gesture rectangles are copied and deleted.
 | 2 | 2 | When **Paste** is chosen, the cut or copied rectangles are added to the composition panel. 
-| 1 | 1 | Pasted rectangles become the only selected rectangles. 
+| 0 | 1 | Pasted rectangles become the only selected rectangles. | _See ()_
 | 1 | 1 | You should be able to paste the contents of the clipboard multiple times.
 | 2 | 2 |  Gestures can be cut/copied/pasted just like individual notes.
 | 1 | 1 | The system clipboard should be used, rather than a clipboard internal to your program.
@@ -51,21 +51,21 @@
 | Pts Earned | Pts Possible | Requirement | Comments
 |-----------:|-------------:|-------------|---------
 | 2 | 2 |  Saved files include complete information about all notes and gestures (ideally in plain text so it can be verified - if not this will be assessed based on the point below).
-| 4 | 4 | Opening a saved file restores all notes and gestures from the saved composition.
+| 4 | 4 | Opening a saved file restores all notes and gestures from the saved composition. |_See https://github.com/WhitmanSWDesignSpring2018/project-5-8-teamalfalfa/issues/110_
 | 2 | 2 |  Starting a new composition or opening a file should cause all undo/redo state to be cleared. You cannot undo the saving or loading of a file or a new composition.
 
 ### Above & beyond: 0/0 points
 
 | Pts Earned | Pts Possible | Requirement | Comments
 |-----------:|-------------:|-------------|---------
-| 2 | 0 | For better usability, pasted elements are slightly offset from their original location (down and to the right).
-| 2 | 0 | The clipboard content is restored to its previous value when undoing a **Cut** operation.
+| 0 | 0 | For better usability, pasted elements are slightly offset from their original location (down and to the right).
+| 0 | 0 | The clipboard content is restored to its previous value when undoing a **Cut** operation.
 
 ### No regressions - 4/4 points
 
 | Pts Earned | Pts Possible | Requirement | Comments
 |-----------:|-------------:|-------------|---------
-| 4 | 4 | All prior requirements are met, unless they have been superseded by new requirements or are documented by the team as known bugs for this iteration.
+| 4 | 4 | All prior requirements are met, unless they have been superseded by new requirements or are documented by the team as known bugs for this iteration. | _You fixed some bugs!_
 
 ## Release - 2/2 points
 
@@ -79,12 +79,12 @@
 | Pts Earned | Pts Possible | Requirement | Comments
 |-----------:|-------------:|-------------|---------
 | 4 | 4 | UML diagram is accurate and complete.
-| 4 | 4 | New classes/methods are reasonably self-explanatory.
+| 4 | 4 | New classes/methods are reasonably self-explanatory. | _Remember to document classes as well as their methods. That said, undocumented classes have names that are fairly self-explanatory._
 | 2 | 2 | Design overview addresses changes from Project 6 in general.
 | 1 | 1 | Design overview specifically addresses classes and methods responsible for **Cut/Copy/Paste**. 
 | 1 | 1 | Design overview addresses strategy for disabling/enabling menu items.
 | 1 | 1 | Design overview explains which classes are responsible for saving and loading files, and how they interact with other classes.
-| 1 | 1 | Design overview addresses which classes are responsible for composition state management (Does the composition have a filename? Has it changed since it was created, opened, or last saved?), and how they interact with other classes.
+| 0 | 1 | Design overview addresses which classes are responsible for composition state management (Does the composition have a filename? Has it changed since it was created, opened, or last saved?), and how they interact with other classes.
 | 6 | 6 | Assessment of what is elegant and what is not thoughtfully addresses object-oriented design principles.
-| 1 | 1 | Velocity is presented. 
-| 1 | 1 | Team retrospective is presented.
+| 1 | 1 | Velocity is presented.
+| 1 | 1 | Team retrospective is presented. | _I'm glad you feel like your team has gelled! This can also be a factor in increasing velocity._
