@@ -15,7 +15,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.control.ToggleGroup?>
 
 <BorderPane id="root-pane" stylesheets="@tunecomposer.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tunecomposer.TuneComposer">
    <top>
@@ -24,7 +23,7 @@
           <Menu text="File">
             <items>
                   <MenuItem onAction="#handleAbout" text="About..." />
-                  <SeparatorMenuItem/>
+                  <SeparatorMenuItem />
                   <MenuItem onAction="#handleNew" text="New">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="N" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
@@ -41,7 +40,7 @@
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="DOWN" shortcut="DOWN" />
                      </accelerator></MenuItem>
-                  <SeparatorMenuItem/>
+                  <SeparatorMenuItem />
               <MenuItem onAction="#handleExitMenuItemAction" text="Exit">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Q" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
@@ -107,6 +106,12 @@
                   <MenuItem fx:id="redoButton" mnemonicParsing="false" onAction="#handleRedo" text="Redo">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="Z" control="UP" meta="UP" shift="DOWN" shortcut="DOWN" />
+                     </accelerator>
+                  </MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="changeInstrument" mnemonicParsing="false" onAction="#handleChangeInstrument" text="Change Instrument">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="K" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                      </accelerator>
                   </MenuItem>
               </items>

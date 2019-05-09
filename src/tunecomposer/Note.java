@@ -25,7 +25,7 @@ public class Note implements Playable {
     private double y_coord;
     private double rectWidth;
     private int pitch;
-    private final Instrument instrument;
+    private Instrument instrument;
     
     /**
      * Offsets for dragging Rectangle
@@ -374,5 +374,14 @@ public class Note implements Playable {
 
     }
     
+    /**
+     * Set the instrument value for a given Note.
+     * @param inst instrument to replace the current.
+     */
+    @Override
+    public void setInstrument(Instrument inst) {
+        instrument = inst;
+        setSelected(isSelected);
+    }
     
 }

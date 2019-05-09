@@ -132,5 +132,17 @@ public interface Playable {
      */
     Playable makeCopy();
     
+    /**
+     * Create an XML representation of a Playable object.
+     * @param document
+     * @return XML element to be added to the XML composition
+     */
     Element generateXML(Document document);
+    
+    /**
+     * Changes the instrument for a selection of Notes, including those 
+     * within a Gesture.
+     * @param inst 
+     */
+    void setInstrument(Instrument inst);
 }
