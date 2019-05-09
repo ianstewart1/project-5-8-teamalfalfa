@@ -29,7 +29,6 @@ import org.xml.sax.SAXException;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import javafx.scene.control.ButtonType;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -141,7 +140,8 @@ public class TuneComposer extends Application {
     @FXML
     private MenuItem playButton, stopButton, groupButton, ungroupButton, 
                      selectAllButton, deleteButton, undoButton, redoButton,
-                     copyButton, cutButton, pasteButton, saveButton;
+                     copyButton, cutButton, pasteButton, saveButton, 
+                     changeInstrument;
 
     /**
      * Constructor initializes Note sets.
@@ -294,6 +294,7 @@ public class TuneComposer extends Application {
         cutButton.setDisable(numSelected < 1);
         pasteButton.setDisable(!ifCutCopy);
         saveButton.setDisable(!ifChanged);
+        changeInstrument.setDisable(numSelected < 1);
     }
     
     /**
@@ -437,6 +438,23 @@ public class TuneComposer extends Application {
         updateMenuClick();
     }
     
+    /**
+     * Change the instrument associated with a selection of notes to
+     * whatever is selected in the side bar.
+     * @param ignored unused
+     */
+    @FXML
+    protected void handleChangeInstrument(ActionEvent ignored) {
+        ifChanged = true;
+        UndoRedo.pushUndo(allPlayables);
+        Instrument instrument = getInstrument();
+        selectedSet().forEach((element) -> {
+                element.setInstrument(instrument);
+            }        
+        );
+        
+        
+    }
     
     /**
      * Clear the composition pane and draw all of the rectangles in

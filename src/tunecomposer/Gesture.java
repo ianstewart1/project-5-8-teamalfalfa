@@ -400,4 +400,11 @@ public class Gesture implements Playable{
         
         boundingRect.setWidth(newWidth);
     }
+    
+    @Override
+    public void setInstrument(Instrument inst) {
+        elements.forEach((element) -> {
+            element.setInstrument(inst); 
+        });
+    }
 }
