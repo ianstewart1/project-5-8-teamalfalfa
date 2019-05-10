@@ -255,7 +255,7 @@ public class TuneComposer extends Application {
     }
 
     /**
-     * When user selects "Start" menu item, start playing composition
+     * When user selects "Play" menu item, start playing composition
      * @param ignored not used
      */
     @FXML
@@ -352,6 +352,7 @@ public class TuneComposer extends Application {
         allPlayables.removeAll(selected);
         allPlayables.add(gesture);
         notePane.getChildren().add(gesture.getRectangle());
+        ifChanged = true;
         updateMenuClick();
     }
     
@@ -371,6 +372,7 @@ public class TuneComposer extends Application {
                 removeGesture(gesture);
             }
         });
+        ifChanged = true;
         updateMenuClick();
     }
     
@@ -781,12 +783,14 @@ public class TuneComposer extends Application {
             }
         }
         File file = fileChooser.openFile();
-        InputSource xml = CompositionParser.fileToInputSource(file);
-        allPlayables = CompositionParser.xmlToComposition(xml);
-        updateCompositionPane(allPlayables);
-        UndoRedo.clearStacks();
-        currentFile = file;
-        ifChanged = false;
+        if (file != null) {
+            InputSource xml = CompositionParser.fileToInputSource(file);
+            allPlayables = CompositionParser.xmlToComposition(xml);
+            updateCompositionPane(allPlayables);
+            UndoRedo.clearStacks();
+            currentFile = file;
+            ifChanged = false;
+        }
         updateMenuClick();
     }
     
