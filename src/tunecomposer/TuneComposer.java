@@ -29,8 +29,10 @@ import org.xml.sax.SAXException;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
-import javafx.scene.control.ButtonType;
-import javafx.scene.image.Image;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -144,6 +146,11 @@ public class TuneComposer extends Application {
                      selectAllButton, deleteButton, undoButton, redoButton,
                      copyButton, cutButton, pasteButton, saveButton, 
                      changeInstrument;
+    
+    /**
+     * Slider for adjusting the volume of selected Notes.
+     */
+    private Slider volumeSlider = new Slider();
 
     /**
      * Constructor initializes Note sets.
@@ -175,6 +182,7 @@ public class TuneComposer extends Application {
         fileChooser = new CompositionFileChooser(windowStage);
         
         setupInstruments();
+        setupVolumeSlider();
         updateMenuClick();
     }
     
@@ -207,6 +215,27 @@ public class TuneComposer extends Application {
         return (Instrument) selectedButton.getUserData();
     }
     
+    private void setupVolumeSlider() {
+        Label label = new Label("Volume");
+        
+        volumeSlider.setMin(Constants.MIN_VOLUME);
+        volumeSlider.setMax(Constants.MAX_VOLUME);
+        volumeSlider.setValue(Constants.MAX_VOLUME);
+        volumeSlider.setShowTickMarks(true);
+        volumeSlider.setMajorTickUnit(63.5f);
+        
+        volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                Number old_val, Number new_val) {
+                    selectedSet().forEach((element) -> {
+                        element.setVolume(new_val.intValue());
+                    });
+            }   
+        });
+        
+        instrumentPane.getChildren().addAll(label, volumeSlider);
+    }
+    
     /**
      * This method is used to remove a gesture from the pane. 
      * @param gesture is a Gesture
@@ -214,7 +243,6 @@ public class TuneComposer extends Application {
     protected void removeGesture(Gesture gesture){
         notePane.getChildren().remove(gesture.boundingRect);
     }
-
 
     /**
      * Add the given note to the set of all notes, to be played later.
@@ -231,7 +259,7 @@ public class TuneComposer extends Application {
      */
     public double findLastNote() {
         double lastNote = 0;       
-        for(Playable note : allPlayables){
+        for (Playable note : allPlayables){
            double noteEnd = note.getX() + note.getWidth();
             if(noteEnd > lastNote){
                 lastNote = noteEnd;
@@ -352,6 +380,7 @@ public class TuneComposer extends Application {
         allPlayables.removeAll(selected);
         allPlayables.add(gesture);
         notePane.getChildren().add(gesture.getRectangle());
+
         ifChanged = true;
         updateMenuClick();
     }
