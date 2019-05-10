@@ -253,6 +253,24 @@ public class Gesture implements Playable{
     public void setMovingDuration(MouseEvent event) {
         widthOffset = x_coord + width - event.getX();
     }
+    
+    /**
+     * Sets the instrument for Playables held within the elements of the
+     * Gesture.
+     * @param inst instrument to change to
+     */
+    @Override
+    public void setInstrument(Instrument inst) {
+        elements.forEach((element) -> {
+            element.setInstrument(inst); 
+        });
+    }
+    
+    public void setVolume(int vol) {
+        elements.forEach((element) -> {
+            element.setVolume(vol); 
+        });
+    }
 
     /**
      * Move a Gesture's x and y coordinates.
@@ -399,12 +417,5 @@ public class Gesture implements Playable{
         if (newWidth < Constants.MARGIN) newWidth = Constants.MARGIN;
         
         boundingRect.setWidth(newWidth);
-    }
-    
-    @Override
-    public void setInstrument(Instrument inst) {
-        elements.forEach((element) -> {
-            element.setInstrument(inst); 
-        });
     }
 }

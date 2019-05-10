@@ -26,6 +26,7 @@ public class Note implements Playable {
     private double rectWidth;
     private int pitch;
     private Instrument instrument;
+    private int volume;
     
     /**
      * Offsets for dragging Rectangle
@@ -49,6 +50,7 @@ public class Note implements Playable {
      */
     public Note(double x, double y, Instrument inst) {
         pitch = Constants.MAX_PITCH - (int) y / Constants.RECTHEIGHT;
+        volume = Constants.MAX_VOLUME;
         
         x_coord = x;
         y_coord = y - ( y % Constants.RECTHEIGHT);
@@ -72,6 +74,7 @@ public class Note implements Playable {
      */
     public Note(double x, double y, double duration, Instrument inst) {
         pitch = Constants.MAX_PITCH - (int) y / Constants.RECTHEIGHT;
+        volume = Constants.MAX_VOLUME;
         
         x_coord = x;
         y_coord = y - ( y % Constants.RECTHEIGHT);
@@ -97,6 +100,7 @@ public class Note implements Playable {
         rectWidth = note.getWidth();
         noteRect = new Rectangle(x_coord, y_coord, rectWidth, Constants.RECTHEIGHT);
         pitch = note.getPitch();
+        volume = note.getVolume();
         instrument = note.getInstrument();
         setSelected(note.getSelected());
     }
@@ -176,11 +180,19 @@ public class Note implements Playable {
     
     
     /**
-     * Get this Note's pitch
+     * Get this Note's pitch.
      * @return pitch The pitch of the Note
      */
-    public int getPitch(){
+    public int getPitch() {
         return pitch;
+    }
+    
+    /**
+     * Get this Note's play volume.
+     * @return volume
+     */
+    public int getVolume() {
+        return volume;
     }
     
     
@@ -266,11 +278,23 @@ public class Note implements Playable {
     }
     
     /**
+     * Set the volume of a Note.
+     * @param vol volume
+     */
+    @Override
+    public void setVolume(int vol) {
+        if (vol < 128 && vol > -1) {
+            volume = vol;
+        }
+        //TODO: CHANGE OPACITY
+    }
+    
+    /**
      * Add a note to the MidiPlayer.
      */
     @Override
     public void schedule() {
-        TuneComposer.PLAYER.addNote(pitch, Constants.VOLUME, (int)x_coord, 
+        TuneComposer.PLAYER.addNote(pitch, volume, (int)x_coord, 
                                     (int)rectWidth, instrument.ordinal(), 
                                     Constants.TRACK);
     }

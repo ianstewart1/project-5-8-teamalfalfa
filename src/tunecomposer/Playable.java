@@ -145,4 +145,11 @@ public interface Playable {
      * @param inst 
      */
     void setInstrument(Instrument inst);
+    
+    /**
+     * Changes the volume for a selection of Notes, including those within
+     * a Gesture.
+     * @param volume 
+     */
+    void setVolume(int vol);
 }
