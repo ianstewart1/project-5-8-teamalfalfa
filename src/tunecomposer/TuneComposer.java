@@ -380,7 +380,7 @@ public class TuneComposer extends Application {
         allPlayables.removeAll(selected);
         allPlayables.add(gesture);
         notePane.getChildren().add(gesture.getRectangle());
-        
+
         ifChanged = true;
         updateMenuClick();
     }
@@ -410,7 +410,8 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleCopy(ActionEvent ignored){
-        Document doc = CompositionParser.compositionToXML(allPlayables);
+        Set<Playable> selected = selectedSet();
+        Document doc = CompositionParser.compositionToXML(selected);
         String str = CompositionParser.printToString(doc);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(new StringSelection(str), null);
@@ -868,18 +869,15 @@ public class TuneComposer extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("TuneComposer.fxml"));
-        Scene scene = new Scene(root);
+        Stage stage = FXMLLoader.load(getClass().getResource("TuneComposer.fxml"));
         
         windowStage = primaryStage;
 
-        primaryStage.setTitle("Scale Player");
-        primaryStage.setScene(scene);
-        primaryStage.setOnCloseRequest((WindowEvent we) -> {
+        stage.setOnCloseRequest((WindowEvent we) -> {
             System.exit(0);
         });
         
-        primaryStage.show();
+        stage.show();
     }
 
     /**
