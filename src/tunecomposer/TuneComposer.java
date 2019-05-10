@@ -352,7 +352,6 @@ public class TuneComposer extends Application {
         allPlayables.removeAll(selected);
         allPlayables.add(gesture);
         notePane.getChildren().add(gesture.getRectangle());
-        
         updateMenuClick();
     }
     
@@ -381,7 +380,8 @@ public class TuneComposer extends Application {
      */
     @FXML
     protected void handleCopy(ActionEvent ignored){
-        Document doc = CompositionParser.compositionToXML(allPlayables);
+        Set<Playable> selected = selectedSet();
+        Document doc = CompositionParser.compositionToXML(selected);
         String str = CompositionParser.printToString(doc);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(new StringSelection(str), null);
