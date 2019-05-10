@@ -68,17 +68,6 @@
                                         <KeyCodeCombination alt="UP" code="K" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                                      </accelerator>
                                   </MenuItem>
-                                  <SeparatorMenuItem />
-                                  <MenuItem fx:id="groupButton" onAction="#handleGroup" text="Group">
-                                     <accelerator>
-                                        <KeyCodeCombination alt="UP" code="G" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
-                                     </accelerator>
-                                  </MenuItem>
-                                  <MenuItem fx:id="ungroupButton" onAction="#handleUngroup" text="Ungroup">
-                                     <accelerator>
-                                        <KeyCodeCombination alt="UP" code="U" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
-                                     </accelerator>
-                                  </MenuItem>
                               </items>
                            </Menu>
                            <Menu text="Edit">
@@ -94,6 +83,17 @@
                                      </accelerator>
                                   </MenuItem>
                                   <SeparatorMenuItem mnemonicParsing="false" />
+                                  <MenuItem fx:id="groupButton" onAction="#handleGroup" text="Group">
+                                     <accelerator>
+                                        <KeyCodeCombination alt="UP" code="G" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                     </accelerator>
+                                  </MenuItem>
+                                  <MenuItem fx:id="ungroupButton" onAction="#handleUngroup" text="Ungroup">
+                                     <accelerator>
+                                        <KeyCodeCombination alt="UP" code="U" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                     </accelerator>
+                                  </MenuItem>
+                                  <SeparatorMenuItem />
                                   <MenuItem fx:id="copyButton" mnemonicParsing="false" onAction="#handleCopy" text="Copy">
                                      <accelerator>
                                         <KeyCodeCombination alt="UP" code="C" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
