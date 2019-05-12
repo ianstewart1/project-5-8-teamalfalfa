@@ -229,6 +229,17 @@ public class TuneComposer extends Application {
     }
     
     /**
+     * Update gray lines so that the pane can extend infinitely.
+     */
+    public void updateGrayLines() {
+        for (int i = 1; i < Constants.NUM_PITCHES; i++) {
+            Line row = new Line(0, 10 * i, findLastNote() + 2000, 10 * i);
+            row.getStyleClass().add("row-divider");
+            background.getChildren().add(row);
+        }
+    }
+    
+    /**
      * Interacts with radiobuttons to get the selected instrument.
      */
     private void setupInstruments() {
@@ -391,6 +402,7 @@ public class TuneComposer extends Application {
         pasteButton.setDisable(!ifCutCopy);
         saveButton.setDisable(!ifChanged);
         changeInstrument.setDisable(numSelected < 1);
+        updateGrayLines();
     }
     
     /**
