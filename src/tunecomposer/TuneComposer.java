@@ -205,12 +205,7 @@ public class TuneComposer extends Application {
      * (2) initializes the playLine(set to invisible)
      */
     public void initialize() {
-        // Add gray lines to background
-        for (int i = 1; i < Constants.NUM_PITCHES; i++) {
-            Line row = new Line(0, 10 * i, 2000, 10 * i);
-            row.getStyleClass().add("row-divider");
-            background.getChildren().add(row);
-        }
+        updateGrayLines();
 
         playLine = new PlayLine(movingLine);
 
