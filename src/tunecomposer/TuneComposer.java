@@ -332,6 +332,7 @@ public class TuneComposer extends Application {
         });
         PLAYER.play();
         playLine.play(this.findLastNote());
+        updateMenuClick();
     }
 
     /**
@@ -341,7 +342,6 @@ public class TuneComposer extends Application {
     @FXML
     public void handleStartPlaying(ActionEvent ignored) {
         startPlaying();
-        updateMenuClick();
     }
     
     /**
@@ -493,11 +493,13 @@ public class TuneComposer extends Application {
     @FXML
     protected void handlePaste(ActionEvent ignored) throws UnsupportedFlavorException, IOException, SAXException{
         UndoRedo.pushUndo(allPlayables); //undoable
+        selectAll(false);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         InputSource xml = CompositionParser.clipboardToInputSource(clipboard);
         Set<Playable> composition = CompositionParser.xmlToComposition(xml);
-        allPlayables.addAll(composition);
         updateCompositionPane(allPlayables);
+        allPlayables.addAll(composition);
+        addToCompositionPane(composition);
         updateMenuClick();
     }
     
@@ -548,6 +550,15 @@ public class TuneComposer extends Application {
      */
     protected void updateCompositionPane(Set<Playable> set) {
         notePane.getChildren().clear();
+        addToCompositionPane(set);
+    }
+    
+    /**
+     * Clear the composition pane and draw all of the rectangles in
+     * the input set.
+     * @param set Set to be added to the composition pane.
+     */
+    protected void addToCompositionPane(Set<Playable> set) {
         for (Playable element: set) {            
             notePane.getChildren().addAll(element.getNodeList());
             addHandlers(element);
@@ -808,11 +819,12 @@ public class TuneComposer extends Application {
     private void promptSave() {
         if (currentFile == null) {
             currentFile = fileChooser.saveFile();
-        } else {
+        } 
+        if (currentFile != null) {
             Document xml = CompositionParser.compositionToXML(allPlayables);
             CompositionParser.printToFile(xml, currentFile);
+            ifChanged = false;
         }
-        ifChanged = false;
         updateMenuClick();
     }
     
