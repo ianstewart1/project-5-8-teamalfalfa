@@ -290,7 +290,7 @@ public class Gesture implements Playable{
     public void moveX(MouseEvent event) {
         double moveX = event.getX() - xOffset;
         
-        if(moveX > 0 && (moveX + width) < Constants.WIDTH){
+        if(moveX > 0){
             boundingRect.setX(moveX);
             
             elements.forEach((element) -> {

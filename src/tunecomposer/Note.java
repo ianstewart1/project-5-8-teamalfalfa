@@ -345,7 +345,7 @@ public class Note implements Playable {
     public void moveX(MouseEvent event) {
         double moveX = event.getX() - xOffset;
         
-        if(moveX > 0 && (moveX + rectWidth) < Constants.WIDTH){
+        if(moveX > 0){
             noteRect.setX(moveX);
         }
     }

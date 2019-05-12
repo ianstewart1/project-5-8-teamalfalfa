@@ -205,12 +205,7 @@ public class TuneComposer extends Application {
      * (2) initializes the playLine(set to invisible)
      */
     public void initialize() {
-        // Add gray lines to background
-        for (int i = 1; i < Constants.NUM_PITCHES; i++) {
-            Line row = new Line(0, 10 * i, 2000, 10 * i);
-            row.getStyleClass().add("row-divider");
-            background.getChildren().add(row);
-        }
+        updateGrayLines();
 
         playLine = new PlayLine(movingLine);
 
@@ -226,6 +221,17 @@ public class TuneComposer extends Application {
         setupNoteNames();
         updateMenuClick();
         
+    }
+    
+    /**
+     * Update gray lines so that the pane can extend infinitely.
+     */
+    public void updateGrayLines() {
+        for (int i = 1; i < Constants.NUM_PITCHES; i++) {
+            Line row = new Line(0, 10 * i, findLastNote() + 2000, 10 * i);
+            row.getStyleClass().add("row-divider");
+            background.getChildren().add(row);
+        }
     }
     
     /**
@@ -391,6 +397,7 @@ public class TuneComposer extends Application {
         pasteButton.setDisable(!ifCutCopy);
         saveButton.setDisable(!ifChanged);
         changeInstrument.setDisable(numSelected < 1);
+        updateGrayLines();
     }
     
     /**
