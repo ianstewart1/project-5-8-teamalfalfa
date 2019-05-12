@@ -29,6 +29,14 @@ import org.xml.sax.SAXException;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import javafx.geometry.Pos;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -127,6 +135,24 @@ public class TuneComposer extends Application {
      */
     @FXML
     private VBox instrumentPane;
+    
+    /**
+     * ScrollBar for the instrumentPane.
+     */
+    @FXML
+    private ScrollPane instrumentScroll;  
+    
+    /**
+     * VBox used to hold the note names of each line.
+     */
+    @FXML
+    private VBox noteNamePane;
+    
+    /**
+     * ScrollBar for the noteNamePane.
+     */
+    @FXML
+    private ScrollPane noteNameScroll;
 
     /**
      * A group of sidebar radio buttons for selecting an instrument.
@@ -157,7 +183,7 @@ public class TuneComposer extends Application {
      */
     public void initialize() {
         // Add gray lines to background
-        for (int i = 1; i < 128; i++) {
+        for (int i = 1; i < Constants.NUM_PITCHES; i++) {
             Line row = new Line(0, 10 * i, 2000, 10 * i);
             row.getStyleClass().add("row-divider");
             background.getChildren().add(row);
@@ -173,7 +199,9 @@ public class TuneComposer extends Application {
         fileChooser = new CompositionFileChooser(windowStage);
         
         setupInstruments();
+        setupNoteNames();
         updateMenuClick();
+        
     }
     
     /**
@@ -194,6 +222,26 @@ public class TuneComposer extends Application {
                 first = false;
             }
         }
+    }
+    
+    /**
+     * Draws the note value that corresponds to each row in the composition.
+     */
+    private void setupNoteNames() {
+        Label noteLabel;
+        
+        for (int i = 0; i < Constants.NUM_PITCHES-1; i++) {
+            int labelNumber = i % Constants.NOTE_NAMES.size();
+            noteLabel = new Label(Constants.NOTE_NAMES.get(labelNumber));
+            noteLabel.setAlignment(Pos.CENTER_RIGHT);
+            noteLabel.setFont(new Font("Arial", 8));
+            noteLabel.setMinHeight(10.0);
+            noteLabel.setMinWidth(30.0);
+            noteNamePane.getChildren().add(noteLabel);
+        }      
+        
+        noteNameScroll.vvalueProperty().bindBidirectional(
+                instrumentScroll.vvalueProperty());
     }
     
     /**

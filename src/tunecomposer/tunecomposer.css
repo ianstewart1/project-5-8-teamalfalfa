@@ -15,6 +15,10 @@
     -fx-stroke: #E81A0B;
 }
 
+.note-name {
+    -fx-border-color: #e8e8e8;
+}
+
 .gestureRect {
     -fx-stroke-dash-array: 5; 
     -fx-fill: transparent;
