@@ -270,7 +270,7 @@ public class TuneComposer extends Application {
         volumeSlider.setMax(Constants.MAX_VOLUME);
         volumeSlider.setValue(Constants.MAX_VOLUME);
         volumeSlider.setShowTickMarks(true);
-        volumeSlider.setMajorTickUnit(63.5f);
+        volumeSlider.setMajorTickUnit(Constants.MAX_VOLUME / 2);
         
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
@@ -279,6 +279,10 @@ public class TuneComposer extends Application {
                         element.setVolume(new_val.intValue());
                     });
             }   
+        });
+        volumeSlider.setOnMousePressed((MouseEvent ignored) -> {
+            ifChanged = true;
+            UndoRedo.pushUndo(allPlayables);
         });
         
         instrumentPane.getChildren().addAll(label, volumeSlider);

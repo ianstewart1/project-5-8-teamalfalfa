@@ -102,16 +102,16 @@ public class CompositionParser {
      */
     private static Note parseNote(Element elem) {
         int channel = Integer.parseInt(elem.getAttribute("channel"));
+        int volume = Integer.parseInt(elem.getAttribute("volume"));
         double x_coord = Double.parseDouble(elem.getAttribute("delay"));
         double duration = Double.parseDouble(elem.getAttribute("duration"));
         double y_coord = Constants.HEIGHT   
                 - Constants.LINE_SPACING 
                 * Double.parseDouble(elem.getAttribute("pitch"));
-        int track = Integer.parseInt(elem.getAttribute("track"));
         
         Instrument instrument = Instrument.values()[channel]; //get an instrument with channel/track
         
-        Note note = new Note(x_coord, y_coord, duration, instrument);
+        Note note = new Note(x_coord, y_coord, volume, duration, instrument);
         
         return note;
     }

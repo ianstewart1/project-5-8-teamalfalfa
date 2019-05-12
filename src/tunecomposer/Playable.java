@@ -149,7 +149,7 @@ public interface Playable {
     /**
      * Changes the volume for a selection of Notes, including those within
      * a Gesture.
-     * @param volume 
+     * @param vol int between 0 and 127 
      */
     void setVolume(int vol);
 }
