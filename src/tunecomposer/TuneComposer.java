@@ -34,6 +34,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.geometry.Pos;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollBar;
@@ -98,6 +99,13 @@ public class TuneComposer extends Application {
      * Boolean flag to check if an element has been cut or copied.
      */
     private static boolean ifCutCopy = false;
+    
+    
+    /**
+     * The scene of the application.
+     */
+    @FXML
+    private Scene scene;
     
     /**
      * The background of the application.
@@ -172,6 +180,12 @@ public class TuneComposer extends Application {
                      selectAllButton, deleteButton, undoButton, redoButton,
                      copyButton, cutButton, pasteButton, saveButton, 
                      changeInstrument;
+    
+    /**
+     * The toggle dark mode menu item. 
+     */
+    @FXML
+    private CheckMenuItem toggleMode;
     
     /**
      * Slider for adjusting the volume of selected Notes.
@@ -915,6 +929,18 @@ public class TuneComposer extends Application {
             }
         }
         System.exit(0);
+    }
+    
+    @FXML
+    protected void handleToggleMode(ActionEvent event) {
+        if (toggleMode.selectedProperty().getValue()) {
+            scene.getStylesheets()
+                    .add(getClass().getResource("darkmode.css").toString());
+        } 
+        else {
+            scene.getStylesheets()
+                    .remove(getClass().getResource("darkmode.css").toString());
+        }
     }
 
     /**
