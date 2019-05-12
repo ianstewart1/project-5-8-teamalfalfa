@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -24,7 +30,147 @@
     <scene>
         <Scene>
             <root>
-                <BorderPane id="root-pane" stylesheets="@tunecomposer.css">
+                <BorderPane id="root-pane" stylesheets="@tunecomposer.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+                    <top>
+                       <MenuBar>
+                         <menus>
+                           <Menu text="File">
+                             <items>
+                                   <MenuItem onAction="#handleAbout" text="About..." />
+                                   <SeparatorMenuItem />
+                                   <MenuItem onAction="#handleNew" text="New">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="N" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                      </accelerator></MenuItem>
+                                   <MenuItem onAction="#handleOpen" text="Open...">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="O" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                      </accelerator></MenuItem>
+                                   <MenuItem fx:id="saveButton" onAction="#handleSave" text="Save">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                      </accelerator></MenuItem>
+                                   <MenuItem onAction="#handleSaveAs" text="Save as...">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="DOWN" shortcut="DOWN" />
+                                      </accelerator></MenuItem>
+                                   <SeparatorMenuItem />
+                               <MenuItem onAction="#handleExitMenuItemAction" text="Exit">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="Q" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                      </accelerator>
+                                   </MenuItem>
+                             </items>
+                           </Menu>
+                             <Menu text="Action">
+                               <items>
+                                 <MenuItem fx:id="playButton" onAction="#handleStartPlaying" text="Play">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="P" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                      </accelerator>
+                                   </MenuItem>
+                                   <MenuItem fx:id="stopButton" onAction="#handleStopPlaying" text="Stop">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="K" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                      </accelerator>
+                                   </MenuItem>
+                                   <SeparatorMenuItem />
+                                   <MenuItem fx:id="groupButton" onAction="#handleGroup" text="Group">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="G" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                      </accelerator>
+                                   </MenuItem>
+                                   <MenuItem fx:id="ungroupButton" onAction="#handleUngroup" text="Ungroup">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="U" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                      </accelerator>
+                                   </MenuItem>
+                               </items>
+                            </Menu>
+                            <Menu text="Edit">
+                               <items>
+                                   <MenuItem fx:id="selectAllButton" onAction="#handleSelectAll" text="Select All">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="A" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                      </accelerator>
+                                   </MenuItem>
+                                 <MenuItem fx:id="deleteButton" onAction="#handleDelete" text="Delete">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="BACK_SPACE" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                      </accelerator>
+                                   </MenuItem>
+                                   <SeparatorMenuItem mnemonicParsing="false" />
+                                   <MenuItem fx:id="copyButton" mnemonicParsing="false" onAction="#handleCopy" text="Copy">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="C" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                      </accelerator></MenuItem>
+                                   <MenuItem fx:id="cutButton" mnemonicParsing="false" onAction="#handleCut" text="Cut">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="X" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                      </accelerator></MenuItem>
+                                   <MenuItem fx:id="pasteButton" mnemonicParsing="false" onAction="#handlePaste" text="Paste">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="V" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                      </accelerator></MenuItem>
+                                   <MenuItem fx:id="undoButton" mnemonicParsing="false" onAction="#handleUndo" text="Undo">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="Z" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                      </accelerator>
+                                   </MenuItem>
+                                   <MenuItem fx:id="redoButton" mnemonicParsing="false" onAction="#handleRedo" text="Redo">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="Z" control="UP" meta="UP" shift="DOWN" shortcut="DOWN" />
+                                      </accelerator>
+                                   </MenuItem>
+                                   <SeparatorMenuItem mnemonicParsing="false" />
+                                   <MenuItem fx:id="changeInstrument" mnemonicParsing="false" onAction="#handleChangeInstrument" text="Change Instrument">
+                                      <accelerator>
+                                         <KeyCodeCombination alt="UP" code="K" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
+                                      </accelerator>
+                                   </MenuItem>
+                               </items>
+                             </Menu>
+                         </menus>
+                       </MenuBar>
+                    </top>
+                    <left>
+                       <VBox fx:id="instrumentPane" prefHeight="1254.0" prefWidth="161.0" BorderPane.alignment="CENTER" />
+                         <fx:define>
+                             <ToggleGroup fx:id="instrumentToggle" />
+                         </fx:define>
+                    </left>
+                    <center>
+                       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                          <center>
+                             <ScrollPane fx:id="instrumentScroll" prefHeight="1280.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                <content>
+                                   <StackPane alignment="CENTER_LEFT" prefHeight="1280.0" prefWidth="2000.0">
+                                      <children>
+                                         <Group fx:id="background" />
+                                         <Pane fx:id="notePane" minHeight="1280.0" minWidth="2000.0" onDragDetected="#startDrag" onMouseClicked="#handleClick" onMouseDragged="#continueDrag" />
+                                         <AnchorPane fx:id="playLinePane" prefHeight="200.0" prefWidth="200.0">
+                                            <children>
+                                               <Line fx:id="movingLine" endY="1280.0" styleClass="play-line" visible="false" />
+                                               <Rectangle fx:id="selectRect" arcHeight="5.0" arcWidth="5.0" layoutX="0.0" layoutY="0.0" strokeType="INSIDE" styleClass="selection-rect" visible="false" />
+                                            </children>
+                                         </AnchorPane>
+                                      </children>
+                                   </StackPane>
+                                </content>
+                             </ScrollPane>
+                          </center>
+                          <left>
+                             <ScrollPane fx:id="noteNameScroll" hbarPolicy="ALWAYS" prefHeight="1280.0" prefWidth="30.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+                                <content>
+                                   <VBox fx:id="noteNamePane" prefHeight="1280.0" prefWidth="30.0" />
+                                </content>
+                             </ScrollPane>
+                          </left>
+                       </BorderPane>
+                    </center>
+                 </BorderPane>
+
+<!--                <BorderPane id="root-pane" stylesheets="@tunecomposer.css">
                    <top>
                       <MenuBar>
                         <menus>
@@ -150,8 +296,9 @@
                             <ToggleGroup fx:id="instrumentToggle" />
                         </fx:define>
                    </left>
-                </BorderPane>
+                </BorderPane>-->
             </root>
         </Scene>
     </scene>
 </Stage>
+
