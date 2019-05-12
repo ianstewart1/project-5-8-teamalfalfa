@@ -240,7 +240,7 @@ public class TuneComposer extends Application {
     private void setupNoteNames() {
         Label noteLabel;
         
-        for (int i = 0; i < Constants.NUM_PITCHES-1; i++) {
+        for (int i = 0; i < Constants.NUM_PITCHES; i++) {
             int labelNumber = i % Constants.NOTE_NAMES.size();
             noteLabel = new Label(Constants.NOTE_NAMES.get(labelNumber));
             noteLabel.setAlignment(Pos.CENTER_RIGHT);
