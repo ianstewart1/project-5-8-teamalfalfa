@@ -67,14 +67,14 @@ public class Note implements Playable {
     
     /**
      * Alternate constructor for a note, which allows for control of duration
-     * @param x
+     * @param x TODO
      * @param y
+     * @param vol
      * @param duration
      * @param inst
      */
-    public Note(double x, double y, double duration, Instrument inst) {
+    public Note(double x, double y, int vol, double duration, Instrument inst) {
         pitch = Constants.MAX_PITCH - (int) y / Constants.RECTHEIGHT;
-        volume = Constants.MAX_VOLUME;
         
         x_coord = x;
         y_coord = y - ( y % Constants.RECTHEIGHT);
@@ -85,6 +85,8 @@ public class Note implements Playable {
         noteRect = new Rectangle(x_coord, y_coord, rectWidth, Constants.RECTHEIGHT);
         noteRect.getStyleClass().addAll("selected", instrument.getStyleClassName());
         noteRect.setMouseTransparent(false);
+        
+        setVolume(vol);
         
         isSelected = true;
     }  
@@ -100,7 +102,7 @@ public class Note implements Playable {
         rectWidth = note.getWidth();
         noteRect = new Rectangle(x_coord, y_coord, rectWidth, Constants.RECTHEIGHT);
         pitch = note.getPitch();
-        volume = note.getVolume();
+        setVolume(note.getVolume());
         instrument = note.getInstrument();
         setSelected(note.getSelected());
     }
@@ -204,16 +206,21 @@ public class Note implements Playable {
         return instrument;
     }
     
+    /**
+     * TODO
+     * @param document
+     * @return 
+     */
     @Override
     public Element generateXML(Document document) {
         Element note = document.createElement("note");
         
         note.setAttribute("pitch", Integer.toString(getPitch()));
+        note.setAttribute("volume", Integer.toString(getVolume()));
         note.setAttribute("delay", Integer.toString((int) getX()));
         note.setAttribute("duration", Integer.toString((int) getWidth()));
         note.setAttribute("channel", 
                           Integer.toString(getInstrument().getChannel()));
-        note.setAttribute("track", "0");
         
         return note;
     }
@@ -278,6 +285,16 @@ public class Note implements Playable {
     }
     
     /**
+     * Set the instrument value for a given Note.
+     * @param inst instrument to replace the current.
+     */
+    @Override
+    public void setInstrument(Instrument inst) {
+        instrument = inst;
+        setSelected(isSelected);
+    }
+    
+    /**
      * Set the volume of a Note.
      * @param vol volume
      */
@@ -285,8 +302,19 @@ public class Note implements Playable {
     public void setVolume(int vol) {
         if (vol < 128 && vol > -1) {
             volume = vol;
+            double opacityVal = ((double) volume / Constants.MAX_VOLUME) * 
+                                (Constants.MAX_OPACITY - Constants.MIN_OPACITY)
+                                + Constants.MIN_OPACITY;
+            setOpacity(opacityVal);
         }
-        //TODO: CHANGE OPACITY
+    }
+    
+    /**
+     * Changes the opacity of a Note.
+     * @param opacity double value between 0 and 1.0.
+     */
+    private void setOpacity(double opacity) {
+        noteRect.setOpacity(opacity);
     }
     
     /**
@@ -396,16 +424,6 @@ public class Note implements Playable {
     public void removeFromPane(Pane pane) {
         pane.getChildren().remove(noteRect);
 
-    }
-    
-    /**
-     * Set the instrument value for a given Note.
-     * @param inst instrument to replace the current.
-     */
-    @Override
-    public void setInstrument(Instrument inst) {
-        instrument = inst;
-        setSelected(isSelected);
     }
     
 }

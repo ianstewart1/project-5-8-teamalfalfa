@@ -17,6 +17,8 @@ public class Constants {
     public static final int NUM_PITCHES = 128;
     public static final int MIN_VOLUME = 0;
     public static final int MAX_VOLUME = 127;
+    public static final double MIN_OPACITY = 0.2;
+    public static final double MAX_OPACITY = 1.0;
     public static final int MAX_PITCH = 128;
     public static final int DEFAULT_DURATION = 100;
     public static final int TRACK = 0;
