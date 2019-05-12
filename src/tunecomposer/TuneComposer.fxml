@@ -25,7 +25,7 @@
 <?import javafx.stage.Stage ?>
 <Stage title="Tune Composer" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tunecomposer.TuneComposer">
     <icons>
-        <Image url="@./Icon.gif"/>
+        <Image url="@./icon.png"/>
     </icons>
     <scene>
         <Scene fx:id="scene">
@@ -55,13 +55,15 @@
                                          <KeyCodeCombination alt="UP" code="S" control="UP" meta="UP" shift="DOWN" shortcut="DOWN" />
                                       </accelerator></MenuItem>
                                    <SeparatorMenuItem />
+                                   <CheckMenuItem fx:id="toggleMode" onAction="#handleToggleMode" text="Toggle Dark Mode">
+                                   </CheckMenuItem>
+                                   <SeparatorMenuItem />
                                    <MenuItem onAction="#handleExitMenuItemAction" text="Exit">
                                       <accelerator>
                                          <KeyCodeCombination alt="UP" code="Q" control="UP" meta="UP" shift="UP" shortcut="DOWN" />
                                       </accelerator>
                                    </MenuItem>
-                                   <CheckMenuItem fx:id="toggleMode" onAction="#handleToggleMode" text="Toggle View Mode">
-                                   </CheckMenuItem>
+                                   
                              </items>
                            </Menu>
                              <Menu text="Action">
