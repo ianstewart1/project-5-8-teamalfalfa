@@ -9,9 +9,9 @@ As part of this project, we also fixed open issues. The composition pane now upd
 
 * Explain why your way was the elegant way to do it. Address any improvements you made. For full credit, apply concepts, guidelines, and/or principles you learned in class.
 
-Several elements of our new design are elegant. 
+Several elements of our new design are elegant. We implemented a version of the observer pattern by adding a listener to the volume slider that causes the note volumes to be updated. The way in which our parser was made allowed us to easily add new attributes to notes so that they can be saved and loaded with different volumes. In order to change notes, a user can simply select the notes, click a new instrument, and apply the change by clicking the switch instrument menu item. 
 
-The dark mode takes advantage of high-level coding and existing libraries. Instead of changing the individual nodes in the pane, as we originally anticipated, we simply added a style sheet to the scene that adjusted all of the children nodes to a darker theme. Using a CheckMenuItem to select this option is intuitive and usable because the view mode toggles between exactly two options. **(Nathaniel, maybe mention that we used an listener to set Note volumes from the slider)**
+The dark mode takes advantage of high-level coding and existing libraries. Instead of changing the individual nodes in the pane, as we originally anticipated, we simply added a style sheet to the scene that adjusted all of the children nodes to a darker theme. Using a CheckMenuItem to select this option is intuitive and usable because the view mode toggles between exactly two options.
 
 * Explain what, if anything, in your solution is inelegant and why you didn't make it elegant (for example, maybe you didn't have time or the knowledge to fix it). For full credit, apply concepts, guidelines, and/or principles you learned in class.
 
