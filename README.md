@@ -22,4 +22,4 @@ The dark mode takes advantage of high-level coding and existing libraries. Inste
 
 * Include a short summary of your team retrospective. What went well that your team will keep doing during the next project assignment? What will you improve? How?
 
-I wish that we could work together sometime in the future, but unfortunately this is the last project. During our retrospecitve we talked about what we enjoyed. Both Ian and Paul give thumbs up, and Paul even said that the process was "great." 
+I wish that we could work together sometime in the future, but unfortunately this is the last project. During our retrospecitve we talked about what we enjoyed. We plan to keep allotting a good portion of time for design at the beginning of any other projects we get to work on in our careers. Both Ian and Paul give thumbs up, and Paul even said that the process was "great." 
