@@ -1,7 +1,4 @@
-For each new feature in project 9:
-    Explain the purpose of the feature;
-    Demonstrate the feature.
-Play your composition.
+# Tune Composer - Team Alfalfa
 
 ### Changing Instruments
 
