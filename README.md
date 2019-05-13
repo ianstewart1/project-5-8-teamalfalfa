@@ -17,7 +17,7 @@ The dark mode takes advantage of high-level coding and existing libraries. Inste
 
 
 * Include an estimate of your velocity. How many story points did you estimate you would complete during this project? How many did you actually complete, how many person-hours did the team spend, and what is the ratio of points/person-hour? How does this compare to your velocity for the previous project assignment?
-
+  For everything we planned to implement for this project, we estimated that we would complete 6 story points. Unfortunately, we found some old bugs. Fortunately, we had time to resolve these issues. Including the bugs we resolved and the new features we implemented, we completed a total of 11 story points for this project. We spent about 34 person hours on this project which gives us a velocity of approximately 0.324 storypoints/personHours. This velocity is slightly slower than last project 7's. We think this is because we had more trouble focusing on work when we met for this project and because we had to spend more time actually planning what features we were going to implement which we did not have to do in previous projects.
 
 * Include a short summary of your team retrospective. What went well that your team will keep doing during the next project assignment? What will you improve? How?
 
