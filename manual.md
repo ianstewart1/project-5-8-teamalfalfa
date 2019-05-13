@@ -12,7 +12,7 @@ To use this feature, (1) select the Notes to have their intrument changed. This 
 
 This feature allows the user to maintain a greater level of control over their compositions by changing the volume at which respective Notes are played. By default, Notes are constructed with the maximum volume, but with this feature the user can specify the volume of individual or groups of selected Notes. Additionally, the volume of a Note is indicated by its opacity, ranging from 20% up to 100% by default.
 
-To use this feature, the user must(1) select the Notes they wish to change the volume for. The user must consider during this step that all of the Notes selected will be set to the same resulting volume due to the nature of our volume slider. (2) click on the slider and begin to manipulate the volume of the selected Notes while observing the opacity change as the volume changes.
+To use this feature, the user must (1) select the Notes they wish to change the volume for. The user must consider during this step that all of the Notes selected will be set to the same resulting volume due to the nature of our volume slider. (2) click on the slider and begin to manipulate the volume of the selected Notes while observing the opacity change as the volume changes.
 
 ### Infinite Scroll
 
