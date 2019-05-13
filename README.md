@@ -1,4 +1,4 @@
-Team Reflection: Project 8
+README: Project 8
 =================================
 
 * Give a concise overview of your design. How did you implement the new features? How does your design for Project 8 differ from your design for Project 7? How did you respond to feedback? (If I get it to you in time.)
