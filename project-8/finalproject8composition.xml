@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<composition>
+<note channel="0" delay="7116" duration="46" pitch="50" volume="127"/>
+<note channel="0" delay="4165" duration="25" pitch="68" volume="127"/>
+<note channel="0" delay="6428" duration="23" pitch="70" volume="127"/>
+<note channel="6" delay="7117" duration="46" pitch="60" volume="127"/>
+<note channel="0" delay="3996" duration="25" pitch="68" volume="127"/>
+<note channel="6" delay="3315" duration="13" pitch="61" volume="127"/>
+<note channel="0" delay="4519" duration="16" pitch="65" volume="127"/>
+<note channel="6" delay="3199" duration="17" pitch="72" volume="127"/>
+<gesture delay="2000" duration="369">
+<note channel="4" delay="2323" duration="46" pitch="53" volume="127"/>
+<note channel="0" delay="2323" duration="46" pitch="50" volume="127"/>
+<note channel="6" delay="2323" duration="46" pitch="60" volume="127"/>
+<note channel="6" delay="2323" duration="46" pitch="64" volume="127"/>
+</gesture>
+<note channel="4" delay="6926" duration="12" pitch="58" volume="127"/>
+<note channel="0" delay="4704" duration="46" pitch="51" volume="127"/>
+<note channel="4" delay="3400" duration="14" pitch="57" volume="127"/>
+<note channel="6" delay="6764" duration="15" pitch="62" volume="127"/>
+<note channel="6" delay="3263" duration="15" pitch="61" volume="127"/>
+<gesture delay="832" duration="789">
+<note channel="0" delay="1456" duration="100" pitch="63" volume="127"/>
+<gesture delay="1220" duration="9">
+<note channel="6" delay="1220" duration="9" pitch="55" volume="127"/>
+<note channel="6" delay="1220" duration="9" pitch="63" volume="127"/>
+</gesture>
+<gesture delay="1568" duration="16">
+<note channel="6" delay="1568" duration="16" pitch="76" volume="127"/>
+<note channel="4" delay="1568" duration="16" pitch="56" volume="127"/>
+<note channel="6" delay="1568" duration="16" pitch="73" volume="127"/>
+</gesture>
+<gesture delay="1191" duration="23">
+<note channel="6" delay="1193" duration="21" pitch="54" volume="127"/>
+<note channel="6" delay="1191" duration="21" pitch="62" volume="127"/>
+</gesture>
+<gesture delay="1604" duration="17">
+<note channel="6" delay="1604" duration="17" pitch="72" volume="127"/>
+<note channel="6" delay="1604" duration="17" pitch="75" volume="127"/>
+<note channel="4" delay="1604" duration="17" pitch="55" volume="127"/>
+</gesture>
+<gesture delay="1191" duration="23">
+<note channel="6" delay="1193" duration="21" pitch="54" volume="127"/>
+<note channel="6" delay="1191" duration="21" pitch="62" volume="127"/>
+</gesture>
+<note channel="0" delay="1456" duration="100" pitch="69" volume="127"/>
+<gesture delay="1241" duration="200">
+<note channel="0" delay="1244" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="1420" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="1290" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="1241" duration="20" pitch="48" volume="127"/>
+<note channel="0" delay="1291" duration="20" pitch="70" volume="127"/>
+<note channel="0" delay="1243" duration="20" pitch="61" volume="127"/>
+<note channel="0" delay="1372" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="1421" duration="20" pitch="63" volume="127"/>
+<note channel="0" delay="1323" duration="20" pitch="70" volume="127"/>
+<note channel="0" delay="1374" duration="20" pitch="70" volume="127"/>
+<note channel="0" delay="1325" duration="19" pitch="74" volume="127"/>
+</gesture>
+<gesture delay="832" duration="281">
+<note channel="0" delay="881" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="1012" duration="20" pitch="63" volume="127"/>
+<gesture delay="1104" duration="9">
+<note channel="0" delay="1104" duration="7" pitch="63" volume="127"/>
+<note channel="0" delay="1106" duration="7" pitch="57" volume="127"/>
+</gesture>
+<note channel="0" delay="914" duration="20" pitch="70" volume="127"/>
+<note channel="0" delay="832" duration="20" pitch="48" volume="127"/>
+<note channel="0" delay="963" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="1011" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="916" duration="19" pitch="74" volume="127"/>
+<note channel="0" delay="835" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="965" duration="20" pitch="70" volume="127"/>
+<gesture delay="1075" duration="8">
+<note channel="0" delay="1077" duration="6" pitch="57" volume="127"/>
+<note channel="0" delay="1075" duration="6" pitch="63" volume="127"/>
+</gesture>
+<note channel="0" delay="834" duration="20" pitch="61" volume="127"/>
+<note channel="0" delay="882" duration="20" pitch="70" volume="127"/>
+<gesture delay="1048" duration="7">
+<note channel="0" delay="1048" duration="5" pitch="63" volume="127"/>
+<note channel="0" delay="1050" duration="5" pitch="57" volume="127"/>
+</gesture>
+</gesture>
+<gesture delay="1452" duration="105">
+<note channel="6" delay="1455" duration="100" pitch="74" volume="127"/>
+<note channel="4" delay="1452" duration="100" pitch="57" volume="127"/>
+<note channel="6" delay="1457" duration="100" pitch="77" volume="127"/>
+</gesture>
+</gesture>
+<note channel="7" delay="3618" duration="44" pitch="59" volume="127"/>
+<note channel="0" delay="6213" duration="20" pitch="64" volume="127"/>
+<note channel="0" delay="4444" duration="25" pitch="68" volume="127"/>
+<note channel="0" delay="3793" duration="25" pitch="68" volume="127"/>
+<note channel="6" delay="6360" duration="16" pitch="77" volume="127"/>
+<note channel="0" delay="5896" duration="7" pitch="64" volume="127"/>
+<note channel="6" delay="7226" duration="234" pitch="63" volume="127"/>
+<note channel="0" delay="5042" duration="6" pitch="64" volume="127"/>
+<note channel="6" delay="1862" duration="23" pitch="58" volume="127"/>
+<note channel="0" delay="1921" duration="23" pitch="74" volume="127"/>
+<note channel="0" delay="3051" duration="100" pitch="63" volume="127"/>
+<gesture delay="2000" duration="269">
+<gesture delay="2000" duration="218">
+<note channel="6" delay="2203" duration="15" pitch="61" volume="127"/>
+<note channel="4" delay="2203" duration="14" pitch="57" volume="127"/>
+<note channel="0" delay="2203" duration="12" pitch="39" volume="127"/>
+<note channel="0" delay="2202" duration="16" pitch="65" volume="127"/>
+</gesture>
+<gesture delay="2000" duration="245">
+<note channel="0" delay="2230" duration="12" pitch="39" volume="127"/>
+<note channel="4" delay="2230" duration="14" pitch="57" volume="127"/>
+<note channel="0" delay="2229" duration="16" pitch="65" volume="127"/>
+<note channel="6" delay="2230" duration="15" pitch="61" volume="127"/>
+</gesture>
+<gesture delay="2000" duration="269">
+<note channel="4" delay="2255" duration="12" pitch="57" volume="127"/>
+<note channel="6" delay="2255" duration="13" pitch="61" volume="127"/>
+<note channel="0" delay="2255" duration="10" pitch="39" volume="127"/>
+<note channel="0" delay="2255" duration="14" pitch="65" volume="127"/>
+</gesture>
+</gesture>
+<note channel="0" delay="1861" duration="23" pitch="69" volume="127"/>
+<note channel="0" delay="5211" duration="20" pitch="68" volume="127"/>
+<note channel="0" delay="4116" duration="46" pitch="63" volume="127"/>
+<note channel="0" delay="3793" duration="25" pitch="72" volume="127"/>
+<note channel="0" delay="5017" duration="5" pitch="58" volume="127"/>
+<note channel="0" delay="5804" duration="20" pitch="64" volume="127"/>
+<note channel="0" delay="4520" duration="12" pitch="39" volume="127"/>
+<note channel="6" delay="6640" duration="23" pitch="59" volume="127"/>
+<note channel="4" delay="5535" duration="16" pitch="57" volume="127"/>
+<note channel="0" delay="4606" duration="12" pitch="39" volume="127"/>
+<note channel="0" delay="6212" duration="20" pitch="68" volume="127"/>
+<note channel="4" delay="6244" duration="100" pitch="58" volume="127"/>
+<note channel="0" delay="4979" duration="20" pitch="64" volume="127"/>
+<note channel="4" delay="1652" duration="23" pitch="46" volume="127"/>
+<note channel="0" delay="5757" duration="20" pitch="71" volume="127"/>
+<note channel="6" delay="3199" duration="17" pitch="75" volume="127"/>
+<note channel="6" delay="3163" duration="16" pitch="73" volume="127"/>
+<note channel="0" delay="4801" duration="20" pitch="62" volume="127"/>
+<note channel="7" delay="3738" duration="16" pitch="61" volume="127"/>
+<note channel="0" delay="5071" duration="7" pitch="64" volume="127"/>
+<note channel="6" delay="5983" duration="21" pitch="63" volume="127"/>
+<note channel="0" delay="1693" duration="23" pitch="74" volume="127"/>
+<note channel="0" delay="6873" duration="16" pitch="66" volume="127"/>
+<note channel="6" delay="5422" duration="100" pitch="75" volume="127"/>
+<note channel="4" delay="5419" duration="100" pitch="58" volume="127"/>
+<note channel="0" delay="4342" duration="25" pitch="72" volume="127"/>
+<note channel="4" delay="3163" duration="16" pitch="56" volume="127"/>
+<note channel="6" delay="5983" duration="21" pitch="63" volume="127"/>
+<note channel="0" delay="2920" duration="19" pitch="74" volume="127"/>
+<note channel="0" delay="4849" duration="20" pitch="71" volume="127"/>
+<note channel="0" delay="3894" duration="25" pitch="72" volume="127"/>
+<note channel="4" delay="7230" duration="234" pitch="52" volume="127"/>
+<note channel="4" delay="6430" duration="23" pitch="47" volume="127"/>
+<note channel="4" delay="4797" duration="46" pitch="52" volume="127"/>
+<note channel="6" delay="5985" duration="21" pitch="55" volume="127"/>
+<note channel="7" delay="3570" duration="44" pitch="58" volume="127"/>
+<note channel="7" delay="4186" duration="16" pitch="61" volume="127"/>
+<note channel="0" delay="6248" duration="100" pitch="64" volume="127"/>
+<note channel="0" delay="4802" duration="20" pitch="68" volume="127"/>
+<note channel="0" delay="3845" duration="46" pitch="63" volume="127"/>
+<note channel="0" delay="3452" duration="14" pitch="65" volume="127"/>
+<note channel="6" delay="6249" duration="100" pitch="78" volume="127"/>
+<note channel="4" delay="7069" duration="46" pitch="54" volume="127"/>
+<note channel="0" delay="2509" duration="20" pitch="70" volume="127"/>
+<note channel="0" delay="3289" duration="16" pitch="65" volume="127"/>
+<note channel="0" delay="4633" duration="12" pitch="39" volume="127"/>
+<note channel="6" delay="2815" duration="9" pitch="55" volume="127"/>
+<note channel="6" delay="5571" duration="17" pitch="76" volume="127"/>
+<note channel="4" delay="6737" duration="14" pitch="58" volume="127"/>
+<note channel="0" delay="4848" duration="20" pitch="68" volume="127"/>
+<note channel="0" delay="5258" duration="20" pitch="71" volume="127"/>
+<note channel="0" delay="3833" duration="92" pitch="47" volume="127"/>
+<note channel="0" delay="2969" duration="20" pitch="70" volume="127"/>
+<note channel="0" delay="6699" duration="23" pitch="75" volume="127"/>
+<note channel="6" delay="6396" duration="17" pitch="73" volume="127"/>
+<note channel="6" delay="5158" duration="21" pitch="63" volume="127"/>
+<note channel="6" delay="3050" duration="100" pitch="74" volume="127"/>
+<note channel="0" delay="5898" duration="7" pitch="58" volume="127"/>
+<note channel="0" delay="3262" duration="16" pitch="65" volume="127"/>
+<note channel="0" delay="6900" duration="16" pitch="66" volume="127"/>
+<note channel="0" delay="4932" duration="20" pitch="71" volume="127"/>
+<note channel="0" delay="5624" duration="20" pitch="49" volume="127"/>
+<note channel="0" delay="6115" duration="20" pitch="71" volume="127"/>
+<note channel="0" delay="5626" duration="20" pitch="62" volume="127"/>
+<note channel="4" delay="4657" duration="12" pitch="57" volume="127"/>
+<note channel="4" delay="3427" duration="14" pitch="57" volume="127"/>
+<note channel="6" delay="5571" duration="17" pitch="73" volume="127"/>
+<note channel="7" delay="4115" duration="67" pitch="60" volume="127"/>
+<note channel="4" delay="6901" duration="14" pitch="58" volume="127"/>
+<note channel="0" delay="2699" duration="7" pitch="63" volume="127"/>
+<note channel="0" delay="6082" duration="20" pitch="68" volume="127"/>
+<note channel="6" delay="2788" duration="21" pitch="54" volume="127"/>
+<note channel="0" delay="5803" duration="20" pitch="68" volume="127"/>
+<note channel="0" delay="6035" duration="20" pitch="62" volume="127"/>
+<note channel="0" delay="5869" duration="6" pitch="58" volume="127"/>
+<note channel="0" delay="4632" duration="16" pitch="65" volume="127"/>
+<note channel="0" delay="5044" duration="6" pitch="58" volume="127"/>
+<note channel="6" delay="1922" duration="23" pitch="63" volume="127"/>
+<note channel="0" delay="4395" duration="46" pitch="63" volume="127"/>
+<note channel="0" delay="3996" duration="25" pitch="72" volume="127"/>
+<note channel="0" delay="3717" duration="25" pitch="68" volume="127"/>
+<note channel="0" delay="4545" duration="14" pitch="65" volume="127"/>
+<note channel="0" delay="3290" duration="12" pitch="39" volume="127"/>
+<note channel="7" delay="4026" duration="86" pitch="59" volume="127"/>
+<note channel="6" delay="6737" duration="15" pitch="62" volume="127"/>
+<note channel="0" delay="4978" duration="20" pitch="68" volume="127"/>
+<note channel="0" delay="4186" duration="92" pitch="48" volume="127"/>
+<note channel="0" delay="6901" duration="12" pitch="40" volume="127"/>
+<note channel="0" delay="5867" duration="6" pitch="64" volume="127"/>
+<note channel="6" delay="7164" duration="46" pitch="59" volume="127"/>
+<note channel="0" delay="4281" duration="92" pitch="47" volume="127"/>
+<note channel="0" delay="5840" duration="5" pitch="64" volume="127"/>
+<note channel="0" delay="4930" duration="20" pitch="68" volume="127"/>
+<gesture delay="2000" duration="473">
+<note channel="0" delay="2426" duration="46" pitch="48" volume="127"/>
+<note channel="6" delay="2427" duration="46" pitch="58" volume="127"/>
+<note channel="6" delay="2427" duration="46" pitch="62" volume="127"/>
+<note channel="4" delay="2426" duration="46" pitch="51" volume="127"/>
+</gesture>
+<note channel="0" delay="1752" duration="23" pitch="67" volume="127"/>
+<note channel="6" delay="3163" duration="16" pitch="76" volume="127"/>
+<note channel="4" delay="7116" duration="46" pitch="53" volume="127"/>
+<note channel="0" delay="5842" duration="5" pitch="58" volume="127"/>
+<note channel="4" delay="3290" duration="14" pitch="57" volume="127"/>
+<note channel="6" delay="1696" duration="23" pitch="65" volume="127"/>
+<note channel="6" delay="7227" duration="234" pitch="59" volume="127"/>
+<note channel="6" delay="4493" duration="15" pitch="61" volume="127"/>
+<note channel="0" delay="6926" duration="10" pitch="40" volume="127"/>
+<note channel="0" delay="2643" duration="5" pitch="63" volume="127"/>
+<note channel="0" delay="6763" duration="16" pitch="66" volume="127"/>
+<note channel="6" delay="4606" duration="15" pitch="61" volume="127"/>
+<note channel="4" delay="4606" duration="14" pitch="57" volume="127"/>
+<gesture delay="2000" duration="132">
+<gesture delay="2000" duration="108">
+<note channel="0" delay="2092" duration="16" pitch="65" volume="127"/>
+<note channel="4" delay="2093" duration="14" pitch="57" volume="127"/>
+<note channel="6" delay="2093" duration="15" pitch="61" volume="127"/>
+<note channel="0" delay="2093" duration="12" pitch="39" volume="127"/>
+</gesture>
+<gesture delay="2000" duration="132">
+<note channel="0" delay="2118" duration="10" pitch="39" volume="127"/>
+<note channel="4" delay="2118" duration="12" pitch="57" volume="127"/>
+<note channel="6" delay="2118" duration="13" pitch="61" volume="127"/>
+<note channel="0" delay="2118" duration="14" pitch="65" volume="127"/>
+</gesture>
+<gesture delay="2000" duration="81">
+<note channel="0" delay="2066" duration="12" pitch="39" volume="127"/>
+<note channel="4" delay="2066" duration="14" pitch="57" volume="127"/>
+<note channel="0" delay="2065" duration="16" pitch="65" volume="127"/>
+<note channel="6" delay="2066" duration="15" pitch="61" volume="127"/>
+</gesture>
+</gesture>
+<note channel="0" delay="3738" duration="92" pitch="48" volume="127"/>
+<note channel="6" delay="4633" duration="15" pitch="61" volume="127"/>
+<note channel="6" delay="4520" duration="15" pitch="61" volume="127"/>
+<note channel="0" delay="4883" duration="19" pitch="75" volume="127"/>
+<note channel="6" delay="5160" duration="21" pitch="55" volume="127"/>
+<note channel="6" delay="3452" duration="13" pitch="61" volume="127"/>
+<note channel="0" delay="2967" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="2838" duration="20" pitch="61" volume="127"/>
+<note channel="4" delay="3263" duration="14" pitch="57" volume="127"/>
+<note channel="0" delay="3668" duration="46" pitch="63" volume="127"/>
+<note channel="6" delay="2022" duration="7" pitch="65" volume="127"/>
+<note channel="0" delay="2020" duration="13" pitch="67" volume="127"/>
+<note channel="4" delay="3199" duration="17" pitch="55" volume="127"/>
+<note channel="0" delay="3400" duration="12" pitch="39" volume="127"/>
+<note channel="6" delay="6012" duration="9" pitch="64" volume="127"/>
+<note channel="0" delay="2839" duration="20" pitch="67" volume="127"/>
+<note channel="6" delay="5187" duration="9" pitch="64" volume="127"/>
+<note channel="6" delay="5158" duration="21" pitch="63" volume="127"/>
+<note channel="0" delay="3947" duration="46" pitch="63" volume="127"/>
+<note channel="6" delay="6789" duration="13" pitch="62" volume="127"/>
+<note channel="0" delay="5423" duration="100" pitch="70" volume="127"/>
+<note channel="6" delay="6360" duration="16" pitch="74" volume="127"/>
+<note channel="0" delay="4751" duration="46" pitch="50" volume="127"/>
+<note channel="0" delay="3016" duration="20" pitch="63" volume="127"/>
+<note channel="0" delay="5341" duration="20" pitch="71" volume="127"/>
+<note channel="0" delay="6789" duration="10" pitch="40" volume="127"/>
+<note channel="0" delay="2645" duration="5" pitch="57" volume="127"/>
+<note channel="6" delay="7070" duration="46" pitch="65" volume="127"/>
+<note channel="0" delay="1650" duration="23" pitch="69" volume="127"/>
+<note channel="0" delay="6164" duration="20" pitch="68" volume="127"/>
+<note channel="0" delay="5257" duration="20" pitch="68" volume="127"/>
+<note channel="0" delay="5208" duration="20" pitch="49" volume="127"/>
+<note channel="6" delay="2786" duration="21" pitch="62" volume="127"/>
+<note channel="0" delay="4293" duration="46" pitch="63" volume="127"/>
+<note channel="0" delay="3399" duration="16" pitch="65" volume="127"/>
+<note channel="4" delay="6360" duration="16" pitch="57" volume="127"/>
+<note channel="0" delay="2560" duration="20" pitch="70" volume="127"/>
+<note channel="4" delay="6789" duration="12" pitch="58" volume="127"/>
+<gesture delay="1963" duration="11">
+<note channel="4" delay="1963" duration="11" pitch="57" volume="127"/>
+<note channel="0" delay="1963" duration="11" pitch="69" volume="127"/>
+</gesture>
+<note channel="6" delay="6901" duration="15" pitch="62" volume="127"/>
+<note channel="0" delay="5706" duration="20" pitch="71" volume="127"/>
+<note channel="6" delay="3427" duration="15" pitch="61" volume="127"/>
+<note channel="6" delay="2788" duration="21" pitch="54" volume="127"/>
+<note channel="6" delay="4752" duration="46" pitch="60" volume="127"/>
+<note channel="0" delay="4372" duration="61" pitch="53" volume="127"/>
+<note channel="0" delay="5674" duration="20" pitch="71" volume="127"/>
+<note channel="4" delay="6396" duration="17" pitch="56" volume="127"/>
+<note channel="6" delay="4798" duration="46" pitch="63" volume="127"/>
+<note channel="0" delay="4545" duration="10" pitch="39" volume="127"/>
+<note channel="0" delay="2606" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="3894" duration="25" pitch="68" volume="127"/>
+<note channel="6" delay="6247" duration="100" pitch="75" volume="127"/>
+<note channel="6" delay="3052" duration="100" pitch="77" volume="127"/>
+<note channel="0" delay="2672" duration="6" pitch="57" volume="127"/>
+<note channel="0" delay="3744" duration="46" pitch="63" volume="127"/>
+<note channel="6" delay="7070" duration="46" pitch="61" volume="127"/>
+<note channel="0" delay="5755" duration="20" pitch="68" volume="127"/>
+<note channel="6" delay="6874" duration="15" pitch="62" volume="127"/>
+<note channel="0" delay="6036" duration="20" pitch="68" volume="127"/>
+<note channel="6" delay="4752" duration="46" pitch="64" volume="127"/>
+<note channel="6" delay="4545" duration="13" pitch="61" volume="127"/>
+<note channel="0" delay="7163" duration="46" pitch="49" volume="127"/>
+<note channel="6" delay="6474" duration="23" pitch="66" volume="127"/>
+<note channel="4" delay="5571" duration="17" pitch="56" volume="127"/>
+<note channel="0" delay="4192" duration="46" pitch="63" volume="127"/>
+<note channel="0" delay="4165" duration="25" pitch="72" volume="127"/>
+<note channel="4" delay="1803" duration="23" pitch="53" volume="127"/>
+<note channel="0" delay="3924" duration="61" pitch="53" volume="127"/>
+<note channel="0" delay="5290" duration="20" pitch="71" volume="127"/>
+<note channel="6" delay="7164" duration="46" pitch="63" volume="127"/>
+<note channel="0" delay="3668" duration="61" pitch="53" volume="127"/>
+<note channel="0" delay="5673" duration="20" pitch="68" volume="127"/>
+<note channel="0" delay="4493" duration="12" pitch="39" volume="127"/>
+<note channel="0" delay="2607" duration="20" pitch="63" volume="127"/>
+<note channel="0" delay="2477" duration="20" pitch="70" volume="127"/>
+<note channel="0" delay="2670" duration="6" pitch="63" volume="127"/>
+<note channel="4" delay="7163" duration="46" pitch="52" volume="127"/>
+<note channel="4" delay="6581" duration="23" pitch="54" volume="127"/>
+<note channel="0" delay="2886" duration="20" pitch="70" volume="127"/>
+<note channel="6" delay="4705" duration="46" pitch="65" volume="127"/>
+<note channel="0" delay="2558" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="3717" duration="25" pitch="72" volume="127"/>
+<note channel="0" delay="4241" duration="25" pitch="72" volume="127"/>
+<note channel="0" delay="3051" duration="100" pitch="69" volume="127"/>
+<note channel="7" delay="4371" duration="44" pitch="58" volume="127"/>
+<note channel="6" delay="6700" duration="23" pitch="64" volume="127"/>
+<note channel="4" delay="3452" duration="12" pitch="57" volume="127"/>
+<note channel="0" delay="4657" duration="14" pitch="65" volume="127"/>
+<note channel="0" delay="5292" duration="19" pitch="75" volume="127"/>
+<note channel="0" delay="4605" duration="16" pitch="65" volume="127"/>
+<note channel="0" delay="4797" duration="46" pitch="49" volume="127"/>
+<note channel="4" delay="4704" duration="46" pitch="54" volume="127"/>
+<gesture delay="2000" duration="421">
+<note channel="6" delay="2375" duration="46" pitch="59" volume="127"/>
+<note channel="6" delay="2375" duration="46" pitch="63" volume="127"/>
+<note channel="4" delay="2374" duration="46" pitch="52" volume="127"/>
+<note channel="0" delay="2374" duration="46" pitch="49" volume="127"/>
+</gesture>
+<note channel="0" delay="7228" duration="234" pitch="49" volume="127"/>
+<note channel="6" delay="2815" duration="9" pitch="63" volume="127"/>
+<note channel="7" delay="3758" duration="71" pitch="60" volume="127"/>
+<note channel="0" delay="5387" duration="20" pitch="68" volume="127"/>
+<note channel="0" delay="6576" duration="23" pitch="75" volume="127"/>
+<note channel="0" delay="3452" duration="10" pitch="39" volume="127"/>
+<note channel="0" delay="6639" duration="23" pitch="70" volume="127"/>
+<note channel="6" delay="5535" duration="16" pitch="77" volume="127"/>
+<note channel="0" delay="6530" duration="23" pitch="68" volume="127"/>
+<note channel="0" delay="3263" duration="12" pitch="39" volume="127"/>
+<note channel="0" delay="6789" duration="14" pitch="66" volume="127"/>
+<note channel="0" delay="2511" duration="19" pitch="74" volume="127"/>
+<note channel="0" delay="6764" duration="12" pitch="40" volume="127"/>
+<note channel="0" delay="6033" duration="20" pitch="49" volume="127"/>
+<note channel="6" delay="5160" duration="21" pitch="55" volume="127"/>
+<note channel="0" delay="2836" duration="20" pitch="48" volume="127"/>
+<note channel="0" delay="7069" duration="46" pitch="51" volume="127"/>
+<note channel="0" delay="2430" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="1798" duration="23" pitch="74" volume="127"/>
+<note channel="6" delay="5535" duration="16" pitch="74" volume="127"/>
+<note channel="0" delay="6874" duration="12" pitch="40" volume="127"/>
+<note channel="0" delay="4371" duration="23" pitch="62" volume="127"/>
+<note channel="6" delay="5424" duration="100" pitch="78" volume="127"/>
+<note channel="6" delay="4798" duration="46" pitch="59" volume="127"/>
+<note channel="6" delay="6012" duration="9" pitch="56" volume="127"/>
+<note channel="4" delay="4751" duration="46" pitch="53" volume="127"/>
+<note channel="0" delay="3015" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="5339" duration="20" pitch="68" volume="127"/>
+<note channel="7" delay="3667" duration="67" pitch="60" volume="127"/>
+<note channel="0" delay="4241" duration="25" pitch="68" volume="127"/>
+<note channel="0" delay="2427" duration="20" pitch="48" volume="127"/>
+<note channel="0" delay="6248" duration="100" pitch="70" volume="127"/>
+<note channel="0" delay="4444" duration="25" pitch="72" volume="127"/>
+<gesture delay="1997" duration="11">
+<note channel="4" delay="1997" duration="11" pitch="56" volume="127"/>
+<note channel="0" delay="1997" duration="11" pitch="68" volume="127"/>
+</gesture>
+<note channel="7" delay="4419" duration="44" pitch="59" volume="127"/>
+<note channel="6" delay="7117" duration="46" pitch="64" volume="127"/>
+<note channel="0" delay="5210" duration="20" pitch="62" volume="127"/>
+<note channel="0" delay="6083" duration="20" pitch="71" volume="127"/>
+<note channel="4" delay="6764" duration="14" pitch="58" volume="127"/>
+<note channel="6" delay="3290" duration="15" pitch="61" volume="127"/>
+<note channel="7" delay="3923" duration="101" pitch="58" volume="127"/>
+<note channel="4" delay="3315" duration="12" pitch="57" volume="127"/>
+<note channel="6" delay="6926" duration="13" pitch="62" volume="127"/>
+<note channel="0" delay="4881" duration="20" pitch="71" volume="127"/>
+<note channel="0" delay="5015" duration="5" pitch="64" volume="127"/>
+<note channel="0" delay="3315" duration="14" pitch="65" volume="127"/>
+<note channel="0" delay="5073" duration="7" pitch="58" volume="127"/>
+<note channel="6" delay="3400" duration="15" pitch="61" volume="127"/>
+<note channel="0" delay="4492" duration="16" pitch="65" volume="127"/>
+<note channel="0" delay="3426" duration="16" pitch="65" volume="127"/>
+<note channel="0" delay="6926" duration="14" pitch="66" volume="127"/>
+<gesture delay="7" duration="789">
+<gesture delay="416" duration="200">
+<note channel="0" delay="465" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="547" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="500" duration="19" pitch="74" volume="127"/>
+<note channel="0" delay="466" duration="20" pitch="70" volume="127"/>
+<note channel="0" delay="498" duration="20" pitch="70" volume="127"/>
+<note channel="0" delay="595" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="418" duration="20" pitch="61" volume="127"/>
+<note channel="0" delay="596" duration="20" pitch="63" volume="127"/>
+<note channel="0" delay="416" duration="20" pitch="48" volume="127"/>
+<note channel="0" delay="549" duration="20" pitch="70" volume="127"/>
+<note channel="0" delay="419" duration="20" pitch="67" volume="127"/>
+</gesture>
+<gesture delay="627" duration="105">
+<note channel="6" delay="630" duration="100" pitch="74" volume="127"/>
+<note channel="4" delay="627" duration="100" pitch="57" volume="127"/>
+<note channel="6" delay="632" duration="100" pitch="77" volume="127"/>
+</gesture>
+<gesture delay="395" duration="9">
+<note channel="6" delay="395" duration="9" pitch="63" volume="127"/>
+<note channel="6" delay="395" duration="9" pitch="55" volume="127"/>
+</gesture>
+<note channel="0" delay="631" duration="100" pitch="69" volume="127"/>
+<gesture delay="779" duration="17">
+<note channel="6" delay="779" duration="17" pitch="72" volume="127"/>
+<note channel="4" delay="779" duration="17" pitch="55" volume="127"/>
+<note channel="6" delay="779" duration="17" pitch="75" volume="127"/>
+</gesture>
+<gesture delay="366" duration="23">
+<note channel="6" delay="366" duration="21" pitch="62" volume="127"/>
+<note channel="6" delay="368" duration="21" pitch="54" volume="127"/>
+</gesture>
+<gesture delay="7" duration="281">
+<gesture delay="250" duration="8">
+<note channel="0" delay="252" duration="6" pitch="57" volume="127"/>
+<note channel="0" delay="250" duration="6" pitch="63" volume="127"/>
+</gesture>
+<note channel="0" delay="56" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="187" duration="20" pitch="63" volume="127"/>
+<gesture delay="279" duration="9">
+<note channel="0" delay="281" duration="7" pitch="57" volume="127"/>
+<note channel="0" delay="279" duration="7" pitch="63" volume="127"/>
+</gesture>
+<note channel="0" delay="7" duration="20" pitch="48" volume="127"/>
+<gesture delay="223" duration="7">
+<note channel="0" delay="223" duration="5" pitch="63" volume="127"/>
+<note channel="0" delay="225" duration="5" pitch="57" volume="127"/>
+</gesture>
+<note channel="0" delay="10" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="91" duration="19" pitch="74" volume="127"/>
+<note channel="0" delay="186" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="138" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="89" duration="20" pitch="70" volume="127"/>
+<note channel="0" delay="140" duration="20" pitch="70" volume="127"/>
+<note channel="0" delay="9" duration="20" pitch="61" volume="127"/>
+<note channel="0" delay="57" duration="20" pitch="70" volume="127"/>
+</gesture>
+<note channel="0" delay="631" duration="100" pitch="63" volume="127"/>
+<gesture delay="366" duration="23">
+<note channel="6" delay="366" duration="21" pitch="62" volume="127"/>
+<note channel="6" delay="368" duration="21" pitch="54" volume="127"/>
+</gesture>
+<gesture delay="743" duration="16">
+<note channel="6" delay="743" duration="16" pitch="73" volume="127"/>
+<note channel="6" delay="743" duration="16" pitch="76" volume="127"/>
+<note channel="4" delay="743" duration="16" pitch="56" volume="127"/>
+</gesture>
+</gesture>
+<note channel="4" delay="4633" duration="14" pitch="57" volume="127"/>
+<note channel="6" delay="4657" duration="13" pitch="61" volume="127"/>
+<note channel="0" delay="6117" duration="19" pitch="75" volume="127"/>
+<note channel="0" delay="4342" duration="25" pitch="68" volume="127"/>
+<note channel="7" delay="4206" duration="71" pitch="60" volume="127"/>
+<note channel="0" delay="6737" duration="12" pitch="40" volume="127"/>
+<note channel="0" delay="3923" duration="23" pitch="62" volume="127"/>
+<note channel="0" delay="4657" duration="10" pitch="39" volume="127"/>
+<note channel="0" delay="5627" duration="20" pitch="68" volume="127"/>
+<note channel="0" delay="2885" duration="20" pitch="67" volume="127"/>
+<note channel="6" delay="5985" duration="21" pitch="55" volume="127"/>
+<note channel="0" delay="6166" duration="20" pitch="71" volume="127"/>
+<note channel="0" delay="4799" duration="20" pitch="49" volume="127"/>
+<note channel="0" delay="2429" duration="20" pitch="61" volume="127"/>
+<note channel="0" delay="3315" duration="10" pitch="39" volume="127"/>
+<note channel="0" delay="6471" duration="23" pitch="75" volume="127"/>
+<note channel="0" delay="5708" duration="19" pitch="75" volume="127"/>
+<note channel="0" delay="5423" duration="100" pitch="64" volume="127"/>
+<note channel="0" delay="2701" duration="7" pitch="57" volume="127"/>
+<note channel="6" delay="6396" duration="17" pitch="76" volume="127"/>
+<note channel="0" delay="3427" duration="12" pitch="39" volume="127"/>
+<note channel="4" delay="3047" duration="100" pitch="57" volume="127"/>
+<note channel="4" delay="4520" duration="14" pitch="57" volume="127"/>
+<note channel="4" delay="4493" duration="14" pitch="57" volume="127"/>
+<note channel="0" delay="4116" duration="61" pitch="53" volume="127"/>
+<note channel="0" delay="2918" duration="20" pitch="70" volume="127"/>
+<note channel="6" delay="5187" duration="9" pitch="56" volume="127"/>
+<note channel="0" delay="2476" duration="20" pitch="67" volume="127"/>
+<note channel="0" delay="5388" duration="20" pitch="64" volume="127"/>
+<note channel="4" delay="6874" duration="14" pitch="58" volume="127"/>
+<note channel="6" delay="4705" duration="46" pitch="61" volume="127"/>
+<note channel="0" delay="6736" duration="16" pitch="66" volume="127"/>
+<note channel="4" delay="4545" duration="12" pitch="57" volume="127"/>
+<note channel="6" delay="2786" duration="21" pitch="62" volume="127"/>
+</composition>
