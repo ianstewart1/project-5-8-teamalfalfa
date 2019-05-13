@@ -1,3 +1,6 @@
+Team Reflection: Project 8
+=================================
+
 * Give a concise overview of your design. How did you implement the new features? How does your design for Project 8 differ from your design for Project 7? How did you respond to feedback? (If I get it to you in time.)
 * Explain why your way was the elegant way to do it. Address any improvements you made. For full credit, apply concepts, guidelines, and/or principles you learned in class.
 * Explain what, if anything, in your solution is inelegant and why you didn't make it elegant (for example, maybe you didn't have time or the knowledge to fix it). For full credit, apply concepts, guidelines, and/or principles you learned in class.
