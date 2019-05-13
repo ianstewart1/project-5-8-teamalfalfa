@@ -3,7 +3,7 @@ For each new feature in project 9:
     Demonstrate the feature.
 Play your composition.
 
-Changing Instruments
+===Changing Instruments
 
 Changing Note Volume
 
