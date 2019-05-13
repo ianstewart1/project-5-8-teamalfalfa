@@ -1,5 +1,7 @@
 # Tune Composer - Team Alfalfa
 
+## User Manual
+
 ### Changing Instruments
 
 This feature was implemented in order to allow user to change the instrument associated with Notes after the Notes have been added to the composition pane. We felt that this would be a nice addition as the alternative was to delete the Note and replace it with a new Note of the desired instrument. 
