@@ -12,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
@@ -31,17 +30,12 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.geometry.Pos;
 import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
@@ -283,6 +277,10 @@ public class TuneComposer extends Application {
         return (Instrument) selectedButton.getUserData();
     }
     
+    /**
+     * Creates the slider for note volume, sets the upper and lower bounds, and
+     * adds a listener that sets the volume of selected notes.
+     */
     private void setupVolumeSlider() {
         Label label = new Label("Volume");
         
