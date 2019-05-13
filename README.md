@@ -11,10 +11,12 @@ As part of this project, we also fixed open issues. The composition pane now upd
 
 Several elements of our new design are elegant. 
 
-The dark mode takes advantage of high-level coding and existing libraries. Instead of changing the individual nodes in the pane, as we originally anticipated, we simply added a style sheet to the scene that adjusted all of the children nodes to a darker theme. Using a CheckMenuItem to select this option is intuitive and usable because the view mode toggles between exactly two options. 
+The dark mode takes advantage of high-level coding and existing libraries. Instead of changing the individual nodes in the pane, as we originally anticipated, we simply added a style sheet to the scene that adjusted all of the children nodes to a darker theme. Using a CheckMenuItem to select this option is intuitive and usable because the view mode toggles between exactly two options. **(Nathaniel, maybe mention that we used an observer to set Note volumes from the slider)**
 
 * Explain what, if anything, in your solution is inelegant and why you didn't make it elegant (for example, maybe you didn't have time or the knowledge to fix it). For full credit, apply concepts, guidelines, and/or principles you learned in class.
 
+The instrument changing feature is not the most elegant in that the user must know that the instrument that will be applied will be the one selected on the left side-bar. This was done because were hesitant to menu items that would be essentially duplicating the functionality of the instrument side-bar, however could potentially be an infraction on the Principle of Least Astonishment. 
+Another inelegant feature was the volume slider, and specifically the fact that it doesn't reflect the currently selected Note's volume value. This was because we weren't sure how to constantly check for what was selected on the composition pane, and were also unsure how we wanted to update the slider value when multiple Notes were selected. The slider was implemented using the Observer pattern
 
 * Include an estimate of your velocity. How many story points did you estimate you would complete during this project? How many did you actually complete, how many person-hours did the team spend, and what is the ratio of points/person-hour? How does this compare to your velocity for the previous project assignment?
 
